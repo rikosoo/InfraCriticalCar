@@ -1,0 +1,16 @@
+src,dst,technique,technique_name,likelihood_share,paths
+ext_actor,sup_tier1,T1566,Phishing,0.1516,7
+ext_actor,it_edge_app,T1190,Exploit Public-Facing Application,0.1120,63
+ext_actor,it_vpn,T1133,External Remote Services,0.1119,103
+it_fileshare,imp_ip,T1567.002,Exfiltration Over Web Service: Exfiltration to Cloud Storage,0.1085,7
+ext_actor,saas_crm,T1078.004,Valid Accounts: Cloud Accounts,0.1045,1
+saas_crm,imp_pii,T1567.002,Exfiltration Over Web Service: Exfiltration to Cloud Storage,0.1045,1
+ext_actor,saas_dms,T1190,Exploit Public-Facing Application,0.1045,2
+it_erp,imp_prod_stop,T1486,Data Encrypted for Impact,0.0979,3
+it_vpn,it_user_ws,T1021.001,Remote Services: Remote Desktop Protocol,0.0884,182
+ops_ews,imp_ip,T1213,Data from Information Repositories,0.0850,35
+ext_actor,id_legacy_cred,T1078,Valid Accounts,0.0803,149
+it_user_ws,ops_ews,T1210,Exploitation of Remote Services,0.0783,60
+prc_line,imp_prod_stop,T0828,Loss of Productivity and Revenue,0.0775,246
+sup_tier1,imp_ip,T1567.002,Exfiltration Over Web Service: Exfiltration to Cloud Storage,0.0762,1
+sup_tier1,sup_edi,T1078,Valid Accounts,0.0753,6

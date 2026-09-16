@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "capm"
+version = "1.0.0"
+description = "Cyberattack path model for automotive manufacturing as critical infrastructure"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools]
+packages = ["capm"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

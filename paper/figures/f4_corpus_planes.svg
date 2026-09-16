@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" font-family="Helvetica,Arial,sans-serif">
+<title>Planes traversed by the 20 corpus incidents</title>
+<rect width="900" height="420" fill="#ffffff"/>
+<text x="18" y="28" font-size="17" font-weight="600" fill="#222222">Planes traversed by the 20 corpus incidents</text>
+<line x1="70" y1="344.0" x2="876" y2="344.0" stroke="#d9d9d9"/>
+<text x="62" y="348.0" font-size="11" text-anchor="end" fill="#666">0</text>
+<line x1="70" y1="274.0" x2="876" y2="274.0" stroke="#d9d9d9"/>
+<text x="62" y="278.0" font-size="11" text-anchor="end" fill="#666">4</text>
+<line x1="70" y1="204.0" x2="876" y2="204.0" stroke="#d9d9d9"/>
+<text x="62" y="208.0" font-size="11" text-anchor="end" fill="#666">8</text>
+<line x1="70" y1="134.0" x2="876" y2="134.0" stroke="#d9d9d9"/>
+<text x="62" y="138.0" font-size="11" text-anchor="end" fill="#666">12</text>
+<line x1="70" y1="64.0" x2="876" y2="64.0" stroke="#d9d9d9"/>
+<text x="62" y="68.0" font-size="11" text-anchor="end" fill="#666">16</text>
+<rect x="87.7" y="100.5" width="113.2" height="243.5" fill="#1f4e79" fill-opacity="0.9"/>
+<text x="150.6" y="362" font-size="11" text-anchor="middle" fill="#222222">it</text>
+<rect x="248.9" y="239.7" width="113.2" height="104.3" fill="#1f4e79" fill-opacity="0.9"/>
+<text x="311.8" y="362" font-size="11" text-anchor="middle" fill="#222222">identity</text>
+<rect x="410.1" y="257.0" width="113.2" height="87.0" fill="#1f4e79" fill-opacity="0.9"/>
+<text x="473.0" y="362" font-size="11" text-anchor="middle" fill="#222222">cloud</text>
+<rect x="571.3" y="274.4" width="113.2" height="69.6" fill="#1f4e79" fill-opacity="0.9"/>
+<text x="634.2" y="362" font-size="11" text-anchor="middle" fill="#222222">ot</text>
+<rect x="732.5" y="204.9" width="113.2" height="139.1" fill="#1f4e79" fill-opacity="0.9"/>
+<text x="795.4" y="362" font-size="11" text-anchor="middle" fill="#222222">supply_chain</text>
+<rect x="70" y="390" width="12" height="12" fill="#1f4e79"/>
+<text x="88" y="401" font-size="12" fill="#222222">incidents traversing the plane</text>
+<text x="16" y="204" font-size="12" fill="#444" transform="rotate(-90 16 204)" text-anchor="middle">incidents</text>
+</svg>

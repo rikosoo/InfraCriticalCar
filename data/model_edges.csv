@@ -1,0 +1,92 @@
+src,dst,technique,technique_name,matrix,tactic,p,delta,effort_h,crosses_zone,src_zone,dst_zone,controls,evidence,rationale
+ext_actor,it_email,T1566.001,Phishing: Spearphishing Attachment,enterprise,Initial Access,0.85,0.3,4,1,Z-EXT,Z-IT,C07,INC-07,Mail delivery of a lure to a corporate mailbox
+it_email,it_user_ws,T1204.002,User Execution: Malicious File,enterprise,Execution,0.35,0.45,2,0,Z-IT,Z-IT,C06 C07,INC-07,User opens the attachment and the loader executes
+ext_actor,it_user_ws,T1189,Drive-by Compromise,enterprise,Initial Access,0.22,0.4,8,1,Z-EXT,Z-IT,C06 C07,INC-07,Drive-by download from an employee browsing session
+ext_actor,it_edge_app,T1190,Exploit Public-Facing Application,enterprise,Initial Access,0.45,0.35,24,1,Z-EXT,Z-IT,C10 C07,INC-18,Exploitation of an Internet-facing enterprise application
+ext_actor,it_vpn,T1133,External Remote Services,enterprise,Initial Access,0.38,0.3,12,1,Z-EXT,Z-IT,C01 C02,INC-13,Authentication to remote access with harvested credentials
+ext_actor,id_legacy_cred,T1078,Valid Accounts,enterprise,Initial Access,0.3,0.2,6,1,Z-EXT,Z-IDP,C12,INC-18 INC-19,Reuse of dormant contractor or legacy integration accounts
+ext_actor,it_helpdesk,T1656,Impersonation,enterprise,Defense Evasion,0.35,0.4,6,1,Z-EXT,Z-IT,C01 C15,INC-18,Voice social engineering of the service desk
+ext_actor,saas_crm,T1078.004,Valid Accounts: Cloud Accounts,enterprise,Initial Access,0.3,0.3,10,1,Z-EXT,Z-SAAS,C11,INC-17,Abuse of OAuth tokens held by an integrated SaaS application
+ext_actor,cld_storage,T1530,Data from Cloud Storage,enterprise,Collection,0.18,0.55,16,1,Z-EXT,Z-CLD,C16,INC-09 INC-10,Discovery of misconfigured object storage
+ext_actor,saas_dms,T1190,Exploit Public-Facing Application,enterprise,Initial Access,0.25,0.4,20,1,Z-EXT,Z-SAAS,C11 C10,INC-11,Exploitation of a shared retail SaaS platform
+ext_actor,sup_tier1,T1566,Phishing,enterprise,Initial Access,0.55,0.55,8,1,Z-EXT,Z-SUP,C14,INC-04 INC-14 INC-16,Phishing of a supplier with weaker controls
+ext_actor,sup_vendor_ra,T1133,External Remote Services,enterprise,Initial Access,0.3,0.45,12,1,Z-EXT,Z-SUP,C04 C14,INC-04,Compromise of an integrator maintenance account
+ext_actor,sup_sw_update,T1195.002,Supply Chain Compromise: Compromise Software Supply Chain,enterprise,Initial Access,0.08,0.5,120,1,Z-EXT,Z-SUP,C09 C14,,Trojanised engineering software or firmware package
+ext_actor,sup_usb,T1091,Replication Through Removable Media,enterprise,Initial Access,0.12,0.5,40,1,Z-EXT,Z-SUP,C06 C14,,Infected removable media carried by field service
+ext_actor,it_insider,T1078,Valid Accounts,enterprise,Initial Access,0.06,0.35,40,1,Z-EXT,Z-IT,C15 C13,INC-08,Recruitment or coercion of a person with plant access
+it_user_ws,id_user_cred,T1003.001,OS Credential Dumping: LSASS Memory,enterprise,Credential Access,0.6,0.45,4,1,Z-IT,Z-IDP,C07 C03,INC-07,Credential material harvested from the compromised endpoint
+it_user_ws,id_entra,T1621,Multi-Factor Authentication Request Generation,enterprise,Credential Access,0.32,0.4,6,1,Z-IT,Z-IDP,C01,,Push-notification fatigue against the cloud identity provider
+it_helpdesk,id_user_cred,T1098,Account Manipulation,enterprise,Persistence,0.7,0.35,2,1,Z-IT,Z-IDP,C01 C15,INC-18,Credential and MFA factor reset performed by the service desk
+id_user_cred,id_ad,T1078,Valid Accounts,enterprise,Initial Access,0.55,0.35,8,0,Z-IDP,Z-IDP,C03 C07,,Authenticated foothold in the on-premises directory
+id_legacy_cred,it_vpn,T1133,External Remote Services,enterprise,Initial Access,0.6,0.25,2,1,Z-IDP,Z-IT,C01 C12,INC-18,Legacy account still authorised for remote access
+id_legacy_cred,id_ad,T1078,Valid Accounts,enterprise,Initial Access,0.45,0.3,6,0,Z-IDP,Z-IDP,C12 C03,INC-18,Legacy account still present in the directory
+it_vpn,it_user_ws,T1021.001,Remote Services: Remote Desktop Protocol,enterprise,Lateral Movement,0.6,0.3,4,0,Z-IT,Z-IT,C02 C07,INC-13,Interactive session to an internal workstation
+it_vpn,it_erp,T1210,Exploitation of Remote Services,enterprise,Lateral Movement,0.4,0.35,12,0,Z-IT,Z-IT,C10 C07,,Exploitation of an internal application from the VPN segment
+it_edge_app,it_erp,T1210,Exploitation of Remote Services,enterprise,Lateral Movement,0.55,0.35,8,0,Z-IT,Z-IT,C10,INC-18,Pivot from the exposed middleware to the ERP core
+it_edge_app,id_ad,T1552.001,Unsecured Credentials: Credentials In Files,enterprise,Credential Access,0.4,0.3,10,1,Z-IT,Z-IDP,C03 C12,,Service-account secrets recovered from application configuration
+id_ad,id_pam,T1003.006,OS Credential Dumping: DCSync,enterprise,Credential Access,0.6,0.45,6,0,Z-IDP,Z-IDP,C03 C07,,Directory replication abuse yielding tier-0 material
+id_ad,ops_ot_ad,T1078,Valid Accounts,enterprise,Initial Access,0.5,0.35,12,1,Z-IDP,Z-OPS,C05 C03,INC-01 INC-03,Abuse of the trust between corporate and OT directories
+id_entra,id_federation,T1606.002,Forge Web Credentials: SAML Tokens,enterprise,Credential Access,0.35,0.45,12,0,Z-IDP,Z-IDP,C01 C03,,Forging of federated authentication material
+id_federation,cld_tenant,T1550.001,Use Alternate Authentication Material: Application Access Token,enterprise,Lateral Movement,0.6,0.4,6,1,Z-IDP,Z-CLD,C11,,Use of federated tokens against the cloud control plane
+id_entra,cld_tenant,T1078.004,Valid Accounts: Cloud Accounts,enterprise,Initial Access,0.65,0.4,4,1,Z-IDP,Z-CLD,C01 C02,,Administrative access to the cloud tenant
+id_pam,it_sccm,T1072,Software Deployment Tools,enterprise,Execution,0.7,0.4,6,1,Z-IDP,Z-IT,C03 C07,INC-01 INC-06,Take-over of the endpoint management platform
+id_pam,it_backup,T1490,Inhibit System Recovery,enterprise,Impact,0.65,0.45,6,1,Z-IDP,Z-IT,C08 C03,INC-18,Destruction or encryption of backup repositories
+id_pam,dmz_jump,T1021.001,Remote Services: Remote Desktop Protocol,enterprise,Lateral Movement,0.55,0.4,8,1,Z-IDP,Z-IDMZ,C05 C03,,Administrative logon to the industrial jump server
+it_sccm,dmz_relay,T1072,Software Deployment Tools,enterprise,Execution,0.4,0.45,10,1,Z-IT,Z-IDMZ,C05 C09,INC-03,Deployment tooling reaching the industrial update relay
+it_sccm,ops_ews,T1072,Software Deployment Tools,enterprise,Execution,0.35,0.45,10,1,Z-IT,Z-OPS,C05 C06,INC-03,Shared management agent present on plant engineering hosts
+cld_tenant,cld_storage,T1530,Data from Cloud Storage,enterprise,Collection,0.75,0.45,4,0,Z-CLD,Z-CLD,C16,INC-10,
+cld_tenant,cld_cicd,T1078.004,Valid Accounts: Cloud Accounts,enterprise,Initial Access,0.6,0.45,8,0,Z-CLD,Z-CLD,C11 C03,,
+cld_cicd,cld_cv_backend,T1195.002,Supply Chain Compromise: Compromise Software Supply Chain,enterprise,Initial Access,0.45,0.5,24,0,Z-CLD,Z-CLD,C11,,Malicious artefact promoted through the pipeline
+cld_cicd,ops_mes,T1072,Software Deployment Tools,enterprise,Execution,0.28,0.5,24,1,Z-CLD,Z-OPS,C05 C09,,Cloud-driven deployment of plant-side applications
+cld_tenant,imp_ip,T1213,Data from Information Repositories,enterprise,Collection,0.6,0.5,12,1,Z-CLD,Z-CONS,C16,INC-05,
+cld_storage,imp_pii,T1530,Data from Cloud Storage,enterprise,Collection,0.9,0.6,2,1,Z-CLD,Z-CONS,C16,INC-09 INC-10,
+cld_cv_backend,imp_pii,T1530,Data from Cloud Storage,enterprise,Collection,0.7,0.5,8,1,Z-CLD,Z-CONS,C16 C11,INC-09,
+saas_crm,imp_pii,T1567.002,Exfiltration Over Web Service: Exfiltration to Cloud Storage,enterprise,Exfiltration,0.8,0.5,6,1,Z-SAAS,Z-CONS,C11,INC-17,
+saas_dms,imp_pii,T1567.002,Exfiltration Over Web Service: Exfiltration to Cloud Storage,enterprise,Exfiltration,0.7,0.5,8,1,Z-SAAS,Z-CONS,C11,INC-11,
+saas_dms,imp_prod_stop,T1489,Service Stop,enterprise,Impact,0.35,0.4,8,1,Z-SAAS,Z-CONS,C11 C14,INC-11,Retail/logistics platform outage propagating upstream
+it_erp,it_fileshare,T1039,Data from Network Shared Drive,enterprise,Collection,0.7,0.4,4,0,Z-IT,Z-IT,C07,,
+it_user_ws,it_fileshare,T1039,Data from Network Shared Drive,enterprise,Collection,0.55,0.4,4,0,Z-IT,Z-IT,C07,INC-07 INC-12 INC-13,
+it_fileshare,imp_ip,T1567.002,Exfiltration Over Web Service: Exfiltration to Cloud Storage,enterprise,Exfiltration,0.8,0.5,8,1,Z-IT,Z-CONS,C07 C16,INC-05 INC-07,
+sup_tier1,sup_edi,T1078,Valid Accounts,enterprise,Initial Access,0.75,0.4,4,0,Z-SUP,Z-SUP,C14,INC-04 INC-14 INC-16 INC-20,
+sup_tier1,imp_ip,T1567.002,Exfiltration Over Web Service: Exfiltration to Cloud Storage,enterprise,Exfiltration,0.55,0.55,12,1,Z-SUP,Z-CONS,C14,INC-05 INC-15,
+sup_edi,imp_prod_stop,T1489,Service Stop,enterprise,Impact,0.7,0.4,6,1,Z-SUP,Z-CONS,C14 C17,INC-04 INC-14 INC-16 INC-20,Just-in-time starvation halts the line without any OT compromise
+sup_edi,ops_mes,T1199,Trusted Relationship,enterprise,Initial Access,0.35,0.45,12,1,Z-SUP,Z-OPS,C05 C14,INC-04,Trusted supplier interface terminating inside site operations
+sup_vendor_ra,dmz_broker,T1133,External Remote Services,enterprise,Initial Access,0.6,0.4,6,1,Z-SUP,Z-IDMZ,C04,,
+sup_vendor_ra,ops_ews,T0822,External Remote Services,ics,Initial Access,0.3,0.6,12,1,Z-SUP,Z-OPS,C04 C13,,Unmanaged cellular or modem access bypassing the IDMZ
+sup_sw_update,ops_ews,T0873,Project File Infection,ics,Persistence,0.5,0.55,24,1,Z-SUP,Z-OPS,C09 C06,,
+sup_usb,ops_ews,T0847,Replication Through Removable Media,ics,Initial Access,0.5,0.55,8,1,Z-SUP,Z-OPS,C06 C09,,
+it_insider,ops_ews,T1078,Valid Accounts,enterprise,Initial Access,0.6,0.5,8,1,Z-IT,Z-OPS,C13 C06,INC-08,
+it_insider,it_sccm,T1072,Software Deployment Tools,enterprise,Execution,0.25,0.45,16,0,Z-IT,Z-IT,C03 C13,INC-08,
+ext_actor,cld_tenant,T1552.001,Unsecured Credentials: Credentials In Files,enterprise,Credential Access,0.15,0.45,24,1,Z-EXT,Z-CLD,C11 C16,INC-19,Cloud secrets exposed in a public code repository
+it_user_ws,ops_ews,T1210,Exploitation of Remote Services,enterprise,Lateral Movement,0.3,0.45,8,1,Z-IT,Z-OPS,C05 C10 C13,INC-01 INC-02 INC-03,"Flat-network exploitation of an unpatched plant host, as in the 2017 worm-driven outages"
+ops_ews,ops_mes,T1210,Exploitation of Remote Services,enterprise,Lateral Movement,0.45,0.45,8,0,Z-OPS,Z-OPS,C05 C13 C10,INC-01 INC-03,Propagation from engineering hosts into the MES estate
+it_user_ws,dmz_jump,T1021.001,Remote Services: Remote Desktop Protocol,enterprise,Lateral Movement,0.35,0.45,8,1,Z-IT,Z-IDMZ,C05 C01,,
+it_erp,dmz_mirror,T1210,Exploitation of Remote Services,enterprise,Lateral Movement,0.45,0.4,8,1,Z-IT,Z-IDMZ,C05,,
+dmz_jump,ops_ews,T1021.001,Remote Services: Remote Desktop Protocol,enterprise,Lateral Movement,0.7,0.4,4,1,Z-IDMZ,Z-OPS,C05 C03,,
+dmz_broker,ops_ews,T0822,External Remote Services,ics,Initial Access,0.65,0.45,6,1,Z-IDMZ,Z-OPS,C04 C13,,
+dmz_relay,ops_historian,T1072,Software Deployment Tools,enterprise,Execution,0.5,0.45,10,1,Z-IDMZ,Z-OPS,C09 C13,,
+dmz_mirror,ops_historian,T0885,Commonly Used Port,ics,Command and Control,0.5,0.45,8,1,Z-IDMZ,Z-OPS,C05 C13,,
+ops_ot_ad,ops_ews,T1078,Valid Accounts,enterprise,Initial Access,0.75,0.4,4,0,Z-OPS,Z-OPS,C03 C13,,
+ops_ot_ad,sca_server,T1078,Valid Accounts,enterprise,Initial Access,0.7,0.4,6,1,Z-OPS,Z-SCADA,C03 C13,,
+ops_historian,ops_mes,T1210,Exploitation of Remote Services,enterprise,Lateral Movement,0.45,0.45,10,0,Z-OPS,Z-OPS,C13 C10,,
+ops_mes,sca_server,T0886,Remote Services,ics,Lateral Movement,0.55,0.45,8,1,Z-OPS,Z-SCADA,C05 C13,,
+ops_mes,imp_prod_stop,T1486,Data Encrypted for Impact,enterprise,Impact,0.75,0.35,6,1,Z-OPS,Z-CONS,C08 C07,INC-01 INC-03 INC-18,Encryption of the MES halts sequencing even with healthy controllers
+it_erp,imp_prod_stop,T1486,Data Encrypted for Impact,enterprise,Impact,0.6,0.35,8,1,Z-IT,Z-CONS,C08 C07,INC-18 INC-04,"Loss of planning, parts call-off and logistics stops the plant"
+it_sccm,imp_prod_stop,T1486,Data Encrypted for Impact,enterprise,Impact,0.7,0.4,8,1,Z-IT,Z-CONS,C08 C07 C05,INC-01 INC-06 INC-03,Enterprise-wide ransomware deployment reaching plant-side Windows hosts
+it_backup,imp_prod_stop,T1490,Inhibit System Recovery,enterprise,Impact,0.5,0.4,6,1,Z-IT,Z-CONS,C08,INC-18,Recovery inhibition converting an outage into a multi-week stoppage
+ops_ews,imp_ip,T1213,Data from Information Repositories,enterprise,Collection,0.6,0.5,8,1,Z-OPS,Z-CONS,C13 C06,INC-05,"Theft of controller projects, recipes and line design data"
+ops_ews,ctl_plc_body,T0843,Program Download,ics,Lateral Movement,0.7,0.45,6,1,Z-OPS,Z-CTRL,C09 C13,,
+ops_ews,ctl_robot,T0843,Program Download,ics,Lateral Movement,0.6,0.45,8,1,Z-OPS,Z-CTRL,C09 C13,,
+ops_ews,ctl_safety,T0889,Modify Program,ics,Persistence,0.32,0.5,16,1,Z-OPS,Z-CTRL,C09 C13,,
+ops_ews,sca_server,T0886,Remote Services,ics,Lateral Movement,0.6,0.4,6,1,Z-OPS,Z-SCADA,C13 C05,,
+sca_server,sca_hmi,T0886,Remote Services,ics,Lateral Movement,0.75,0.4,4,0,Z-SCADA,Z-SCADA,C13,,
+sca_server,ctl_plc_body,T0855,Unauthorized Command Message,ics,Impair Process Control,0.7,0.45,4,1,Z-SCADA,Z-CTRL,C09 C13,,
+sca_hmi,ctl_robot,T0855,Unauthorized Command Message,ics,Impair Process Control,0.6,0.45,6,1,Z-SCADA,Z-CTRL,C09 C13,,
+sca_server,imp_prod_stop,T0813,Denial of Control,ics,Impact,0.6,0.4,4,1,Z-SCADA,Z-CONS,C13 C08,INC-03,Denial of control at the supervisory layer
+ctl_plc_body,prc_line,T0831,Manipulation of Control,ics,Impair Process Control,0.85,0.5,2,1,Z-CTRL,Z-PROC,C09,,
+ctl_robot,prc_line,T0831,Manipulation of Control,ics,Impair Process Control,0.8,0.5,2,1,Z-CTRL,Z-PROC,C09,,
+ctl_robot,prc_paint,T0836,Modify Parameter,ics,Impair Process Control,0.6,0.55,6,1,Z-CTRL,Z-PROC,C09 C13,,
+ctl_safety,imp_safety,T0880,Loss of Safety,ics,Impact,0.45,0.5,4,1,Z-CTRL,Z-CONS,C09,,
+ctl_safety,imp_prod_stop,T0816,Device Restart/Shutdown,ics,Inhibit Response Function,0.6,0.4,4,1,Z-CTRL,Z-CONS,C09,,Safety trip or controller shutdown stopping the line
+prc_line,imp_prod_stop,T0828,Loss of Productivity and Revenue,ics,Impact,0.9,0.3,2,1,Z-PROC,Z-CONS,,INC-01 INC-04 INC-18,
+prc_paint,imp_quality,T0836,Modify Parameter,ics,Impair Process Control,0.55,0.55,6,1,Z-PROC,Z-CONS,C09 C13,,Undetected parameter drift producing defective vehicles

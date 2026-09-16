@@ -1,0 +1,19 @@
+profile,step,control,name,cost_index,ale_after_musd,ale_gain_musd,gain_per_cost,cumulative_cost
+ransomware,1,C08,"Immutable, offline and exercised backups (IT and OT)",5,29.23,18.34,3.67,5
+ransomware,2,C17,"Operational resilience: buffers, manual fallback and degraded mode",7,17.31,11.92,1.70,12
+ransomware,3,C11,SaaS and OAuth token governance,4,16.86,0.45,0.11,16
+ransomware,4,C10,Attack-surface management and expedited patching of exposed services,5,15.70,1.16,0.23,21
+ransomware,5,C14,Supplier security assurance and contractual telemetry,6,7.41,8.29,1.38,27
+ransomware,6,C02,Conditional access and device-compliance enforcement,4,5.52,1.89,0.47,31
+espionage,1,C14,Supplier security assurance and contractual telemetry,6,14.75,7.22,1.20,6
+espionage,2,C11,SaaS and OAuth token governance,4,11.65,3.10,0.78,10
+espionage,3,C16,Cloud security and data-exposure posture management,4,5.89,5.76,1.44,14
+espionage,4,C10,Attack-surface management and expedited patching of exposed services,5,4.29,1.60,0.32,19
+espionage,5,C08,"Immutable, offline and exercised backups (IT and OT)",5,4.10,0.20,0.04,24
+espionage,6,C17,"Operational resilience: buffers, manual fallback and degraded mode",7,3.95,0.15,0.02,31
+sabotage,1,C08,"Immutable, offline and exercised backups (IT and OT)",5,30.98,19.43,3.89,5
+sabotage,2,C17,"Operational resilience: buffers, manual fallback and degraded mode",7,16.34,14.65,2.09,12
+sabotage,3,C10,Attack-surface management and expedited patching of exposed services,5,14.98,1.35,0.27,17
+sabotage,4,C14,Supplier security assurance and contractual telemetry,6,7.63,7.35,1.22,23
+sabotage,5,C02,Conditional access and device-compliance enforcement,4,5.57,2.07,0.52,27
+sabotage,6,C11,SaaS and OAuth token governance,4,4.92,0.64,0.16,31

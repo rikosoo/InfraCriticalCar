@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: "From Cloud to Assembly Line: Modelling Cyberattack Paths in Automotive Manufacturing as Critical Infrastructure"
+message: "If you use this model, corpus or artefact, please cite it."
+type: software
+version: 1.0.0
+date-released: 2026-09-16
+license: MIT
+repository-code: "https://github.com/rikosoo/InfraCriticalCar"
+abstract: >-
+  A cross-plane attack-path model (CAPM) of an automotive assembly plant
+  spanning corporate IT, the identity plane, cloud and SaaS, the industrial DMZ,
+  MES/SCADA/PLC layers and the supplier interface, calibrated against a corpus
+  of 20 publicly reported incidents in automotive manufacturing (2017-2025),
+  with MITRE ATT&CK Enterprise and ICS technique labelling and controls mapped
+  to IEC 62443-3-3 and NIST CSF 2.0.
+keywords:
+  - critical infrastructure
+  - automotive manufacturing
+  - attack graphs
+  - operational technology
+  - MITRE ATT&CK
+  - IEC 62443
+  - risk quantification

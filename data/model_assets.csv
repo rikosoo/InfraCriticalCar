@@ -1,0 +1,49 @@
+asset,name,zone,zone_name,purdue,plane,sl_target,kind,description
+ext_actor,External threat actor,Z-EXT,Untrusted external network,5,it,0,actor,Financially motivated intrusion set with hands-on-keyboard capability
+sup_tier1,Tier-1 supplier IT estate,Z-SUP,Supplier and integrator networks,5,supply_chain,1,host,Component supplier operating on just-in-time delivery
+sup_edi,EDI / JIT ordering and logistics interface,Z-SUP,Supplier and integrator networks,5,supply_chain,1,service,"Order, kanban and delivery messaging between supplier and OEM"
+sup_vendor_ra,Machine builder remote access,Z-SUP,Supplier and integrator networks,5,supply_chain,1,service,Integrator/OEM-of-equipment maintenance access to line assets
+sup_sw_update,OT software and firmware update channel,Z-SUP,Supplier and integrator networks,5,supply_chain,1,service,"Engineering software, PLC firmware and project files from vendors"
+sup_usb,Removable media and project files,Z-SUP,Supplier and integrator networks,5,supply_chain,1,device,USB media and project archives carried by field engineers
+saas_crm,Third-party CRM / customer platform,Z-SAAS,Third-party SaaS,4,cloud,1,service,SaaS CRM reached through OAuth-integrated applications
+saas_dms,Dealer management platform,Z-SAAS,Third-party SaaS,4,cloud,1,service,Shared SaaS platform serving the retail network
+it_email,Corporate mail service,Z-IT,Corporate IT,4,it,2,service,
+it_user_ws,Employee workstation,Z-IT,Corporate IT,4,it,2,host,
+it_helpdesk,IT service desk process,Z-IT,Corporate IT,4,it,2,service,Human process able to reset credentials and MFA factors
+it_insider,Recruited or coerced insider,Z-IT,Corporate IT,4,it,2,identity,Employee or contractor with legitimate plant access
+it_vpn,Remote access VPN gateway,Z-IT,Corporate IT,4,it,2,service,
+it_edge_app,Internet-facing enterprise application,Z-IT,Corporate IT,4,it,2,service,ERP/portal middleware exposed to the Internet
+it_erp,ERP and production planning core,Z-IT,Corporate IT,4,it,2,service,"Order-to-delivery, logistics and plant scheduling"
+it_fileshare,Engineering and business file shares,Z-IT,Corporate IT,4,it,2,data,
+it_sccm,Endpoint management / software deployment,Z-IT,Corporate IT,4,it,2,service,
+it_backup,Backup infrastructure,Z-IT,Corporate IT,4,it,2,service,
+id_user_cred,Standard user credentials,Z-IDP,Identity plane,4,identity,3,identity,
+id_legacy_cred,Dormant third-party / legacy credentials,Z-IDP,Identity plane,4,identity,3,identity,Accounts of former contractors and legacy integrations never revoked
+id_ad,On-premises Active Directory (tier 0),Z-IDP,Identity plane,4,identity,3,service,
+id_entra,Cloud identity provider,Z-IDP,Identity plane,4,identity,3,service,
+id_federation,Federation / SSO trust,Z-IDP,Identity plane,4,identity,3,service,
+id_pam,Privileged access management and domain administration,Z-IDP,Identity plane,4,identity,3,service,
+cld_tenant,Cloud tenant control plane,Z-CLD,OEM cloud tenant,4,cloud,2,service,
+cld_storage,Object storage and data lake,Z-CLD,OEM cloud tenant,4,cloud,2,data,
+cld_cicd,CI/CD pipeline and artefact registry,Z-CLD,OEM cloud tenant,4,cloud,2,service,
+cld_cv_backend,Connected-vehicle / telematics back end,Z-CLD,OEM cloud tenant,4,cloud,2,service,
+dmz_jump,OT jump server,Z-IDMZ,Industrial DMZ,35,ot,3,host,
+dmz_broker,Vendor remote-access broker,Z-IDMZ,Industrial DMZ,35,ot,3,service,
+dmz_relay,"Patch, antivirus and update relay",Z-IDMZ,Industrial DMZ,35,ot,3,service,
+dmz_mirror,Historian mirror / data broker,Z-IDMZ,Industrial DMZ,35,ot,3,data,
+ops_mes,Manufacturing execution system,Z-OPS,Site operations,3,ot,3,service,
+ops_historian,Process historian,Z-OPS,Site operations,3,ot,3,service,
+ops_ews,Engineering workstation,Z-OPS,Site operations,3,ot,3,host,Holds controller projects and programming software
+ops_ot_ad,OT domain controller,Z-OPS,Site operations,3,ot,3,service,
+sca_server,SCADA / line control server,Z-SCADA,Area supervisory control,2,ot,3,service,
+sca_hmi,Operator HMI panel,Z-SCADA,Area supervisory control,2,ot,3,host,
+ctl_plc_body,Body shop / weld line PLC,Z-CTRL,Basic control,1,ot,3,device,
+ctl_robot,Robot cell controller,Z-CTRL,Basic control,1,ot,3,device,
+ctl_safety,Safety PLC / safety instrumented function,Z-CTRL,Basic control,1,ot,3,device,
+prc_line,Assembly and weld line,Z-PROC,Physical process,0,ot,4,device,
+prc_paint,Paint shop,Z-PROC,Physical process,0,ot,4,device,
+imp_prod_stop,Production stoppage,Z-CONS,Business consequences (modelling artefact),0,it,0,impact,
+imp_quality,Silent quality degradation / recall,Z-CONS,Business consequences (modelling artefact),0,it,0,impact,
+imp_safety,Loss of safety function,Z-CONS,Business consequences (modelling artefact),0,it,0,impact,
+imp_ip,Theft of engineering and design data,Z-CONS,Business consequences (modelling artefact),0,it,0,impact,
+imp_pii,Customer personal data breach,Z-CONS,Business consequences (modelling artefact),0,it,0,impact,

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" font-family="Helvetica,Arial,sans-serif">
+<title>Efficient frontier: ALE against cumulative control cost</title>
+<rect width="860" height="420" fill="#ffffff"/>
+<text x="18" y="28" font-size="17" font-weight="600" fill="#222222">Efficient frontier: ALE against cumulative control cost</text>
+<line x1="76" y1="344.0" x2="832" y2="344.0" stroke="#d9d9d9"/>
+<text x="68" y="348.0" font-size="11" text-anchor="end" fill="#666">0</text>
+<text x="76.0" y="362" font-size="11" text-anchor="middle" fill="#666">0</text>
+<line x1="76" y1="274.0" x2="832" y2="274.0" stroke="#d9d9d9"/>
+<text x="68" y="278.0" font-size="11" text-anchor="end" fill="#666">14</text>
+<text x="265.0" y="362" font-size="11" text-anchor="middle" fill="#666">8</text>
+<line x1="76" y1="204.0" x2="832" y2="204.0" stroke="#d9d9d9"/>
+<text x="68" y="208.0" font-size="11" text-anchor="end" fill="#666">28</text>
+<text x="454.0" y="362" font-size="11" text-anchor="middle" fill="#666">16</text>
+<line x1="76" y1="134.0" x2="832" y2="134.0" stroke="#d9d9d9"/>
+<text x="68" y="138.0" font-size="11" text-anchor="end" fill="#666">42</text>
+<text x="643.0" y="362" font-size="11" text-anchor="middle" fill="#666">23</text>
+<line x1="76" y1="64.0" x2="832" y2="64.0" stroke="#d9d9d9"/>
+<text x="68" y="68.0" font-size="11" text-anchor="end" fill="#666">56</text>
+<text x="832.0" y="362" font-size="11" text-anchor="middle" fill="#666">31</text>
+<path d="M76.0,108.1 L197.9,199.1 L368.6,258.2 L466.2,260.4 L588.1,266.1 L734.5,307.2 L832.0,316.6" fill="none" stroke="#1f4e79" stroke-width="2.4"/>
+<circle cx="76.0" cy="108.1" r="3.2" fill="#1f4e79"/>
+<circle cx="197.9" cy="199.1" r="3.2" fill="#1f4e79"/>
+<circle cx="368.6" cy="258.2" r="3.2" fill="#1f4e79"/>
+<circle cx="466.2" cy="260.4" r="3.2" fill="#1f4e79"/>
+<circle cx="588.1" cy="266.1" r="3.2" fill="#1f4e79"/>
+<circle cx="734.5" cy="307.2" r="3.2" fill="#1f4e79"/>
+<circle cx="832.0" cy="316.6" r="3.2" fill="#1f4e79"/>
+<rect x="76" y="390" width="12" height="12" fill="#1f4e79"/>
+<text x="94" y="401" font-size="12" fill="#222222">ransomware</text>
+<path d="M76.0,235.1 L222.3,270.9 L319.9,286.2 L417.4,314.8 L539.4,322.7 L661.3,323.7 L832.0,324.4" fill="none" stroke="#c0504d" stroke-width="2.4"/>
+<circle cx="76.0" cy="235.1" r="3.2" fill="#c0504d"/>
+<circle cx="222.3" cy="270.9" r="3.2" fill="#c0504d"/>
+<circle cx="319.9" cy="286.2" r="3.2" fill="#c0504d"/>
+<circle cx="417.4" cy="314.8" r="3.2" fill="#c0504d"/>
+<circle cx="539.4" cy="322.7" r="3.2" fill="#c0504d"/>
+<circle cx="661.3" cy="323.7" r="3.2" fill="#c0504d"/>
+<circle cx="832.0" cy="324.4" r="3.2" fill="#c0504d"/>
+<rect x="276" y="390" width="12" height="12" fill="#c0504d"/>
+<text x="294" y="401" font-size="12" fill="#222222">espionage</text>
+<path d="M76.0,94.0 L197.9,190.4 L368.6,263.0 L490.6,269.7 L636.9,306.2 L734.5,316.4 L832.0,319.6" fill="none" stroke="#4f81bd" stroke-width="2.4"/>
+<circle cx="76.0" cy="94.0" r="3.2" fill="#4f81bd"/>
+<circle cx="197.9" cy="190.4" r="3.2" fill="#4f81bd"/>
+<circle cx="368.6" cy="263.0" r="3.2" fill="#4f81bd"/>
+<circle cx="490.6" cy="269.7" r="3.2" fill="#4f81bd"/>
+<circle cx="636.9" cy="306.2" r="3.2" fill="#4f81bd"/>
+<circle cx="734.5" cy="316.4" r="3.2" fill="#4f81bd"/>
+<circle cx="832.0" cy="319.6" r="3.2" fill="#4f81bd"/>
+<rect x="476" y="390" width="12" height="12" fill="#4f81bd"/>
+<text x="494" y="401" font-size="12" fill="#222222">sabotage</text>
+<text x="454" y="386" font-size="12" text-anchor="middle" fill="#444">cumulative control cost index</text>
+<text x="16" y="204" font-size="12" fill="#444" transform="rotate(-90 16 204)" text-anchor="middle">ALE (million USD / plant-year)</text>
+</svg>

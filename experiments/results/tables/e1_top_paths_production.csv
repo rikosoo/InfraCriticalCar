@@ -1,0 +1,16 @@
+rank,likelihood,steps,zone_transitions,lowest_purdue_level,effort_h,techniques,path
+1,0.04678,3,2,5,18,T1566 T1078 T1489,External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Production stoppage
+2,0.04078,3,2,4,40,T1190 T1210 T1486,External threat actor -> Internet-facing enterprise application -> ERP and production planning core -> Production stoppage
+3,0.03150,2,2,4,28,T1190 T1489,External threat actor -> Dealer management platform -> Production stoppage
+4,0.02697,3,2,4,32,T1133 T1210 T1486,External threat actor -> Remote access VPN gateway -> ERP and production planning core -> Production stoppage
+5,0.01095,4,3,4,28,T1078 T1133 T1210 T1486,External threat actor -> Dormant third-party / legacy credentials -> Remote access VPN gateway -> ERP and production planning core -> Production stoppage
+6,0.01045,4,3,3,30,T1566 T1078 T1199 T1486,External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Manufacturing execution system -> Production stoppage
+7,0.00477,5,4,4,54,T1190 T1552.001 T1003.006 T1072 T1486,External threat actor -> Internet-facing enterprise application -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Endpoint management / software deployment -> Production stoppage
+8,0.00440,5,3,4,32,T1078 T1078 T1003.006 T1072 T1486,External threat actor -> Dormant third-party / legacy credentials -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Endpoint management / software deployment -> Production stoppage
+9,0.00402,5,5,2,56,T1190 T1552.001 T1078 T1078 T0813,External threat actor -> Internet-facing enterprise application -> On-premises Active Directory (tier 0) -> OT domain controller -> SCADA / line control server -> Production stoppage
+10,0.00371,5,4,2,34,T1078 T1078 T1078 T1078 T0813,External threat actor -> Dormant third-party / legacy credentials -> On-premises Active Directory (tier 0) -> OT domain controller -> SCADA / line control server -> Production stoppage
+11,0.00290,5,4,4,52,T1190 T1552.001 T1003.006 T1490 T1490,External threat actor -> Internet-facing enterprise application -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Backup infrastructure -> Production stoppage
+12,0.00282,4,4,2,26,T1189 T1210 T0886 T0813,External threat actor -> Employee workstation -> Engineering workstation -> SCADA / line control server -> Production stoppage
+13,0.00275,5,5,2,34,T1133 T1133 T0822 T0886 T0813,External threat actor -> Machine builder remote access -> Vendor remote-access broker -> Engineering workstation -> SCADA / line control server -> Production stoppage
+14,0.00268,5,3,4,30,T1078 T1078 T1003.006 T1490 T1490,External threat actor -> Dormant third-party / legacy credentials -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Backup infrastructure -> Production stoppage
+15,0.00263,4,3,3,30,T1189 T1210 T1210 T1486,External threat actor -> Employee workstation -> Engineering workstation -> Manufacturing execution system -> Production stoppage

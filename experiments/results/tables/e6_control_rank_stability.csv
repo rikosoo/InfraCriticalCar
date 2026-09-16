@@ -1,0 +1,18 @@
+control,name,mean_rank,best_rank,worst_rank
+C08,"Immutable, offline and exercised backups (IT and OT)",2.2,1,5
+C17,"Operational resilience: buffers, manual fallback and degraded mode",3.3,2,6
+C10,Attack-surface management and expedited patching of exposed services,3.8,1,15
+C07,Endpoint detection and 24/7 monitored response,6.6,3,17
+C14,Supplier security assurance and contractual telemetry,6.6,1,17
+C11,SaaS and OAuth token governance,8.2,1,17
+C02,Conditional access and device-compliance enforcement,9.2,1,17
+C03,Administrative tiering and privileged access workstations,9.3,6,14
+C06,Application allowlisting and removable-media control on OT hosts,9.8,7,13
+C04,"Brokered, just-in-time vendor remote access",10.0,7,14
+C01,Phishing-resistant MFA for remote and privileged access,10.2,3,16
+C12,Identity lifecycle hygiene and dormant credential revocation,10.9,4,16
+C09,Controller change control and program integrity monitoring,11.5,9,14
+C05,Enforced IT/OT segmentation with an industrial DMZ,12.3,7,17
+C15,Service-desk identity proofing and insider-risk programme,12.5,8,16
+C13,Continuous OT network monitoring and asset inventory,13.1,10,15
+C16,Cloud security and data-exposure posture management,13.2,7,17

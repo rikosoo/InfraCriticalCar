@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" font-family="Helvetica,Arial,sans-serif">
+<title>Automotive manufacturing incidents in the corpus, by year</title>
+<rect width="860" height="420" fill="#ffffff"/>
+<text x="18" y="28" font-size="17" font-weight="600" fill="#222222">Automotive manufacturing incidents in the corpus, by year</text>
+<line x1="76" y1="344.0" x2="832" y2="344.0" stroke="#d9d9d9"/>
+<text x="68" y="348.0" font-size="11" text-anchor="end" fill="#666">0</text>
+<text x="76.0" y="362" font-size="11" text-anchor="middle" fill="#666">2017</text>
+<line x1="76" y1="274.0" x2="832" y2="274.0" stroke="#d9d9d9"/>
+<text x="68" y="278.0" font-size="11" text-anchor="end" fill="#666">1</text>
+<text x="265.0" y="362" font-size="11" text-anchor="middle" fill="#666">2019</text>
+<line x1="76" y1="204.0" x2="832" y2="204.0" stroke="#d9d9d9"/>
+<text x="68" y="208.0" font-size="11" text-anchor="end" fill="#666">3</text>
+<text x="454.0" y="362" font-size="11" text-anchor="middle" fill="#666">2021</text>
+<line x1="76" y1="134.0" x2="832" y2="134.0" stroke="#d9d9d9"/>
+<text x="68" y="138.0" font-size="11" text-anchor="end" fill="#666">4</text>
+<text x="643.0" y="362" font-size="11" text-anchor="middle" fill="#666">2023</text>
+<line x1="76" y1="64.0" x2="832" y2="64.0" stroke="#d9d9d9"/>
+<text x="68" y="68.0" font-size="11" text-anchor="end" fill="#666">6</text>
+<text x="832.0" y="362" font-size="11" text-anchor="middle" fill="#666">2025</text>
+<path d="M76.0,244.0 L359.5,244.0 L548.5,94.0 L643.0,144.0 L737.5,194.0 L832.0,144.0" fill="none" stroke="#1f4e79" stroke-width="2.4"/>
+<circle cx="76.0" cy="244.0" r="3.2" fill="#1f4e79"/>
+<circle cx="359.5" cy="244.0" r="3.2" fill="#1f4e79"/>
+<circle cx="548.5" cy="94.0" r="3.2" fill="#1f4e79"/>
+<circle cx="643.0" cy="144.0" r="3.2" fill="#1f4e79"/>
+<circle cx="737.5" cy="194.0" r="3.2" fill="#1f4e79"/>
+<circle cx="832.0" cy="144.0" r="3.2" fill="#1f4e79"/>
+<rect x="76" y="390" width="12" height="12" fill="#1f4e79"/>
+<text x="94" y="401" font-size="12" fill="#222222">incidents in corpus</text>
+<text x="454" y="386" font-size="12" text-anchor="middle" fill="#444">year</text>
+<text x="16" y="204" font-size="12" fill="#444" transform="rotate(-90 16 204)" text-anchor="middle">incidents</text>
+</svg>

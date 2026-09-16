@@ -1,0 +1,21 @@
+id,year,victim,impact,confidence,likelihood,percentile_among_model_paths,reconstructed_path
+INC-01,2017,Renault-Nissan,imp_prod_stop,medium,0.00228,4.8,External threat actor -> Corporate mail service -> Employee workstation -> Engineering workstation -> Manufacturing execution system -> Production stoppage
+INC-02,2017,Honda,imp_prod_stop,low,0.00228,4.8,External threat actor -> Corporate mail service -> Employee workstation -> Engineering workstation -> Manufacturing execution system -> Production stoppage
+INC-03,2020,Honda,imp_prod_stop,low,0.00091,16.7,External threat actor -> Employee workstation -> Standard user credentials -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Endpoint management / software deployment -> Production stoppage
+INC-04,2022,Toyota (via Kojima Industries),imp_prod_stop,high,0.04678,0.2,External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Production stoppage
+INC-05,2022,Denso,imp_ip,medium,0.06126,1.9,External threat actor -> Tier-1 supplier IT estate -> Theft of engineering and design data
+INC-06,2022,Bridgestone Americas,imp_prod_stop,low,0.00079,17.8,External threat actor -> Corporate mail service -> Employee workstation -> Standard user credentials -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Endpoint management / software deployment -> Production stoppage
+INC-07,2022,Continental,imp_ip,medium,0.01742,7.7,External threat actor -> Employee workstation -> Engineering and business file shares -> Theft of engineering and design data
+INC-08,2020,Tesla (Gigafactory Nevada),imp_prod_stop,attempted,0.00225,5.1,External threat actor -> Recruited or coerced insider -> Endpoint management / software deployment -> Production stoppage
+INC-09,2023,Toyota (T-Connect / G-Link),imp_pii,high,0.02916,14.3,External threat actor -> Object storage and data lake -> Customer personal data breach
+INC-10,2024,Volkswagen Group (Cariad),imp_pii,high,0.02916,14.3,External threat actor -> Object storage and data lake -> Customer personal data breach
+INC-11,2024,CDK Global,imp_prod_stop,partial,0.03150,0.7,External threat actor -> Dealer management platform -> Production stoppage
+INC-12,2024,Hyundai Motor Europe,imp_ip,low,0.01512,9.6,External threat actor -> Corporate mail service -> Employee workstation -> Engineering and business file shares -> Theft of engineering and design data
+INC-13,2023,Nissan Oceania,imp_ip,medium,0.01475,11.5,External threat actor -> Remote access VPN gateway -> Employee workstation -> Engineering and business file shares -> Theft of engineering and design data
+INC-14,2023,Yanfeng (Stellantis supplier),imp_prod_stop,medium,0.04678,0.2,External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Production stoppage
+INC-15,2025,Tata Technologies,imp_ip,medium,0.06126,1.9,External threat actor -> Tier-1 supplier IT estate -> Theft of engineering and design data
+INC-16,2025,Sensata Technologies,imp_prod_stop,medium,0.04678,0.2,External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Production stoppage
+INC-17,2025,Stellantis,imp_pii,high,0.08400,4.8,External threat actor -> Third-party CRM / customer platform -> Customer personal data breach
+INC-18,2025,Jaguar Land Rover,imp_prod_stop,disputed,0.04078,0.4,External threat actor -> Internet-facing enterprise application -> ERP and production planning core -> Production stoppage
+INC-19,2022,Toyota (T-Connect),imp_pii,medium,0.01225,19.0,External threat actor -> Cloud tenant control plane -> Object storage and data lake -> Customer personal data breach
+INC-20,2023,MKS Instruments,imp_prod_stop,medium,0.04678,0.2,External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Production stoppage

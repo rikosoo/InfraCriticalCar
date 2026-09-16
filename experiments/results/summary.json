@@ -1,0 +1,1171 @@
+{
+  "E1": {
+    "graph": {
+      "zones": 12,
+      "assets": 48,
+      "edges": 91,
+      "techniques": 43,
+      "enterprise_edges": 70,
+      "ics_edges": 21,
+      "cross_zone_edges": 72,
+      "impacts": 5,
+      "assets_per_plane": {
+        "it": 16,
+        "supply_chain": 5,
+        "cloud": 6,
+        "identity": 6,
+        "ot": 15
+      }
+    },
+    "paths_total": 681,
+    "paths_per_impact": {
+      "imp_ip": 52,
+      "imp_prod_stop": 455,
+      "imp_quality": 118,
+      "imp_pii": 21,
+      "imp_safety": 35
+    },
+    "paths_reaching_level2_or_below": 532,
+    "share_paths_reaching_level2_or_below": 0.7812041116005873,
+    "length_histogram": {
+      "2": 6,
+      "3": 11,
+      "4": 34,
+      "5": 59,
+      "6": 69,
+      "7": 99,
+      "8": 113,
+      "9": 97,
+      "10": 87,
+      "11": 63,
+      "12": 43
+    },
+    "purdue_depth_histogram": {
+      "0": 364,
+      "1": 70,
+      "2": 98,
+      "3": 91,
+      "4": 56,
+      "5": 2
+    },
+    "production_paths": 455,
+    "production_paths_via_ot": 379,
+    "best_production_likelihood": 0.04677749999999999,
+    "best_production_path": "External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Production stoppage",
+    "best_ot_production_likelihood": 0.004024566,
+    "best_ot_production_path": "External threat actor -> Internet-facing enterprise application -> On-premises Active Directory (tier 0) -> OT domain controller -> SCADA / line control server -> Production stoppage",
+    "likelihood_ratio_it_over_ot": 11.622992392223159,
+    "top_techniques": [
+      {
+        "id": "T1567.002",
+        "share": 0.3546
+      },
+      {
+        "id": "T1210",
+        "share": 0.2537
+      },
+      {
+        "id": "T1078",
+        "share": 0.23
+      },
+      {
+        "id": "T1190",
+        "share": 0.2165
+      },
+      {
+        "id": "T1133",
+        "share": 0.2056
+      },
+      {
+        "id": "T1486",
+        "share": 0.1712
+      },
+      {
+        "id": "T1566",
+        "share": 0.1516
+      },
+      {
+        "id": "T1078.004",
+        "share": 0.1296
+      },
+      {
+        "id": "T1213",
+        "share": 0.1291
+      },
+      {
+        "id": "T1021.001",
+        "share": 0.1237
+      },
+      {
+        "id": "T1039",
+        "share": 0.1085
+      },
+      {
+        "id": "T1489",
+        "share": 0.0974
+      },
+      {
+        "id": "T1552.001",
+        "share": 0.0896
+      },
+      {
+        "id": "T0828",
+        "share": 0.0775
+      },
+      {
+        "id": "T0831",
+        "share": 0.0775
+      }
+    ]
+  },
+  "E2": {
+    "corpus_size": 20,
+    "representable": 20,
+    "coverage": 1.0,
+    "gaps": [],
+    "per_plane": {
+      "it": 14,
+      "ot": 4,
+      "identity": 6,
+      "supply_chain": 8,
+      "cloud": 5
+    },
+    "per_impact": {
+      "imp_prod_stop": 11,
+      "imp_ip": 5,
+      "imp_pii": 4
+    },
+    "per_role": {
+      "OEM": 8,
+      "OEM via Tier-1": 1,
+      "Tier-1": 5,
+      "OEM cloud": 3,
+      "Retail SaaS": 1,
+      "Engineering services": 1,
+      "Semiconductor equipment supplier": 1
+    },
+    "per_year": {
+      "2017": 2,
+      "2020": 2,
+      "2022": 5,
+      "2023": 4,
+      "2024": 3,
+      "2025": 4
+    },
+    "supply_chain_share": 0.4,
+    "availability_share": 0.55,
+    "ot_interaction_share": 0.1,
+    "leave_one_out": {
+      "total": 20,
+      "survived": 13,
+      "score": 0.65,
+      "survived_internal": 15,
+      "score_internal": 0.75,
+      "failed": [
+        [
+          "INC-07",
+          "no modelled step ext_actor -> it_user_ws"
+        ],
+        [
+          "INC-08",
+          "no modelled step ext_actor -> it_insider"
+        ],
+        [
+          "INC-11",
+          "no modelled step ext_actor -> saas_dms"
+        ],
+        [
+          "INC-13",
+          "no modelled step ext_actor -> it_vpn"
+        ],
+        [
+          "INC-17",
+          "no modelled step ext_actor -> saas_crm"
+        ],
+        [
+          "INC-18",
+          "no modelled step ext_actor -> it_edge_app"
+        ],
+        [
+          "INC-19",
+          "no modelled step ext_actor -> cld_tenant"
+        ]
+      ],
+      "failed_internal": [
+        [
+          "INC-08",
+          "no modelled step it_insider -> it_sccm"
+        ],
+        [
+          "INC-11",
+          "no modelled step saas_dms -> imp_prod_stop"
+        ],
+        [
+          "INC-13",
+          "no modelled step it_vpn -> it_user_ws"
+        ],
+        [
+          "INC-17",
+          "no modelled step saas_crm -> imp_pii"
+        ],
+        [
+          "INC-18",
+          "no modelled step it_edge_app -> it_erp"
+        ]
+      ]
+    },
+    "median_percentile": 4.835164835164835,
+    "mean_percentile": 6.814102564102564,
+    "percentile_below_25": 20,
+    "percentile_count": 20
+  },
+  "E3": {
+    "top_nodes": [
+      {
+        "asset": "imp_prod_stop",
+        "name": "Production stoppage",
+        "zone": "Z-CONS",
+        "share": 0.4362
+      },
+      {
+        "asset": "imp_ip",
+        "name": "Theft of engineering and design data",
+        "zone": "Z-CONS",
+        "share": 0.3138
+      },
+      {
+        "asset": "ops_ews",
+        "name": "Engineering workstation",
+        "zone": "Z-OPS",
+        "share": 0.2677
+      },
+      {
+        "asset": "imp_pii",
+        "name": "Customer personal data breach",
+        "zone": "Z-CONS",
+        "share": 0.2318
+      },
+      {
+        "asset": "it_user_ws",
+        "name": "Employee workstation",
+        "zone": "Z-IT",
+        "share": 0.2272
+      },
+      {
+        "asset": "it_vpn",
+        "name": "Remote access VPN gateway",
+        "zone": "Z-IT",
+        "share": 0.1574
+      },
+      {
+        "asset": "sup_tier1",
+        "name": "Tier-1 supplier IT estate",
+        "zone": "Z-SUP",
+        "share": 0.1516
+      },
+      {
+        "asset": "it_erp",
+        "name": "ERP and production planning core",
+        "zone": "Z-IT",
+        "share": 0.1431
+      },
+      {
+        "asset": "it_edge_app",
+        "name": "Internet-facing enterprise application",
+        "zone": "Z-IT",
+        "share": 0.112
+      },
+      {
+        "asset": "id_ad",
+        "name": "On-premises Active Directory (tier 0)",
+        "zone": "Z-IDP",
+        "share": 0.1105
+      },
+      {
+        "asset": "it_fileshare",
+        "name": "Engineering and business file shares",
+        "zone": "Z-IT",
+        "share": 0.1085
+      },
+      {
+        "asset": "saas_crm",
+        "name": "Third-party CRM / customer platform",
+        "zone": "Z-SAAS",
+        "share": 0.1045
+      }
+    ],
+    "top_conduits": [
+      {
+        "src": "ext_actor",
+        "dst": "sup_tier1",
+        "technique": "T1566",
+        "share": 0.1516
+      },
+      {
+        "src": "ext_actor",
+        "dst": "it_edge_app",
+        "technique": "T1190",
+        "share": 0.112
+      },
+      {
+        "src": "ext_actor",
+        "dst": "it_vpn",
+        "technique": "T1133",
+        "share": 0.1119
+      },
+      {
+        "src": "it_fileshare",
+        "dst": "imp_ip",
+        "technique": "T1567.002",
+        "share": 0.1085
+      },
+      {
+        "src": "ext_actor",
+        "dst": "saas_crm",
+        "technique": "T1078.004",
+        "share": 0.1045
+      },
+      {
+        "src": "saas_crm",
+        "dst": "imp_pii",
+        "technique": "T1567.002",
+        "share": 0.1045
+      },
+      {
+        "src": "ext_actor",
+        "dst": "saas_dms",
+        "technique": "T1190",
+        "share": 0.1045
+      },
+      {
+        "src": "it_erp",
+        "dst": "imp_prod_stop",
+        "technique": "T1486",
+        "share": 0.0979
+      },
+      {
+        "src": "it_vpn",
+        "dst": "it_user_ws",
+        "technique": "T1021.001",
+        "share": 0.0884
+      },
+      {
+        "src": "ops_ews",
+        "dst": "imp_ip",
+        "technique": "T1213",
+        "share": 0.085
+      },
+      {
+        "src": "ext_actor",
+        "dst": "id_legacy_cred",
+        "technique": "T1078",
+        "share": 0.0803
+      },
+      {
+        "src": "it_user_ws",
+        "dst": "ops_ews",
+        "technique": "T1210",
+        "share": 0.0783
+      }
+    ]
+  },
+  "E4_baseline_ale": 47.5674063498855,
+  "E4_reduction": {
+    "S0": 0.0,
+    "S1": 1.2,
+    "S2": 1.2,
+    "S3": -26.3,
+    "S4": 64.6,
+    "S5": 92.9
+  },
+  "E4": {
+    "ransomware": {
+      "S0": {
+        "scenario": "S0 baseline",
+        "profile": "ransomware",
+        "p_any_impact": 0.0981,
+        "p_production_stop": 0.077,
+        "p_contained": 0.9019,
+        "mean_loss_musd": 31.71,
+        "p95_loss_musd": 274.94,
+        "mean_loss_given_impact_musd": 323.26,
+        "p95_loss_given_impact_musd": 732.99,
+        "mean_downtime_h": 24.8,
+        "mean_ttc_h": 35.4,
+        "ale_musd": 47.57
+      },
+      "S1": {
+        "scenario": "S1 identity-first",
+        "profile": "ransomware",
+        "p_any_impact": 0.0977,
+        "p_production_stop": 0.0757,
+        "p_contained": 0.9023,
+        "mean_loss_musd": 31.33,
+        "p95_loss_musd": 276.06,
+        "mean_loss_given_impact_musd": 320.84,
+        "p95_loss_given_impact_musd": 724.99,
+        "mean_downtime_h": 24.4,
+        "mean_ttc_h": 34.7,
+        "ale_musd": 47.0
+      },
+      "S2": {
+        "scenario": "S2 IEC 62443 zones and conduits",
+        "profile": "ransomware",
+        "p_any_impact": 0.0973,
+        "p_production_stop": 0.0758,
+        "p_contained": 0.9027,
+        "mean_loss_musd": 31.34,
+        "p95_loss_musd": 274.63,
+        "mean_loss_given_impact_musd": 322.12,
+        "p95_loss_given_impact_musd": 730.09,
+        "mean_downtime_h": 24.4,
+        "mean_ttc_h": 35.5,
+        "ale_musd": 47.01
+      },
+      "S3": {
+        "scenario": "S3 supply chain and cloud",
+        "profile": "ransomware",
+        "p_any_impact": 0.1037,
+        "p_production_stop": 0.1027,
+        "p_contained": 0.8962,
+        "mean_loss_musd": 40.06,
+        "p95_loss_musd": 367.4,
+        "mean_loss_given_impact_musd": 386.14,
+        "p95_loss_given_impact_musd": 734.79,
+        "mean_downtime_h": 33.2,
+        "mean_ttc_h": 55.8,
+        "ale_musd": 60.09
+      },
+      "S4": {
+        "scenario": "S4 detect and recover",
+        "profile": "ransomware",
+        "p_any_impact": 0.1014,
+        "p_production_stop": 0.0549,
+        "p_contained": 0.8986,
+        "mean_loss_musd": 11.24,
+        "p95_loss_musd": 104.31,
+        "mean_loss_given_impact_musd": 110.85,
+        "p95_loss_given_impact_musd": 222.98,
+        "mean_downtime_h": 4.5,
+        "mean_ttc_h": 22.9,
+        "ale_musd": 16.86
+      },
+      "S5": {
+        "scenario": "S5 full programme",
+        "profile": "ransomware",
+        "p_any_impact": 0.0238,
+        "p_production_stop": 0.0047,
+        "p_contained": 0.9762,
+        "mean_loss_musd": 2.24,
+        "p95_loss_musd": 0.0,
+        "mean_loss_given_impact_musd": 94.49,
+        "p95_loss_given_impact_musd": 201.32,
+        "mean_downtime_h": 0.4,
+        "mean_ttc_h": 23.7,
+        "ale_musd": 3.37
+      }
+    },
+    "espionage": {
+      "S0": {
+        "scenario": "S0 baseline",
+        "profile": "espionage",
+        "p_any_impact": 0.0986,
+        "p_production_stop": 0.0125,
+        "p_contained": 0.9014,
+        "mean_loss_musd": 14.65,
+        "p95_loss_musd": 100.38,
+        "mean_loss_given_impact_musd": 148.54,
+        "p95_loss_given_impact_musd": 514.87,
+        "mean_downtime_h": 4.1,
+        "mean_ttc_h": 25.9,
+        "ale_musd": 21.97
+      },
+      "S1": {
+        "scenario": "S1 identity-first",
+        "profile": "espionage",
+        "p_any_impact": 0.0985,
+        "p_production_stop": 0.0134,
+        "p_contained": 0.9015,
+        "mean_loss_musd": 15.0,
+        "p95_loss_musd": 100.57,
+        "mean_loss_given_impact_musd": 152.24,
+        "p95_loss_given_impact_musd": 528.85,
+        "mean_downtime_h": 4.4,
+        "mean_ttc_h": 26.0,
+        "ale_musd": 22.49
+      },
+      "S2": {
+        "scenario": "S2 IEC 62443 zones and conduits",
+        "profile": "espionage",
+        "p_any_impact": 0.098,
+        "p_production_stop": 0.0128,
+        "p_contained": 0.902,
+        "mean_loss_musd": 14.69,
+        "p95_loss_musd": 98.81,
+        "mean_loss_given_impact_musd": 149.91,
+        "p95_loss_given_impact_musd": 519.58,
+        "mean_downtime_h": 4.2,
+        "mean_ttc_h": 26.0,
+        "ale_musd": 22.04
+      },
+      "S3": {
+        "scenario": "S3 supply chain and cloud",
+        "profile": "espionage",
+        "p_any_impact": 0.0292,
+        "p_production_stop": 0.0032,
+        "p_contained": 0.9708,
+        "mean_loss_musd": 3.94,
+        "p95_loss_musd": 0.0,
+        "mean_loss_given_impact_musd": 135.08,
+        "p95_loss_given_impact_musd": 426.74,
+        "mean_downtime_h": 1.0,
+        "mean_ttc_h": 28.0,
+        "ale_musd": 5.92
+      },
+      "S4": {
+        "scenario": "S4 detect and recover",
+        "profile": "espionage",
+        "p_any_impact": 0.0997,
+        "p_production_stop": 0.011,
+        "p_contained": 0.9003,
+        "mean_loss_musd": 11.3,
+        "p95_loss_musd": 98.49,
+        "mean_loss_given_impact_musd": 113.3,
+        "p95_loss_given_impact_musd": 242.31,
+        "mean_downtime_h": 0.9,
+        "mean_ttc_h": 25.9,
+        "ale_musd": 16.94
+      },
+      "S5": {
+        "scenario": "S5 full programme",
+        "profile": "espionage",
+        "p_any_impact": 0.0266,
+        "p_production_stop": 0.0019,
+        "p_contained": 0.9735,
+        "mean_loss_musd": 2.75,
+        "p95_loss_musd": 0.0,
+        "mean_loss_given_impact_musd": 103.71,
+        "p95_loss_given_impact_musd": 220.29,
+        "mean_downtime_h": 0.1,
+        "mean_ttc_h": 24.9,
+        "ale_musd": 4.13
+      }
+    },
+    "sabotage": {
+      "S0": {
+        "scenario": "S0 baseline",
+        "profile": "sabotage",
+        "p_any_impact": 0.0858,
+        "p_production_stop": 0.0852,
+        "p_contained": 0.9142,
+        "mean_loss_musd": 33.61,
+        "p95_loss_musd": 319.46,
+        "mean_loss_given_impact_musd": 391.47,
+        "p95_loss_given_impact_musd": 756.07,
+        "mean_downtime_h": 27.8,
+        "mean_ttc_h": 37.7,
+        "ale_musd": 50.41
+      },
+      "S1": {
+        "scenario": "S1 identity-first",
+        "profile": "sabotage",
+        "p_any_impact": 0.0856,
+        "p_production_stop": 0.085,
+        "p_contained": 0.9144,
+        "mean_loss_musd": 33.58,
+        "p95_loss_musd": 316.92,
+        "mean_loss_given_impact_musd": 392.34,
+        "p95_loss_given_impact_musd": 736.11,
+        "mean_downtime_h": 27.9,
+        "mean_ttc_h": 36.4,
+        "ale_musd": 50.38
+      },
+      "S2": {
+        "scenario": "S2 IEC 62443 zones and conduits",
+        "profile": "sabotage",
+        "p_any_impact": 0.0864,
+        "p_production_stop": 0.0857,
+        "p_contained": 0.9136,
+        "mean_loss_musd": 33.81,
+        "p95_loss_musd": 319.73,
+        "mean_loss_given_impact_musd": 391.29,
+        "p95_loss_given_impact_musd": 757.67,
+        "mean_downtime_h": 28.0,
+        "mean_ttc_h": 37.6,
+        "ale_musd": 50.71
+      },
+      "S3": {
+        "scenario": "S3 supply chain and cloud",
+        "profile": "sabotage",
+        "p_any_impact": 0.103,
+        "p_production_stop": 0.1028,
+        "p_contained": 0.897,
+        "mean_loss_musd": 40.28,
+        "p95_loss_musd": 371.07,
+        "mean_loss_given_impact_musd": 391.05,
+        "p95_loss_given_impact_musd": 742.62,
+        "mean_downtime_h": 33.4,
+        "mean_ttc_h": 55.4,
+        "ale_musd": 60.42
+      },
+      "S4": {
+        "scenario": "S4 detect and recover",
+        "profile": "sabotage",
+        "p_any_impact": 0.0759,
+        "p_production_stop": 0.0713,
+        "p_contained": 0.9241,
+        "mean_loss_musd": 9.96,
+        "p95_loss_musd": 102.48,
+        "mean_loss_given_impact_musd": 131.16,
+        "p95_loss_given_impact_musd": 230.0,
+        "mean_downtime_h": 5.7,
+        "mean_ttc_h": 24.0,
+        "ale_musd": 14.93
+      },
+      "S5": {
+        "scenario": "S5 full programme",
+        "profile": "sabotage",
+        "p_any_impact": 0.0126,
+        "p_production_stop": 0.01,
+        "p_contained": 0.9873,
+        "mean_loss_musd": 1.64,
+        "p95_loss_musd": 0.0,
+        "mean_loss_given_impact_musd": 129.39,
+        "p95_loss_given_impact_musd": 238.33,
+        "mean_downtime_h": 0.8,
+        "mean_ttc_h": 23.8,
+        "ale_musd": 2.46
+      }
+    }
+  },
+  "E5_greedy_ransomware": [
+    "C08",
+    "C17",
+    "C11",
+    "C10",
+    "C14",
+    "C02"
+  ],
+  "E5": {
+    "baseline_ale": 47.5674063498855,
+    "full_programme_ale": 3.366313035260796,
+    "necessity": [
+      {
+        "control": "C11",
+        "delta_ale_if_removed": 12.858
+      },
+      {
+        "control": "C14",
+        "delta_ale_if_removed": 11.826
+      },
+      {
+        "control": "C07",
+        "delta_ale_if_removed": 1.566
+      },
+      {
+        "control": "C16",
+        "delta_ale_if_removed": 1.337
+      },
+      {
+        "control": "C17",
+        "delta_ale_if_removed": 1.085
+      },
+      {
+        "control": "C08",
+        "delta_ale_if_removed": 0.618
+      },
+      {
+        "control": "C02",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C03",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C04",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C06",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C09",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C12",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C13",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C15",
+        "delta_ale_if_removed": 0.0
+      },
+      {
+        "control": "C01",
+        "delta_ale_if_removed": -0.002
+      },
+      {
+        "control": "C05",
+        "delta_ale_if_removed": -0.01
+      },
+      {
+        "control": "C10",
+        "delta_ale_if_removed": -0.431
+      }
+    ],
+    "marginal": [
+      {
+        "control": "C17",
+        "delta_ale": 20.219,
+        "per_cost": 2.888
+      },
+      {
+        "control": "C08",
+        "delta_ale": 18.339,
+        "per_cost": 3.668
+      },
+      {
+        "control": "C10",
+        "delta_ale": 5.531,
+        "per_cost": 1.106
+      },
+      {
+        "control": "C07",
+        "delta_ale": 4.882,
+        "per_cost": 0.697
+      },
+      {
+        "control": "C02",
+        "delta_ale": 0.811,
+        "per_cost": 0.203
+      },
+      {
+        "control": "C05",
+        "delta_ale": 0.553,
+        "per_cost": 0.069
+      },
+      {
+        "control": "C01",
+        "delta_ale": 0.488,
+        "per_cost": 0.081
+      },
+      {
+        "control": "C03",
+        "delta_ale": 0.163,
+        "per_cost": 0.023
+      },
+      {
+        "control": "C12",
+        "delta_ale": 0.027,
+        "per_cost": 0.009
+      },
+      {
+        "control": "C04",
+        "delta_ale": 0.0,
+        "per_cost": 0.0
+      },
+      {
+        "control": "C06",
+        "delta_ale": 0.0,
+        "per_cost": 0.0
+      },
+      {
+        "control": "C09",
+        "delta_ale": 0.0,
+        "per_cost": 0.0
+      },
+      {
+        "control": "C15",
+        "delta_ale": 0.0,
+        "per_cost": 0.0
+      },
+      {
+        "control": "C13",
+        "delta_ale": -0.017,
+        "per_cost": -0.003
+      },
+      {
+        "control": "C16",
+        "delta_ale": -0.209,
+        "per_cost": -0.052
+      },
+      {
+        "control": "C14",
+        "delta_ale": -2.092,
+        "per_cost": -0.349
+      },
+      {
+        "control": "C11",
+        "delta_ale": -3.528,
+        "per_cost": -0.882
+      }
+    ],
+    "greedy": [
+      [
+        "ransomware",
+        1,
+        "C08",
+        "Immutable, offline and exercised backups (IT and OT)",
+        "5",
+        "29.23",
+        "18.34",
+        "3.67",
+        "5"
+      ],
+      [
+        "ransomware",
+        2,
+        "C17",
+        "Operational resilience: buffers, manual fallback and degraded mode",
+        "7",
+        "17.31",
+        "11.92",
+        "1.70",
+        "12"
+      ],
+      [
+        "ransomware",
+        3,
+        "C11",
+        "SaaS and OAuth token governance",
+        "4",
+        "16.86",
+        "0.45",
+        "0.11",
+        "16"
+      ],
+      [
+        "ransomware",
+        4,
+        "C10",
+        "Attack-surface management and expedited patching of exposed services",
+        "5",
+        "15.70",
+        "1.16",
+        "0.23",
+        "21"
+      ],
+      [
+        "ransomware",
+        5,
+        "C14",
+        "Supplier security assurance and contractual telemetry",
+        "6",
+        "7.41",
+        "8.29",
+        "1.38",
+        "27"
+      ],
+      [
+        "ransomware",
+        6,
+        "C02",
+        "Conditional access and device-compliance enforcement",
+        "4",
+        "5.52",
+        "1.89",
+        "0.47",
+        "31"
+      ],
+      [
+        "espionage",
+        1,
+        "C14",
+        "Supplier security assurance and contractual telemetry",
+        "6",
+        "14.75",
+        "7.22",
+        "1.20",
+        "6"
+      ],
+      [
+        "espionage",
+        2,
+        "C11",
+        "SaaS and OAuth token governance",
+        "4",
+        "11.65",
+        "3.10",
+        "0.78",
+        "10"
+      ],
+      [
+        "espionage",
+        3,
+        "C16",
+        "Cloud security and data-exposure posture management",
+        "4",
+        "5.89",
+        "5.76",
+        "1.44",
+        "14"
+      ],
+      [
+        "espionage",
+        4,
+        "C10",
+        "Attack-surface management and expedited patching of exposed services",
+        "5",
+        "4.29",
+        "1.60",
+        "0.32",
+        "19"
+      ],
+      [
+        "espionage",
+        5,
+        "C08",
+        "Immutable, offline and exercised backups (IT and OT)",
+        "5",
+        "4.10",
+        "0.20",
+        "0.04",
+        "24"
+      ],
+      [
+        "espionage",
+        6,
+        "C17",
+        "Operational resilience: buffers, manual fallback and degraded mode",
+        "7",
+        "3.95",
+        "0.15",
+        "0.02",
+        "31"
+      ],
+      [
+        "sabotage",
+        1,
+        "C08",
+        "Immutable, offline and exercised backups (IT and OT)",
+        "5",
+        "30.98",
+        "19.43",
+        "3.89",
+        "5"
+      ],
+      [
+        "sabotage",
+        2,
+        "C17",
+        "Operational resilience: buffers, manual fallback and degraded mode",
+        "7",
+        "16.34",
+        "14.65",
+        "2.09",
+        "12"
+      ],
+      [
+        "sabotage",
+        3,
+        "C10",
+        "Attack-surface management and expedited patching of exposed services",
+        "5",
+        "14.98",
+        "1.35",
+        "0.27",
+        "17"
+      ],
+      [
+        "sabotage",
+        4,
+        "C14",
+        "Supplier security assurance and contractual telemetry",
+        "6",
+        "7.63",
+        "7.35",
+        "1.22",
+        "23"
+      ],
+      [
+        "sabotage",
+        5,
+        "C02",
+        "Conditional access and device-compliance enforcement",
+        "4",
+        "5.57",
+        "2.07",
+        "0.52",
+        "27"
+      ],
+      [
+        "sabotage",
+        6,
+        "C11",
+        "SaaS and OAuth token governance",
+        "4",
+        "4.92",
+        "0.64",
+        "0.16",
+        "31"
+      ]
+    ]
+  },
+  "E6": {
+    "replicates": 200,
+    "mean_top10_overlap": 0.6574999999999998,
+    "top1_stability": 0.36,
+    "sweeps": {
+      "detection efficacy x": [
+        [
+          0.5,
+          176.803
+        ],
+        [
+          0.75,
+          95.751
+        ],
+        [
+          1.0,
+          47.567
+        ],
+        [
+          1.25,
+          25.945
+        ],
+        [
+          1.5,
+          14.228
+        ]
+      ],
+      "campaign frequency /yr": [
+        [
+          0.5,
+          15.856
+        ],
+        [
+          1.0,
+          31.712
+        ],
+        [
+          1.5,
+          47.567
+        ],
+        [
+          2.5,
+          79.279
+        ],
+        [
+          4.0,
+          126.846
+        ]
+      ]
+    },
+    "baseline_ale_check": 46.94935358411827,
+    "control_rank_stability": [
+      {
+        "control": "C08",
+        "mean_rank": 2.25,
+        "best": 1,
+        "worst": 5
+      },
+      {
+        "control": "C17",
+        "mean_rank": 3.33,
+        "best": 2,
+        "worst": 6
+      },
+      {
+        "control": "C10",
+        "mean_rank": 3.83,
+        "best": 1,
+        "worst": 15
+      },
+      {
+        "control": "C07",
+        "mean_rank": 6.58,
+        "best": 3,
+        "worst": 17
+      },
+      {
+        "control": "C14",
+        "mean_rank": 6.58,
+        "best": 1,
+        "worst": 17
+      },
+      {
+        "control": "C11",
+        "mean_rank": 8.25,
+        "best": 1,
+        "worst": 17
+      },
+      {
+        "control": "C02",
+        "mean_rank": 9.25,
+        "best": 1,
+        "worst": 17
+      },
+      {
+        "control": "C03",
+        "mean_rank": 9.33,
+        "best": 6,
+        "worst": 14
+      },
+      {
+        "control": "C06",
+        "mean_rank": 9.83,
+        "best": 7,
+        "worst": 13
+      },
+      {
+        "control": "C04",
+        "mean_rank": 10.0,
+        "best": 7,
+        "worst": 14
+      },
+      {
+        "control": "C01",
+        "mean_rank": 10.17,
+        "best": 3,
+        "worst": 16
+      },
+      {
+        "control": "C12",
+        "mean_rank": 10.92,
+        "best": 4,
+        "worst": 16
+      },
+      {
+        "control": "C09",
+        "mean_rank": 11.5,
+        "best": 9,
+        "worst": 14
+      },
+      {
+        "control": "C05",
+        "mean_rank": 12.33,
+        "best": 7,
+        "worst": 17
+      },
+      {
+        "control": "C15",
+        "mean_rank": 12.5,
+        "best": 8,
+        "worst": 16
+      },
+      {
+        "control": "C13",
+        "mean_rank": 13.08,
+        "best": 10,
+        "worst": 15
+      },
+      {
+        "control": "C16",
+        "mean_rank": 13.25,
+        "best": 7,
+        "worst": 17
+      }
+    ]
+  },
+  "meta": {
+    "trials": 20000,
+    "generated_s": 564.7,
+    "python": "3.11.15"
+  }
+}

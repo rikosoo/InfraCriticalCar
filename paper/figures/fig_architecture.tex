@@ -1,0 +1,100 @@
+% Reference architecture of the modelled plant (hand-drawn TikZ).
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  font=\scriptsize,
+  zone/.style={draw, rounded corners=2pt, align=center, inner sep=3pt,
+               minimum height=9mm, fill=gray!6},
+  ext/.style={zone, fill=Maroon!10, draw=Maroon!60},
+  it/.style={zone, fill=MidnightBlue!8, draw=MidnightBlue!60},
+  idp/.style={zone, fill=Purple!8, draw=Purple!60},
+  cld/.style={zone, fill=RoyalBlue!8, draw=RoyalBlue!55},
+  ot/.style={zone, fill=OliveGreen!8, draw=OliveGreen!60},
+  cons/.style={zone, fill=Maroon!12, draw=Maroon!70, minimum width=26mm},
+  lvl/.style={font=\scriptsize\itshape, text=gray!60, anchor=west},
+  flow/.style={-{Latex[length=1.6mm]}, draw=gray!70, thick},
+  hot/.style={-{Latex[length=1.8mm]}, draw=Maroon!80, very thick},
+]
+
+% ---- Purdue level guides ------------------------------------------------
+\node[lvl] at (-2.6, 0.0)   {L5};
+\node[lvl] at (-2.6,-1.7)   {L4};
+\node[lvl] at (-2.6,-3.3)   {L3.5};
+\node[lvl] at (-2.6,-4.7)   {L3};
+\node[lvl] at (-2.6,-6.1)   {L2};
+\node[lvl] at (-2.6,-7.5)   {L1};
+\node[lvl] at (-2.6,-8.8)   {L0};
+
+% ---- Level 5 -------------------------------------------------------------
+\node[ext, minimum width=26mm] (actor) at (-0.6,0) {\textbf{Z-EXT} external actor\\\scriptsize Internet};
+\node[ext, minimum width=38mm, fill=Maroon!6] (sup) at (4.6,0)
+  {\textbf{Z-SUP} suppliers and integrators\\\scriptsize Tier-1 IT $\cdot$ EDI/JIT $\cdot$ vendor remote access $\cdot$ update channel};
+\node[cld, minimum width=32mm] (saas) at (10.6,0)
+  {\textbf{Z-SAAS} third-party SaaS\\\scriptsize CRM $\cdot$ dealer platform};
+
+% ---- Level 4 -------------------------------------------------------------
+\node[it, minimum width=38mm] (itz) at (-0.2,-1.7)
+  {\textbf{Z-IT} corporate IT\\\scriptsize mail $\cdot$ workstations $\cdot$ service desk $\cdot$ VPN\\\scriptsize edge app $\cdot$ ERP $\cdot$ endpoint mgmt $\cdot$ backup};
+\node[idp, minimum width=32mm] (idp) at (5.3,-1.7)
+  {\textbf{Z-IDP} identity plane\\\scriptsize AD $\cdot$ cloud IdP $\cdot$ federation\\\scriptsize PAM $\cdot$ dormant credentials};
+\node[cld, minimum width=32mm] (cld) at (10.6,-1.7)
+  {\textbf{Z-CLD} OEM cloud tenant\\\scriptsize control plane $\cdot$ object storage\\\scriptsize CI/CD $\cdot$ connected-vehicle back end};
+
+% ---- Level 3.5 -----------------------------------------------------------
+\node[ot, minimum width=86mm] (idmz) at (3.9,-3.3)
+  {\textbf{Z-IDMZ} industrial DMZ \;\scriptsize jump server $\cdot$ vendor remote-access broker $\cdot$ patch/AV relay $\cdot$ historian mirror};
+
+% ---- Level 3 -------------------------------------------------------------
+\node[ot, minimum width=86mm] (ops) at (3.9,-4.7)
+  {\textbf{Z-OPS} site operations \;\scriptsize MES $\cdot$ historian $\cdot$ engineering workstation $\cdot$ OT domain controller};
+
+% ---- Level 2 -------------------------------------------------------------
+\node[ot, minimum width=86mm] (scada) at (3.9,-6.1)
+  {\textbf{Z-SCADA} area supervisory control \;\scriptsize SCADA/line control server $\cdot$ operator HMI};
+
+% ---- Level 1 -------------------------------------------------------------
+\node[ot, minimum width=86mm] (ctrl) at (3.9,-7.5)
+  {\textbf{Z-CTRL} basic control \;\scriptsize body-shop PLC $\cdot$ robot cell controller $\cdot$ safety PLC};
+
+% ---- Level 0 -------------------------------------------------------------
+\node[ot, minimum width=86mm] (proc) at (3.9,-8.8)
+  {\textbf{Z-PROC} physical process \;\scriptsize assembly and weld line $\cdot$ paint shop};
+
+% ---- Consequences --------------------------------------------------------
+\node[cons] (c1) at (14.6,-3.3) {production stoppage};
+\node[cons] (c2) at (14.6,-4.7) {quality degradation};
+\node[cons] (c3) at (14.6,-6.1) {loss of safety function};
+\node[cons] (c4) at (14.6,-7.5) {engineering data theft};
+\node[cons] (c5) at (14.6,-8.8) {personal data breach};
+
+% ---- Flows ---------------------------------------------------------------
+\draw[hot] (actor.south) -- (itz.north);
+\draw[hot] (actor.east) -- (sup.west);
+\draw[flow] (sup.south) -- (idmz.north west);
+\draw[hot] (sup.south east) to[out=-70,in=110] (c1.north west);
+\draw[flow] (saas.south) -- (cld.north);
+\draw[flow] (saas.east) to[out=0,in=90] (c5.north);
+\draw[flow] (itz.east) -- (idp.west);
+\draw[flow] (idp.east) -- (cld.west);
+\draw[flow] (idp.south) -- (idmz.north);
+\draw[flow] (cld.south east) to[out=-60,in=60] (c5.north east);
+\draw[flow] (cld.south) to[out=-110,in=25] (ops.north east);
+\draw[hot] (itz.south east) to[out=-30,in=160] (c1.north west);
+\draw[flow] (idmz.south) -- (ops.north);
+\draw[flow] (ops.south) -- (scada.north);
+\draw[flow] (ops.east) -- (c4.west);
+\draw[flow] (scada.south) -- (ctrl.north);
+\draw[flow] (ctrl.south) -- (proc.north);
+\draw[flow] (ctrl.east) -- (c3.west);
+\draw[flow] (proc.east) to[out=0,in=-90] (c1.south);
+\draw[flow] (proc.east) to[out=10,in=-100] (c2.south);
+
+\end{tikzpicture}
+\caption{Reference architecture of the modelled vehicle assembly plant: 12 IEC
+62443 zones across five planes, 48 assets and 91 attack steps. Dark arrows mark
+the two highest-likelihood routes to production stoppage found in
+\cref{sec:results}; both terminate in business and logistics systems without
+entering the control layers. Grey arrows show the remaining principal
+conduits.}
+\label{fig:architecture}
+\end{figure*}

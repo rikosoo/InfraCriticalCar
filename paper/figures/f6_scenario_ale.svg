@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" font-family="Helvetica,Arial,sans-serif">
+<title>Annualised loss expectancy by scenario and actor profile</title>
+<rect width="900" height="420" fill="#ffffff"/>
+<text x="18" y="28" font-size="17" font-weight="600" fill="#222222">Annualised loss expectancy by scenario and actor profile</text>
+<line x1="70" y1="344.0" x2="876" y2="344.0" stroke="#d9d9d9"/>
+<text x="62" y="348.0" font-size="11" text-anchor="end" fill="#666">0</text>
+<line x1="70" y1="274.0" x2="876" y2="274.0" stroke="#d9d9d9"/>
+<text x="62" y="278.0" font-size="11" text-anchor="end" fill="#666">17</text>
+<line x1="70" y1="204.0" x2="876" y2="204.0" stroke="#d9d9d9"/>
+<text x="62" y="208.0" font-size="11" text-anchor="end" fill="#666">35</text>
+<line x1="70" y1="134.0" x2="876" y2="134.0" stroke="#d9d9d9"/>
+<text x="62" y="138.0" font-size="11" text-anchor="end" fill="#666">52</text>
+<line x1="70" y1="64.0" x2="876" y2="64.0" stroke="#d9d9d9"/>
+<text x="62" y="68.0" font-size="11" text-anchor="end" fill="#666">69</text>
+<rect x="84.8" y="152.3" width="31.4" height="191.7" fill="#1f4e79" fill-opacity="0.9"/>
+<rect x="119.7" y="255.5" width="31.4" height="88.5" fill="#c0504d" fill-opacity="0.9"/>
+<rect x="154.6" y="140.9" width="31.4" height="203.1" fill="#4f81bd" fill-opacity="0.9"/>
+<text x="137.2" y="362" font-size="11" text-anchor="middle" fill="#222222">S0</text>
+<rect x="219.1" y="154.6" width="31.4" height="189.4" fill="#1f4e79" fill-opacity="0.9"/>
+<rect x="254.0" y="253.4" width="31.4" height="90.6" fill="#c0504d" fill-opacity="0.9"/>
+<rect x="289.0" y="141.0" width="31.4" height="203.0" fill="#4f81bd" fill-opacity="0.9"/>
+<text x="271.5" y="362" font-size="11" text-anchor="middle" fill="#222222">S1</text>
+<rect x="353.4" y="154.6" width="31.4" height="189.4" fill="#1f4e79" fill-opacity="0.9"/>
+<rect x="388.4" y="255.2" width="31.4" height="88.8" fill="#c0504d" fill-opacity="0.9"/>
+<rect x="423.3" y="139.7" width="31.4" height="204.3" fill="#4f81bd" fill-opacity="0.9"/>
+<text x="405.8" y="362" font-size="11" text-anchor="middle" fill="#222222">S2</text>
+<rect x="487.8" y="101.9" width="31.4" height="242.1" fill="#1f4e79" fill-opacity="0.9"/>
+<rect x="522.7" y="320.1" width="31.4" height="23.9" fill="#c0504d" fill-opacity="0.9"/>
+<rect x="557.6" y="100.5" width="31.4" height="243.5" fill="#4f81bd" fill-opacity="0.9"/>
+<text x="540.2" y="362" font-size="11" text-anchor="middle" fill="#222222">S3</text>
+<rect x="622.1" y="276.1" width="31.4" height="67.9" fill="#1f4e79" fill-opacity="0.9"/>
+<rect x="657.0" y="275.7" width="31.4" height="68.3" fill="#c0504d" fill-opacity="0.9"/>
+<rect x="692.0" y="283.8" width="31.4" height="60.2" fill="#4f81bd" fill-opacity="0.9"/>
+<text x="674.5" y="362" font-size="11" text-anchor="middle" fill="#222222">S4</text>
+<rect x="756.4" y="330.4" width="31.4" height="13.6" fill="#1f4e79" fill-opacity="0.9"/>
+<rect x="791.4" y="327.4" width="31.4" height="16.6" fill="#c0504d" fill-opacity="0.9"/>
+<rect x="826.3" y="334.1" width="31.4" height="9.9" fill="#4f81bd" fill-opacity="0.9"/>
+<text x="808.8" y="362" font-size="11" text-anchor="middle" fill="#222222">S5</text>
+<rect x="70" y="390" width="12" height="12" fill="#1f4e79"/>
+<text x="88" y="401" font-size="12" fill="#222222">ransomware</text>
+<rect x="260" y="390" width="12" height="12" fill="#c0504d"/>
+<text x="278" y="401" font-size="12" fill="#222222">espionage</text>
+<rect x="450" y="390" width="12" height="12" fill="#4f81bd"/>
+<text x="468" y="401" font-size="12" fill="#222222">sabotage</text>
+<text x="16" y="204" font-size="12" fill="#444" transform="rotate(-90 16 204)" text-anchor="middle">ALE (million USD / plant-year)</text>
+</svg>

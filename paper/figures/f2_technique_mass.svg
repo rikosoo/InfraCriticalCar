@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="492" viewBox="0 0 900 492" font-family="Helvetica,Arial,sans-serif">
+<title>ATT&amp;CK techniques by share of total path likelihood</title>
+<rect width="900" height="492" fill="#ffffff"/>
+<text x="18" y="30" font-size="17" font-weight="600" fill="#222222">ATT&amp;CK techniques by share of total path likelihood</text>
+<line x1="360.0" y1="48" x2="360.0" y2="446" stroke="#d9d9d9" stroke-width="1"/>
+<text x="360.0" y="464" font-size="11" text-anchor="middle" fill="#666">0.00</text>
+<line x1="472.5" y1="48" x2="472.5" y2="446" stroke="#d9d9d9" stroke-width="1"/>
+<text x="472.5" y="464" font-size="11" text-anchor="middle" fill="#666">0.09</text>
+<line x1="585.0" y1="48" x2="585.0" y2="446" stroke="#d9d9d9" stroke-width="1"/>
+<text x="585.0" y="464" font-size="11" text-anchor="middle" fill="#666">0.18</text>
+<line x1="697.5" y1="48" x2="697.5" y2="446" stroke="#d9d9d9" stroke-width="1"/>
+<text x="697.5" y="464" font-size="11" text-anchor="middle" fill="#666">0.27</text>
+<line x1="810.0" y1="48" x2="810.0" y2="446" stroke="#d9d9d9" stroke-width="1"/>
+<text x="810.0" y="464" font-size="11" text-anchor="middle" fill="#666">0.35</text>
+<rect x="360" y="60" width="450.0" height="17" fill="#1f4e79" fill-opacity="0.88"/>
+<text x="350" y="73" font-size="12" text-anchor="end" fill="#222222">T1567.002 Exfiltration Over Web Service: Exf</text>
+<text x="818.0" y="73" font-size="11" fill="#444">0.35</text>
+<rect x="360" y="86" width="322.0" height="17" fill="#c0504d" fill-opacity="0.88"/>
+<text x="350" y="99" font-size="12" text-anchor="end" fill="#222222">T1210 Exploitation of Remote Services</text>
+<text x="690.0" y="99" font-size="11" fill="#444">0.25</text>
+<rect x="360" y="112" width="291.9" height="17" fill="#4f81bd" fill-opacity="0.88"/>
+<text x="350" y="125" font-size="12" text-anchor="end" fill="#222222">T1078 Valid Accounts</text>
+<text x="659.9" y="125" font-size="11" fill="#444">0.23</text>
+<rect x="360" y="138" width="274.8" height="17" fill="#9bbb59" fill-opacity="0.88"/>
+<text x="350" y="151" font-size="12" text-anchor="end" fill="#222222">T1190 Exploit Public-Facing Application</text>
+<text x="642.8" y="151" font-size="11" fill="#444">0.22</text>
+<rect x="360" y="164" width="260.9" height="17" fill="#8064a2" fill-opacity="0.88"/>
+<text x="350" y="177" font-size="12" text-anchor="end" fill="#222222">T1133 External Remote Services</text>
+<text x="628.9" y="177" font-size="11" fill="#444">0.21</text>
+<rect x="360" y="190" width="217.3" height="17" fill="#f79646" fill-opacity="0.88"/>
+<text x="350" y="203" font-size="12" text-anchor="end" fill="#222222">T1486 Data Encrypted for Impact</text>
+<text x="585.3" y="203" font-size="11" fill="#444">0.17</text>
+<rect x="360" y="216" width="192.4" height="17" fill="#4bacc6" fill-opacity="0.88"/>
+<text x="350" y="229" font-size="12" text-anchor="end" fill="#222222">T1566 Phishing</text>
+<text x="560.4" y="229" font-size="11" fill="#444">0.15</text>
+<rect x="360" y="242" width="164.4" height="17" fill="#1f4e79" fill-opacity="0.88"/>
+<text x="350" y="255" font-size="12" text-anchor="end" fill="#222222">T1078.004 Valid Accounts: Cloud Accounts</text>
+<text x="532.4" y="255" font-size="11" fill="#444">0.13</text>
+<rect x="360" y="268" width="163.9" height="17" fill="#c0504d" fill-opacity="0.88"/>
+<text x="350" y="281" font-size="12" text-anchor="end" fill="#222222">T1213 Data from Information Repositories</text>
+<text x="531.9" y="281" font-size="11" fill="#444">0.13</text>
+<rect x="360" y="294" width="157.0" height="17" fill="#4f81bd" fill-opacity="0.88"/>
+<text x="350" y="307" font-size="12" text-anchor="end" fill="#222222">T1021.001 Remote Services: Remote Desktop Pr</text>
+<text x="525.0" y="307" font-size="11" fill="#444">0.12</text>
+<rect x="360" y="320" width="137.7" height="17" fill="#9bbb59" fill-opacity="0.88"/>
+<text x="350" y="333" font-size="12" text-anchor="end" fill="#222222">T1039 Data from Network Shared Drive</text>
+<text x="505.7" y="333" font-size="11" fill="#444">0.11</text>
+<rect x="360" y="346" width="123.6" height="17" fill="#8064a2" fill-opacity="0.88"/>
+<text x="350" y="359" font-size="12" text-anchor="end" fill="#222222">T1489 Service Stop</text>
+<text x="491.6" y="359" font-size="11" fill="#444">0.10</text>
+<rect x="360" y="372" width="113.7" height="17" fill="#f79646" fill-opacity="0.88"/>
+<text x="350" y="385" font-size="12" text-anchor="end" fill="#222222">T1552.001 Unsecured Credentials: Credentials</text>
+<text x="481.7" y="385" font-size="11" fill="#444">0.09</text>
+<rect x="360" y="398" width="98.3" height="17" fill="#4bacc6" fill-opacity="0.88"/>
+<text x="350" y="411" font-size="12" text-anchor="end" fill="#222222">T0828 Loss of Productivity and Revenue</text>
+<text x="466.3" y="411" font-size="11" fill="#444">0.08</text>
+<rect x="360" y="424" width="98.3" height="17" fill="#1f4e79" fill-opacity="0.88"/>
+<text x="350" y="437" font-size="12" text-anchor="end" fill="#222222">T0831 Manipulation of Control</text>
+<text x="466.3" y="437" font-size="11" fill="#444">0.08</text>
+<text x="585" y="484" font-size="12" text-anchor="middle" fill="#444">share of aggregate path likelihood</text>
+</svg>
