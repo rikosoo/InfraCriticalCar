@@ -507,6 +507,15 @@ e 21 o vazamento de dados pessoais. Contados ingenuamente, a planta parece um
 problema clássico de OT: 379 dos 455 caminhos de produção (83\%) passam pelo
 nível~2 de Purdue ou abaixo.
 
+A \cref{fig:depth} mostra o que acontece quando esses caminhos são ponderados
+por quão prováveis são. Os caminhos que nunca descem abaixo do nível~4 são
+8,5\% do grafo --- 58 de 681 --- e carregam 68,7\% da verossimilhança agregada;
+os 532 caminhos que alcançam o nível~2 ou abaixo são 78\% do grafo e carregam
+17,5\%. Contar caminhos e ponderá-los por plausibilidade não diferem apenas em
+ênfase: ordenam os problemas da planta em direções opostas.
+
+\input{figures-pt/fig_depth.tex}
+
 A ponderação por verossimilhança inverte essa conclusão. A
 \cref{fig:top-paths} e a \cref{tab:top-paths} apresentam as dez rotas mais
 prováveis até a parada de produção. O caminho mais provável tem três passos e
@@ -610,10 +619,19 @@ milhões para US\$ 5,9 milhões --- uma redução de 73\% --- enquanto
 US\$ 60,1 milhões. O mecanismo é visível nos traços da simulação: na linha de
 base, um ator sensível à utilidade frequentemente desvia para objetivos baratos
 de roubo de dados e é muitas vezes contido durante esses desvios; remover os
-objetivos baratos concentra a campanha no objetivo mais danoso. Um deslocamento
-de risco desse tipo é invisível para avaliações de controle que pontuam cada
-objetivo isoladamente, e recomenda sequenciar o programa de modo que a proteção
-da disponibilidade não fique atrás da proteção da confidencialidade.
+objetivos baratos concentra a campanha no objetivo mais danoso. A \cref{fig:mix} mostra o mecanismo diretamente. Ir do $S_0$ para o $S_3$ leva a
+probabilidade de uma campanha terminar em vazamento de dados de clientes de
+$0{,}019$ para $0{,}0003$ e em roubo de dados de engenharia de $0{,}0050$ para
+$0{,}0008$, enquanto a probabilidade de parada de produção sobe de $0{,}077$
+para $0{,}103$. O orçamento que o ator deixa de gastar em objetivos baratos é
+gasto no objetivo caro.
+
+\input{figures-pt/fig_mix.tex}
+
+Um deslocamento de risco desse tipo é invisível para avaliações de controle que
+pontuam cada objetivo isoladamente, e recomenda sequenciar o programa de modo
+que a proteção da disponibilidade não fique atrás da proteção da
+confidencialidade.
 
 \input{figures-pt/fig_scenario_ale.tex}
 

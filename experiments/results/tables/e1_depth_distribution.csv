@@ -1,0 +1,7 @@
+lowest_purdue_level,level_name,paths,likelihood_mass_share,min,q1,median,q3,max
+0,"Level 0 - Process (sensors, actuators, line hardware)",364,0.0854,2.062e-07,7.793e-06,3.671e-05,1.645e-04,2.245e-03
+1,"Level 1 - Basic control (PLC, safety PLC, robot controller)",70,0.0265,5.140e-06,3.813e-05,1.316e-04,5.103e-04,1.255e-03
+2,Level 2 - Area supervisory control (SCADA/HMI),98,0.0632,1.209e-06,2.880e-05,1.365e-04,5.276e-04,4.025e-03
+3,"Level 3 - Site operations (MES, historian, engineering)",91,0.1382,5.414e-06,9.018e-05,4.172e-04,1.472e-03,1.045e-02
+4,Level 4 - Enterprise IT and cloud,56,0.5522,1.568e-05,2.988e-04,1.258e-03,7.228e-03,8.400e-02
+5,Level 5 - Internet / external parties,2,0.1344,4.678e-02,5.040e-02,5.402e-02,5.764e-02,6.126e-02

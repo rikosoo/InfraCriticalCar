@@ -490,6 +490,15 @@ data theft, 35 a safety consequence and 21 a personal-data breach. Counted
 naively, the plant looks like a classical OT problem: 379 of the 455 production
 paths (83\%) pass through Purdue level~2 or below.
 
+\Cref{fig:depth} shows what happens when those paths are weighted by how likely
+they are. Paths that never descend below level~4 are 8.5\% of the graph --- 58
+of 681 --- and carry 68.7\% of the aggregate likelihood; the 532 paths that
+reach level~2 or below are 78\% of the graph and carry 17.5\%. Counting paths
+and weighting them by plausibility do not merely differ in emphasis: they order
+the plant's problems in opposite directions.
+
+\input{figures/fig_depth.tex}
+
 Weighting by likelihood inverts that conclusion. \Cref{fig:top-paths} and
 \cref{tab:top-paths} give the ten most likely routes to production stoppage.
 The most likely path has three steps and a likelihood of $0.047$:
@@ -587,10 +596,19 @@ espionage-profile ALE from \$22.0M to \$5.9M --- a 73\% reduction --- while
 mechanism is visible in the simulation traces: in the baseline, a utility-aware
 actor frequently detours to cheap data-theft objectives and is often contained
 during those detours; removing the cheap objectives concentrates the campaign
-on the most damaging one. Risk displacement of this kind is invisible to
-control assessments that score each objective independently, and it argues for
-sequencing a programme so that availability protection does not lag
-confidentiality protection.
+on the most damaging one.
+
+\Cref{fig:mix} shows the mechanism directly. Moving from $S_0$ to $S_3$ drives
+the probability that a campaign ends in a customer-data breach from $0.019$ to
+$0.0003$ and in engineering-data theft from $0.0050$ to $0.0008$, while the
+probability of a production stoppage rises from $0.077$ to $0.103$. The budget
+the actor no longer spends on cheap objectives is spent on the expensive one.
+
+Risk displacement of this kind is invisible to control assessments that score
+each objective independently, and it argues for sequencing a programme so that
+availability protection does not lag confidentiality protection.
+
+\input{figures/fig_mix.tex}
 
 \input{figures/fig_scenario_ale.tex}
 

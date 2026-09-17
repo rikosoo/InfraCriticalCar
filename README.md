@@ -20,7 +20,7 @@ line.
 
 | # | Finding | Evidence |
 |---|---------|----------|
-| F1 | **The path of least resistance never touches a controller.** The most likely route to a production stoppage is `actor → Tier-1 supplier → EDI/JIT interface → line stopped` (L = 0.047), **11.6× more likely** than the most likely route that reaches Purdue level 2 or below. | E1 |
+| F1 | **The path of least resistance never touches a controller.** The most likely route to a production stoppage is `actor → Tier-1 supplier → EDI/JIT interface → line stopped` (L = 0.047), **11.6× more likely** than the most likely route that reaches Purdue level 2 or below. Across the whole distribution: paths that never descend below level 4 are **8.5% of the graph and carry 68.7% of the likelihood**; the 78% that reach level 2 or below carry 17.5%. | E1 |
 | F2 | **The model agrees with the record.** All 20 corpus incidents are expressible as model paths, and the median incident sits at the **4.8th percentile** of all modelled paths to the same consequence. A leave-one-out ablation keeps 65% of them (75% for internal propagation only). | E2 |
 | F7 | **Better than what?** Against four baseline prioritisations, CAPM places the median observed incident at the 4.8th percentile; depth-into-OT ranking places it at the **95.9th** and zone-crossing ranking at the **98.9th** (both *p* < 10⁻⁴). Honest negative: a ranking that ignores detection entirely is **statistically indistinguishable** from CAPM (*p* = 0.99), so the containment term earns its place in the loss estimate, not the ranking. | E7 |
 | F3 | **The choke points are business systems.** Engineering workstation (0.27 of likelihood mass), employee workstation (0.23), VPN gateway (0.16), Tier-1 supplier IT (0.15), ERP (0.14). | E3 |
@@ -56,13 +56,16 @@ experiments/elicitation.py       run a parameter elicitation round (form / inges
 docs/elicitation-protocol.md     how to replace the authors' estimates with a panel's
 docs/literature-update.md        the search to run before submitting to a journal
 docs/model-reference.md          every zone, control and attack step with its parameters
+docs/literature-candidates.md    harvested candidate references, metadata unverified
+docs/reference-checklist.md      generated: what each bib entry has and what it lacks
+experiments/check_references.py  bibliography audit (dangling keys, missing DOIs)
 paper/body.tex         the paper's text, shared by every edition
 paper/main.tex         IEEE conference edition; paper-ieee-journal.tex, paper-sae.tex,
                        paper-elsevier.tex and main-pt.tex are the other editions
 paper/README.md        which edition is which, and a pre-submission checklist
 paper/references.bib   the shared bibliography
 capm/i18n.py           pt-BR renderings of asset, control and scenario names
-tests/                 pytest suite (61 tests, including a cross-process reproducibility guard)
+tests/                 pytest suite (63 tests, including a cross-process reproducibility guard)
 ```
 
 ## Reproducing everything

@@ -27,7 +27,8 @@ sys.path.insert(0, ROOT)
 from capm.architecture import build_graph
 from capm.controls import CONTROLS
 from capm.i18n import (CONFIDENCE_PT, IMPACT_SHORT_PT, PLANES_PT, PROFILES_PT,
-                       SCENARIOS_PT, asset as t_asset, control as t_control)
+                       SCENARIOS_PT, asset as t_asset, control as t_control,
+                       control_short)
 from capm.report import write_latex_table
 
 RES = os.path.join(ROOT, "experiments", "results")
@@ -130,6 +131,27 @@ CAPTIONS: Dict[str, Dict[str, str]] = {
               "consequencia (menor e melhor). $p$ e um teste exato de Wilcoxon bilateral "
               "contra o CAPM sobre os percentis pareados.",
     },
+    "fig:depth": {
+        "en": "Where the risk lives. For each Purdue level, the share of modelled paths "
+              "that reach it as their deepest point (left bars) against the share of "
+              "aggregate path likelihood those paths carry (right bars). Most paths go "
+              "deep; most of the plausible risk does not.",
+        "pt": "Onde o risco esta. Para cada nivel de Purdue, a fracao dos caminhos "
+              "modelados que o alcancam como ponto mais profundo (barras a esquerda) "
+              "contra a fracao da verossimilhanca agregada que esses caminhos carregam "
+              "(barras a direita). A maioria dos caminhos desce fundo; a maior parte do "
+              "risco plausivel nao.",
+    },
+    "fig:mix": {
+        "en": "Consequence mix per campaign under each control scenario, big-game "
+              "ransomware profile. $S_3$ removes the cheap data-theft outcomes and the "
+              "production-stoppage probability rises: the displacement effect of "
+              "section~VI.D made visible.",
+        "pt": "Composicao das consequencias por campanha em cada cenario de controles, "
+              "perfil de ransomware de grande porte. O $S_3$ remove os desfechos baratos "
+              "de roubo de dados e a probabilidade de parada de producao sobe: o efeito "
+              "de deslocamento da secao~VI.D tornado visivel.",
+    },
     "fig:baselines": {
         "en": "Median percentile of the corpus incidents under each prioritisation "
               "(lower is better). The segmentation- and depth-centric heuristics rank the "
@@ -157,6 +179,8 @@ LABELS: Dict[str, Dict[str, str]] = {
     "ale": {"en": "ALE (MUSD / plant-year)", "pt": "perda anual esperada (MUSD/planta-ano)"},
     "cost": {"en": "cumulative control cost index", "pt": "índice de custo acumulado"},
     "incidents": {"en": "incidents", "pt": "incidentes"},
+    "share": {"en": "share", "pt": "fracao"},
+    "probability": {"en": "probability per campaign", "pt": "probabilidade por campanha"},
     "median_pct": {"en": "median percentile among paths to the same consequence",
                    "pt": "percentil mediano entre caminhos para a mesma consequencia"},
     "sens_x": {"en": "parameter multiplier (detection) or campaigns per year (frequency)",
@@ -325,7 +349,7 @@ class Renderer:
         write_latex_table(
             os.path.join(self.tab_dir, "e5_marginal.tex"),
             TABLE_HEADERS["tab:marginal"][lang],
-            [(r["control"], self.control_name(r["control"], 38), r["ale_reduction_musd"],
+            [(r["control"], self.control_name(r["control"]), r["ale_reduction_musd"],
               r["reduction_per_cost"], "; ".join(r["iec62443_3_3"].split("; ")[:2]))
              for r in rows],
             caption=cap("tab:marginal", lang), label="tab:marginal",
@@ -335,7 +359,7 @@ class Renderer:
         write_latex_table(
             os.path.join(self.tab_dir, "e5_greedy.tex"),
             TABLE_HEADERS["tab:greedy"][lang],
-            [(r["step"], r["control"], self.control_name(r["control"], 34),
+            [(r["step"], r["control"], self.control_name(r["control"]),
               r["ale_after_musd"], r["gain_per_cost"]) for r in rows],
             caption=cap("tab:greedy", lang), label="tab:greedy", align="rlp{\\capmnamecol}rr", star=True)
 
@@ -343,7 +367,7 @@ class Renderer:
         write_latex_table(
             os.path.join(self.tab_dir, "e5_necessity.tex"),
             TABLE_HEADERS["tab:necessity"][lang],
-            [(n["control"], self.control_name(n["control"], 34),
+            [(n["control"], self.control_name(n["control"]),
               f"{n['delta_ale_if_removed']:.2f}") for n in nec],
             caption=cap("tab:necessity", lang), label="tab:necessity",
             align="lp{\\capmnamecol}r")
@@ -369,7 +393,7 @@ class Renderer:
         write_latex_table(
             os.path.join(self.tab_dir, "controls_mapping.tex"),
             TABLE_HEADERS["tab:controls"][lang],
-            [(r["control"], self.control_name(r["control"], 44), r["iec62443_3_3"],
+            [(r["control"], self.control_name(r["control"]), r["iec62443_3_3"],
               r["nist_csf_2_0"]) for r in rows],
             caption=cap("tab:controls", lang), label="tab:controls",
             align="lp{\\capmnamecol}p{\\capmstdcol}p{\\capmstdcol}", star=True)
@@ -420,6 +444,46 @@ class Renderer:
         with open(os.path.join(self.fig_dir, path), "w", encoding="utf-8") as fh:
             fh.write(body)
 
+    def xbar_pairs(self, path: str, labels: Sequence[str],
+                   series: Sequence[Tuple[str, Sequence[float]]], xlabel: str,
+                   caption: str, label: str, height: str = "6.4cm") -> None:
+        """Two grouped horizontal bar series sharing one category axis."""
+        ticks = ",".join(str(i) for i in range(len(labels)))
+        names = ",".join("{" + l + "}" for l in labels)
+        colours = ["MidnightBlue", "Maroon"]
+        plots = []
+        for i, (name, values) in enumerate(series):
+            coords = " ".join(f"({v:.6f},{j})" for j, v in enumerate(values))
+            plots.append(f"\\addplot[fill={colours[i % 2]}!70, draw={colours[i % 2]}!85] "
+                         f"coordinates {{{coords}}};")
+        legend = ", ".join(name for name, _ in series)
+        body = f"""{HEAD}\\begin{{figure}}[t]
+\\centering
+\\resizebox{{\\linewidth}}{{!}}{{%
+\\begin{{tikzpicture}}
+\\begin{{axis}}[
+    xbar, width=\\linewidth, height={height},
+    xlabel={{{xlabel}}}, xmin=0,
+    ytick={{{ticks}}}, yticklabels={{{names}}}, y dir=reverse,
+    enlarge y limits=0.12, bar width=5pt,
+    ticklabel style={{font=\\scriptsize}}, label style={{font=\\footnotesize}},
+    nodes near coords, nodes near coords style={{font=\\tiny}},
+    every node near coord/.append style={{/pgf/number format/fixed,
+        /pgf/number format/precision=2}},
+    legend style={{at={{(0.98,0.03)}}, anchor=south east, font=\\scriptsize, draw=none}},
+    xmajorgrids, grid style={{gray!25}}, axis lines*=left, tick align=outside,
+]
+{chr(10).join(plots)}
+\\legend{{{legend}}}
+\\end{{axis}}
+\\end{{tikzpicture}}}}
+\\caption{{{caption}}}
+\\label{{{label}}}
+\\end{{figure}}
+"""
+        with open(os.path.join(self.fig_dir, path), "w", encoding="utf-8") as fh:
+            fh.write(body)
+
     def figures(self) -> None:
         lang = self.lang
         summary = self.summary
@@ -450,9 +514,10 @@ class Renderer:
                   lab("share_asset", lang), cap("fig:chokepoints", lang), "fig:chokepoints",
                   height="7.6cm", color="OliveGreen")
 
-        nec = summary["E5"]["necessity"][:10]
+        nec = [n for n in summary["E5"]["necessity"]
+               if n["delta_ale_if_removed"] > 0.05][:10]
         self.xbar("fig_necessity.tex",
-                  [f"{n['control']} {self.control_name(n['control'], 34)}" for n in nec],
+                  [f"{n['control']} {control_short(n['control'], lang)}" for n in nec],
                   [max(n["delta_ale_if_removed"], 0.0) for n in nec],
                   lab("ale_increase", lang), cap("fig:necessity", lang), "fig:necessity",
                   height="6.4cm", color="Purple")
@@ -563,6 +628,63 @@ class Renderer:
 \\end{{figure}}
 """
         open(os.path.join(self.fig_dir, "fig_frontier.tex"), "w", encoding="utf-8").write(body)
+
+        # where the risk lives: path count against likelihood mass, by depth
+        rows = read("e1_depth_distribution.csv")
+        total_paths = sum(int(r["paths"]) for r in rows) or 1
+        level_label = {"0": "L0 process", "1": "L1 control", "2": "L2 supervisory",
+                       "3": "L3 operations", "4": "L4 enterprise IT", "5": "L5 external"}
+        level_label_pt = {"0": "N0 processo", "1": "N1 controle", "2": "N2 supervisorio",
+                          "3": "N3 operacoes", "4": "N4 TI corporativa", "5": "N5 externo"}
+        table = level_label_pt if lang == "pt" else level_label
+        labels = [table.get(r["lowest_purdue_level"], r["lowest_purdue_level"]) for r in rows]
+        share_paths = [int(r["paths"]) / total_paths for r in rows]
+        share_mass = [float(r["likelihood_mass_share"]) for r in rows]
+        names = (("fracao dos caminhos", "fracao da verossimilhanca")
+                 if lang == "pt" else ("share of paths", "share of likelihood"))
+        self.xbar_pairs("fig_depth.tex", labels,
+                        [(names[0], share_paths), (names[1], share_mass)],
+                        lab("share", lang), cap("fig:depth", lang), "fig:depth")
+
+        # consequence mix per scenario: the displacement effect, made visible
+        rows = [r for r in read("e4_scenarios.csv") if r["profile"] == "ransomware"]
+        scen = [r["scenario"] for r in rows]
+        mix = [
+            ("production stoppage" if lang == "en" else "parada de producao",
+             [float(r["p_production_stop"]) for r in rows], "MidnightBlue"),
+            ("customer data breach" if lang == "en" else "vazamento de dados",
+             [float(r["p_data_breach"]) for r in rows], "Maroon"),
+            ("engineering data theft" if lang == "en" else "roubo de dados de eng.",
+             [float(r["p_ip_theft"]) for r in rows], "OliveGreen"),
+        ]
+        plots = []
+        for name, values, colour in mix:
+            coords = " ".join(f"({s_},{v})" for s_, v in zip(scen, values))
+            plots.append(f"\\addplot[fill={colour}!70, draw={colour}!85] "
+                         f"coordinates {{{coords}}};")
+        body = f"""{HEAD}\\begin{{figure}}[t]
+\\centering
+\\resizebox{{\\linewidth}}{{!}}{{%
+\\begin{{tikzpicture}}
+\\begin{{axis}}[
+    ybar, width=\\linewidth, height=5.8cm,
+    ylabel={{{lab('probability', lang)}}},
+    symbolic x coords={{{','.join(scen)}}}, xtick=data,
+    ymin=0, bar width=5pt, enlarge x limits=0.10,
+    legend style={{at={{(0.5,-0.22)}}, anchor=north, legend columns=3, font=\\scriptsize,
+                   draw=none}},
+    ticklabel style={{font=\\scriptsize}}, label style={{font=\\footnotesize}},
+    ymajorgrids, grid style={{gray!25}}, axis lines*=left,
+]
+{chr(10).join(plots)}
+\\legend{{{', '.join(m[0] for m in mix)}}}
+\\end{{axis}}
+\\end{{tikzpicture}}}}
+\\caption{{{cap('fig:mix', lang)}}}
+\\label{{fig:mix}}
+\\end{{figure}}
+"""
+        open(os.path.join(self.fig_dir, "fig_mix.tex"), "w", encoding="utf-8").write(body)
 
         rows = read("e7_baselines.csv")
         self.xbar("fig_baselines.tex",

@@ -192,3 +192,30 @@ def test_overrides_round_trip_into_the_graph(tmp_path):
 
     shift = compare(graph, overrides)
     assert len(shift) == 1 and shift[0]["p_shift"] == pytest.approx(0.05 - edge.p)
+
+
+# --- bibliography audit ---------------------------------------------------
+
+def test_reference_audit_parses_the_bibliography_and_finds_no_dangling_keys():
+    import importlib.util
+    import os
+    import sys
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    spec = importlib.util.spec_from_file_location(
+        "check_references", os.path.join(root, "experiments", "check_references.py"))
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["check_references"] = module
+    spec.loader.exec_module(module)
+
+    entries = module.parse_bib(os.path.join(root, "paper", "references.bib"))
+    assert len(entries) >= 50
+    keys = {k for k, _, _ in entries}
+    assert len(keys) == len(entries), "duplicate citation keys"
+    for key, kind, fields in entries:
+        assert "title" in fields, f"{key} has no title"
+        assert "year" in fields or "issued" in fields or kind == "misc", f"{key} has no year"
+    cited = module.cited_keys()
+    assert cited, "no citations found in the paper sources"
+    assert cited <= keys, f"cited but missing from the bibliography: {sorted(cited - keys)}"
+    assert keys <= cited, f"in the bibliography but never cited: {sorted(keys - cited)}"

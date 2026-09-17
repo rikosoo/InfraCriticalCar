@@ -81,6 +81,48 @@ CONTROLS_PT: Dict[str, str] = {
     "C17": "Resiliência operacional: buffers, fallback manual e modo degradado",
 }
 
+#: Short labels for chart axes, where a full control name does not fit and
+#: truncating one mangles it.
+CONTROLS_SHORT_EN: Dict[str, str] = {
+    "C01": "phishing-resistant MFA",
+    "C02": "conditional access",
+    "C03": "admin tiering and PAWs",
+    "C04": "brokered vendor access",
+    "C05": "IT/OT segmentation",
+    "C06": "application allowlisting",
+    "C07": "monitored endpoint detection",
+    "C08": "immutable tested backups",
+    "C09": "controller change control",
+    "C10": "attack-surface management",
+    "C11": "SaaS and OAuth governance",
+    "C12": "identity lifecycle hygiene",
+    "C13": "OT network monitoring",
+    "C14": "supplier assurance",
+    "C15": "service-desk proofing",
+    "C16": "cloud posture management",
+    "C17": "operational resilience",
+}
+
+CONTROLS_SHORT_PT: Dict[str, str] = {
+    "C01": "MFA resistente a phishing",
+    "C02": "acesso condicional",
+    "C03": "camadas administrativas",
+    "C04": "acesso de fornecedor intermediado",
+    "C05": "segmentação TI/OT",
+    "C06": "lista de permissão de aplicações",
+    "C07": "detecção monitorada em endpoint",
+    "C08": "backups imutáveis testados",
+    "C09": "controle de mudança em CLP",
+    "C10": "gestão de superfície de ataque",
+    "C11": "governança de SaaS e OAuth",
+    "C12": "higiene de identidades",
+    "C13": "monitoramento de rede OT",
+    "C14": "garantia de fornecedores",
+    "C15": "verificação no service desk",
+    "C16": "postura de nuvem",
+    "C17": "resiliência operacional",
+}
+
 SCENARIOS_PT: Dict[str, str] = {
     "S0": "S0 linha de base",
     "S1": "S1 identidade primeiro",
@@ -120,3 +162,9 @@ def control(cid: str, lang: str, fallback: str = "") -> str:
     if lang == "pt":
         return CONTROLS_PT.get(cid, fallback or cid)
     return fallback or cid
+
+
+def control_short(cid: str, lang: str) -> str:
+    """A label short enough for a chart axis, never a truncated full name."""
+    table = CONTROLS_SHORT_PT if lang == "pt" else CONTROLS_SHORT_EN
+    return table.get(cid, cid)

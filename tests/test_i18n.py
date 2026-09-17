@@ -62,3 +62,17 @@ def test_baseline_names_are_translated():
     names = {b.name for b in build_baselines(_build())} | {"CAPM path likelihood"}
     missing = [n for n in names if n not in module.BASELINE_NAMES_PT]
     assert missing == []
+
+
+def test_every_control_has_a_short_chart_label():
+    from capm.controls import CONTROLS as _CONTROLS
+    from capm.i18n import CONTROLS_SHORT_EN, CONTROLS_SHORT_PT, control_short
+
+    assert set(CONTROLS_SHORT_EN) == set(_CONTROLS)
+    assert set(CONTROLS_SHORT_PT) == set(_CONTROLS)
+    for cid in _CONTROLS:
+        for lang in ("en", "pt"):
+            label = control_short(cid, lang)
+            assert 0 < len(label) <= 34, f"{cid} label too long for an axis: {label}"
+    assert control_short("C08", "en") == "immutable tested backups"
+    assert control_short("C99", "en") == "C99"

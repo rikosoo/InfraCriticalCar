@@ -24,6 +24,7 @@ from capm.architecture import build_graph
 from capm.controls import CONTROLS, Portfolio, SCENARIOS, coverage_table
 from capm.incidents import analyse_corpus, leave_one_out_report, load_incidents, realise
 from capm.model import Edge, Path
+from capm.model import PURDUE_LEVELS
 from capm.paths import (choke_points, enumerate_paths, k_best_paths, purdue_depth,
                         rank_paths, zone_transitions)
 from capm.evaluation import (build_baselines, kendall_tau_b, percentile_positions,
@@ -38,6 +39,18 @@ TAB = os.path.join(RES, "tables")
 FIG = os.path.join(RES, "figures")
 
 SUMMARY: Dict[str, object] = {}
+
+
+def _quantile_list(sorted_values: Sequence[float], q: float) -> float:
+    if not sorted_values:
+        return float("nan")
+    if len(sorted_values) == 1:
+        return sorted_values[0]
+    pos = q * (len(sorted_values) - 1)
+    low = int(pos)
+    high = min(low + 1, len(sorted_values) - 1)
+    frac = pos - low
+    return sorted_values[low] * (1 - frac) + sorted_values[high] * frac
 
 
 def short(node_id: str, graph) -> str:
@@ -104,7 +117,37 @@ def e1_structure(graph) -> None:
                "ATT&CK techniques by share of total path likelihood",
                xlabel="share of aggregate path likelihood", value_fmt="{:.2f}", left=360)
 
+    # how the likelihood mass is distributed across the depth a path reaches
+    by_depth: Dict[int, List[float]] = {}
+    for path, weight in scored:
+        by_depth.setdefault(purdue_depth(path, graph), []).append(weight)
+    depth_rows: List[Sequence[object]] = []
+    depth_stats: Dict[int, Dict[str, float]] = {}
+    total_mass = sum(w for _, w in scored) or 1.0
+    for depth in sorted(by_depth):
+        values = sorted(by_depth[depth])
+        stats = {
+            "paths": len(values),
+            "mass_share": sum(values) / total_mass,
+            "max": values[-1],
+            "median": _quantile_list(values, 0.5),
+            "q1": _quantile_list(values, 0.25),
+            "q3": _quantile_list(values, 0.75),
+            "min": values[0],
+        }
+        depth_stats[depth] = stats
+        depth_rows.append((depth, PURDUE_LEVELS.get(depth, str(depth)), stats["paths"],
+                           f"{stats['mass_share']:.4f}", f"{stats['min']:.3e}",
+                           f"{stats['q1']:.3e}", f"{stats['median']:.3e}",
+                           f"{stats['q3']:.3e}", f"{stats['max']:.3e}"))
+    write_csv(os.path.join(TAB, "e1_depth_distribution.csv"),
+              ["lowest_purdue_level", "level_name", "paths", "likelihood_mass_share",
+               "min", "q1", "median", "q3", "max"], depth_rows)
+
     SUMMARY["E1"] = {
+        "depth_distribution": {str(k): {kk: (round(vv, 6) if isinstance(vv, float) else vv)
+                                        for kk, vv in v.items()}
+                               for k, v in depth_stats.items()},
         "graph": summary,
         "paths_total": len(all_paths),
         "paths_per_impact": per_impact,
@@ -256,6 +299,8 @@ def e4_scenarios(graph, trials: int) -> None:
             rows.append((profile, key, pf.name, f"{res.p_any_impact:.4f}",
                          f"{res.p_impact.get('imp_prod_stop', 0):.4f}",
                          f"{res.p_impact.get('imp_ip', 0):.4f}",
+                         f"{res.p_impact.get('imp_pii', 0):.4f}",
+                         f"{res.p_impact.get('imp_quality', 0):.4f}",
                          f"{res.p_impact.get('imp_safety', 0):.4f}",
                          f"{res.mean_downtime_h:.1f}", f"{res.mean_loss:.2f}",
                          f"{res.mean_loss_given_impact:.2f}", f"{res.ale:.2f}",
@@ -268,8 +313,8 @@ def e4_scenarios(graph, trials: int) -> None:
                                        for k, v in results.items()}
     write_csv(os.path.join(TAB, "e4_scenarios.csv"),
               ["profile", "scenario", "name", "p_impact", "p_production_stop", "p_ip_theft",
-               "p_safety", "mean_downtime_h", "mean_loss_musd", "mean_loss_given_impact_musd",
-               "ale_musd", "control_cost_index"], rows)
+               "p_data_breach", "p_quality", "p_safety", "mean_downtime_h", "mean_loss_musd",
+               "mean_loss_given_impact_musd", "ale_musd", "control_cost_index"], rows)
     ransom = [r for r in rows if r[0] == "ransomware"]
     scen_names = ["S0", "S1", "S2", "S3", "S4", "S5"]
     grouped_bar_chart(
