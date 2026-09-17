@@ -13,6 +13,7 @@
 \documentclass[preprint,12pt]{elsarticle}
 
 \input{preamble.tex}
+\input{authors.tex}
 \input{abstract.tex}
 
 \capmsinglecolumnfloats
@@ -33,12 +34,12 @@
 \title{From Cloud to Assembly Line: Modelling Cyberattack Paths in Automotive
 Manufacturing as Critical Infrastructure}
 
-\author[aff1]{Author Name\corref{cor1}}
-\ead{author@example.org}
+\author[aff1]{\capmauthor\corref{cor1}}
+\ead{\capmemail}
 \cortext[cor1]{Corresponding author.}
-\affiliation[aff1]{organization={Affiliation},
-                   city={City},
-                   country={Country}}
+\affiliation[aff1]{organization={\capmaffiliation},
+                   city={\capmcity},
+                   country={\capmcountry}}
 
 \begin{abstract}
 \capmabstract
@@ -64,7 +65,7 @@ supply-chain security \sep risk quantification
 
 \section*{CRediT authorship contribution statement}
 
-\textbf{Author Name:} Conceptualization, Methodology, Software, Validation,
+\textbf{\capmauthor:} Conceptualization, Methodology, Software, Validation,
 Formal analysis, Investigation, Data curation, Writing --- original draft,
 Writing --- review \& editing, Visualization.
 

@@ -20,6 +20,7 @@
 \usepackage{abstract}
 
 \input{preamble.tex}
+\input{authors.tex}
 \input{abstract.tex}
 
 % SAE papers are single column: the generated floats use the starred forms.
@@ -39,8 +40,8 @@ Automotive Manufacturing as Critical Infrastructure\par}
 \vspace{6pt}
 {\normalsize Paper Number: XX-XXXX-XXXX\par}
 \vspace{10pt}
-{\large Author Name\par}
-{\normalsize Affiliation\par}
+{\large \capmauthor\par}
+{\normalsize \capmaffiliation\par}
 \end{center}
 \vspace{6pt}
 
@@ -58,10 +59,10 @@ Automotive Manufacturing as Critical Infrastructure\par}
 
 \section*{Contact Information}
 
-Author Name, Affiliation, City, Country. E-mail: author@example.org. The model,
+\capmauthor, \capmaffiliation, \capmcity, \capmcountry. E-mail: \capmemail. The model,
 the incident corpus with its sources, and the experiment pipeline that generates
 every number in this paper are openly available at
-\url{https://github.com/rikosoo/InfraCriticalCar}.
+\url{\capmrepo}.
 
 \section*{Acknowledgments}
 

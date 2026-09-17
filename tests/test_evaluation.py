@@ -118,3 +118,77 @@ def test_percentiles_are_within_range_and_capm_leads():
 def test_score_ranking_handles_empty_input():
     empty = score_ranking("X", "none", [])
     assert math.isnan(empty.median) and empty.in_top_10pct == 0
+
+
+# --- elicitation ---------------------------------------------------------
+
+def test_elicitation_scales_and_parsing():
+    from capm.elicitation import P_SCALE, parse_answer
+
+    assert parse_answer("H", "p") == P_SCALE["H"]
+    assert parse_answer(" vh ", "delta") == pytest.approx(0.80)
+    assert parse_answer("0,45", "p") == pytest.approx(0.45)
+    assert parse_answer("", "p") is None
+    assert parse_answer("nonsense", "p") is None
+    assert parse_answer("1.4", "p") is None          # out of range
+    assert parse_answer("-3", "effort") is None      # not a duration
+    assert parse_answer("36", "effort") == pytest.approx(36.0)
+
+
+def test_elicitation_form_covers_the_graph_and_hides_current_values():
+    from capm.architecture import build_graph as _build
+    from capm.elicitation import FORM_HEADER, build_form
+
+    graph = _build()
+    rows = build_form(graph)
+    assert len(rows) == len(graph.edges)
+    assert len(rows[0]) == len(FORM_HEADER)
+    current_p = FORM_HEADER.index("current_p")
+    assert all(r[current_p] == "" for r in rows), "round 1 must not anchor the panel"
+    shown = build_form(graph, show_current=True)
+    assert all(r[current_p] != "" for r in shown)
+    assert len(build_form(graph, limit=5)) == 5
+
+
+def test_elicitation_aggregates_by_median_and_flags_disagreement():
+    from capm.elicitation import aggregate
+
+    agreeing = [{"step_id": "a|b|T1", "your_p": "H"},
+                {"step_id": "a|b|T1", "your_p": "H"},
+                {"step_id": "a|b|T1", "your_p": "M"}]
+    split = [{"step_id": "a|b|T1", "your_p": "VL"},
+             {"step_id": "a|b|T1", "your_p": "VH"},
+             {"step_id": "a|b|T1", "your_p": "M"}]
+    calm = aggregate(agreeing)["a|b|T1"]["p"]
+    noisy = aggregate(split)["a|b|T1"]["p"]
+    assert calm.median == pytest.approx(0.60)
+    assert calm.n == 3 and not calm.disagreement
+    assert noisy.median == pytest.approx(0.35)
+    assert noisy.disagreement
+    assert aggregate([{"your_p": "H"}]) == {}          # rows without a step are ignored
+
+
+def test_overrides_round_trip_into_the_graph(tmp_path):
+    from capm.architecture import build_graph as _build
+    from capm.elicitation import aggregate, compare, load_overrides, write_overrides
+
+    graph = _build()
+    edge = graph.edges[0]
+    sid = f"{edge.src}|{edge.dst}|{edge.technique}"
+    estimates = aggregate([{"step_id": sid, "your_p": "VL", "your_delta": "VH",
+                            "your_effort_h": "40"}])
+    path = write_overrides(str(tmp_path / "over.csv"), estimates)
+    overrides = load_overrides(path)
+    assert overrides[edge.key]["p"] == pytest.approx(0.05)
+
+    updated = _build(overrides)
+    changed = next(e for e in updated.edges if e.key == edge.key)
+    assert changed.p == pytest.approx(0.05)
+    assert changed.delta == pytest.approx(0.80)
+    assert changed.effort_h == pytest.approx(40.0)
+    untouched = next(e for e in updated.edges if e.key == graph.edges[1].key)
+    assert untouched.p == graph.edges[1].p
+    assert updated.validate() == []
+
+    shift = compare(graph, overrides)
+    assert len(shift) == 1 and shift[0]["p_shift"] == pytest.approx(0.05 - edge.p)

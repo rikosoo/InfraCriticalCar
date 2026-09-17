@@ -20,6 +20,10 @@ assets:
 model:
 	$(PYTHON) experiments/export_model.py
 
+## emit the parameter elicitation form (see docs/elicitation-protocol.md)
+elicitation-form:
+	$(PYTHON) experiments/elicitation.py form --limit 30
+
 ## run the test suite
 test:
 	$(PYTHON) -m pytest

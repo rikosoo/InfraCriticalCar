@@ -15,7 +15,7 @@ quantifies how sensitive the conclusions are to them.
 
 from __future__ import annotations
 
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from .model import Asset, AttackGraph, Consequence, Edge, Zone
 from .techniques import catalogue
@@ -302,8 +302,16 @@ AMPLIFIERS: Dict[str, float] = {"it_backup": 1.8, "it_sccm": 1.25, "ops_ot_ad": 
 ENTRY_POINTS: Tuple[str, ...] = ("ext_actor",)
 
 
-def build_graph() -> AttackGraph:
-    """Instantiate and validate the reference attack graph."""
+def build_graph(overrides: Optional[Dict[Tuple[str, str, str], Dict[str, float]]] = None
+                ) -> AttackGraph:
+    """Instantiate and validate the reference attack graph.
+
+    ``overrides`` replaces ``p``, ``delta`` or ``effort_h`` on individual steps,
+    keyed by ``(src, dst, technique)``. It is how elicited parameters enter the
+    model: ``capm.elicitation.load_overrides`` reads the file a panel produced,
+    and the whole pipeline can then be re-run on measured rather than assumed
+    values. Steps absent from the mapping keep their published estimate.
+    """
     g = AttackGraph()
     for z in ZONES:
         g.add_zone(z)
@@ -312,6 +320,12 @@ def build_graph() -> AttackGraph:
     for tid, tech in catalogue().items():
         g.add_technique(tech)
     for (src, dst, tech, p, delta, effort, controls, rationale, evidence) in EDGES:
+        if overrides:
+            replacement = overrides.get((src, dst, tech))
+            if replacement:
+                p = replacement.get("p", p)
+                delta = replacement.get("delta", delta)
+                effort = replacement.get("effort_h", effort)
         g.add_edge(Edge(src, dst, tech, p, delta, effort, tuple(controls), rationale, tuple(evidence)))
     g.consequences = dict(CONSEQUENCES)
     g.entry_points = ENTRY_POINTS

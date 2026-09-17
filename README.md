@@ -45,12 +45,16 @@ capm/                  the model (pure Python 3.9+, zero dependencies)
   risk.py              Monte Carlo campaign simulation, actor profiles, ALE
   incidents.py         corpus loader, reconciliation, leave-one-out ablation
   evaluation.py        Wilson intervals, exact Wilcoxon, Kendall tau, baseline rankings
+  elicitation.py       anchored-scale forms, Delphi aggregation, parameter overrides
   report.py            CSV, LaTeX table and SVG figure writers
   cli.py               command-line exploration of the model
 data/incidents.csv     the empirical corpus, with sources and confidence labels
 experiments/run_all.py the full pipeline (E1–E7) -> tables, figures, summary.json
 experiments/build_paper_assets.py LaTeX tables and pgfplots figures, in English and Portuguese
 experiments/export_model.py      full parameter dump -> data/model_*.csv, docs/model-reference.md
+experiments/elicitation.py       run a parameter elicitation round (form / ingest)
+docs/elicitation-protocol.md     how to replace the authors' estimates with a panel's
+docs/literature-update.md        the search to run before submitting to a journal
 docs/model-reference.md          every zone, control and attack step with its parameters
 paper/body.tex         the paper's text, shared by every edition
 paper/main.tex         IEEE conference edition; paper-ieee-journal.tex, paper-sae.tex,
@@ -58,7 +62,7 @@ paper/main.tex         IEEE conference edition; paper-ieee-journal.tex, paper-sa
 paper/README.md        which edition is which, and a pre-submission checklist
 paper/references.bib   the shared bibliography
 capm/i18n.py           pt-BR renderings of asset, control and scenario names
-tests/                 pytest suite (57 tests, including a cross-process reproducibility guard)
+tests/                 pytest suite (61 tests, including a cross-process reproducibility guard)
 ```
 
 ## Reproducing everything
@@ -76,6 +80,21 @@ No third-party packages are required. Results land in
 `experiments/results/` (`tables/*.csv`, `tables/*.tex`, `figures/*.svg`,
 `summary.json`) and are mirrored into `paper/tables/` and `paper/figures/`.
 Every number quoted in the paper comes from `summary.json`.
+
+## Replacing the estimates with measurements
+
+The edge parameters are the authors' estimates and the paper says so. To replace
+them with a panel's, see `docs/elicitation-protocol.md`:
+
+```bash
+python3 experiments/elicitation.py form --limit 30      # send one copy per expert
+python3 experiments/elicitation.py ingest responses/*.csv
+python3 experiments/run_all.py --overrides data/parameter_overrides.csv
+```
+
+The median across respondents becomes the parameter, the interquartile range
+measures disagreement, and `data/elicitation_shift.csv` records how far each
+value moved — so the paper can report which conclusions changed, if any.
 
 ## Exploring the model
 

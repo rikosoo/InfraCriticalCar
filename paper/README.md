@@ -38,12 +38,16 @@ five compile with **zero errors and zero undefined references or citations**.
 
 Venue-independent:
 
-1. Fill in author, affiliation, e-mail and acknowledgements in the wrapper.
-2. Replace the elicited edge parameters, or document the elicitation protocol
-   (who, how many, how disagreement was resolved). This is the first thing a
-   journal reviewer will challenge.
+1. Fill in `authors.tex` — one file, read by all five editions — and the
+   acknowledgements in the wrapper you are submitting.
+2. Replace the authors' edge parameters with a panel's, following
+   `docs/elicitation-protocol.md` (the tooling is written; what it needs is
+   three to five respondents and about 45 minutes each). This is the first thing
+   a journal reviewer will challenge.
 3. Refresh the related-work section against the last two years of OT
-   attack-graph and manufacturing-security literature.
+   attack-graph and manufacturing-security literature, following
+   `docs/literature-update.md` (queries, venues and inclusion criteria are
+   written out; it needs database access).
 4. ~~Add a baseline comparison~~ — done: section VI.G scores CAPM against four
    baseline prioritisations on the corpus, including an honest negative result
    (a detection-blind ranking performs indistinguishably). If a reviewer wants a

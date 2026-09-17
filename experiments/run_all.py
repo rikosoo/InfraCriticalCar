@@ -556,12 +556,20 @@ def standards_table() -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true", help="fewer Monte Carlo trials")
+    ap.add_argument("--overrides", default=None,
+                    help="parameter overrides from an elicitation round "
+                         "(see experiments/elicitation.py)")
     args = ap.parse_args()
     trials = 4000 if args.quick else 20000
     t0 = time.time()
     for d in (RES, TAB, FIG):
         ensure_dir(d)
-    graph = build_graph()
+    overrides = None
+    if args.overrides:
+        from capm.elicitation import load_overrides
+        overrides = load_overrides(args.overrides)
+        print(f"applying {len(overrides)} elicited parameter overrides")
+    graph = build_graph(overrides)
     e1_structure(graph)
     e2_corpus(graph)
     e3_chokepoints(graph)
@@ -572,6 +580,7 @@ def main() -> None:
     standards_table()
     SUMMARY["meta"] = {
         "trials": trials,
+        "overrides": args.overrides or "none (published estimates)",
         "generated_s": round(time.time() - t0, 1),
         "python": sys.version.split()[0],
     }
