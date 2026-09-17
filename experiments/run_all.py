@@ -27,14 +27,13 @@ from capm.model import Edge, Path
 from capm.paths import (choke_points, enumerate_paths, k_best_paths, purdue_depth,
                         rank_paths, zone_transitions)
 from capm.report import (barh_chart, ensure_dir, grouped_bar_chart, line_chart,
-                         write_csv, write_latex_table)
+                         write_csv)
 from capm.risk import ACTOR_PROFILES, SimulationConfig, simulate
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RES = os.path.join(ROOT, "experiments", "results")
 TAB = os.path.join(RES, "tables")
 FIG = os.path.join(RES, "figures")
-PFIG = os.path.join(ROOT, "paper", "figures")
 
 SUMMARY: Dict[str, object] = {}
 
@@ -78,14 +77,6 @@ def e1_structure(graph) -> None:
               [(i + 1, f"{w:.5f}", p.length, zone_transitions(p, graph), purdue_depth(p, graph),
                 f"{p.effort_h():.0f}", " ".join(p.techniques), path_str(p, graph))
                for i, (p, w) in enumerate(top)])
-    write_latex_table(
-        os.path.join(TAB, "e1_top_paths_production.tex"),
-        ["\\#", "$L(\\pi)$", "Steps", "Min.\\ Purdue", "Path"],
-        [(i + 1, f"{w:.4f}", p.length, purdue_depth(p, graph), path_str(p, graph))
-         for i, (p, w) in enumerate(top[:10])],
-        caption="Ten most likely attack paths to production stoppage in the baseline "
-                "configuration $S_0$. None of them requires reaching Purdue level 1.",
-        label="tab:top-paths", align="rrrrp{11cm}", star=True)
 
     barh_chart(os.path.join(FIG, "f1_top_paths.svg"),
                [f"{i+1}. " + " > ".join(n.split("_")[0] + ":" + n.split("_", 1)[1][:11]
@@ -166,14 +157,6 @@ def e2_corpus(graph) -> None:
     write_csv(os.path.join(TAB, "e2_corpus_paths.csv"),
               ["id", "year", "victim", "impact", "confidence", "likelihood",
                "percentile_among_model_paths", "reconstructed_path"], rows)
-    write_latex_table(
-        os.path.join(TAB, "e2_corpus.tex"),
-        ["ID", "Year", "Victim", "Impact", "Conf.", "$L(\\pi)$", "Pct."],
-        [(r[0], r[1], str(r[2])[:26], str(r[3]).replace("imp_", ""), r[4], r[5], r[6]) for r in rows],
-        caption="The incident corpus expressed in the reference model. ``Pct.'' is the "
-                "percentile of the reconstructed path among all modelled paths that reach "
-                "the same consequence (lower is more likely).",
-        label="tab:corpus", align="llp{4.2cm}llrr", star=True)
 
     years = sorted(report.per_year)
     line_chart(os.path.join(FIG, "f3_corpus_timeline.svg"),
@@ -220,13 +203,6 @@ def e3_chokepoints(graph) -> None:
                   graph.purdue_of(n), f"{share:.4f}", count) for n, share, count in nodes[:15]]
     write_csv(os.path.join(TAB, "e3_node_criticality.csv"),
               ["asset", "name", "zone", "purdue", "likelihood_share", "paths"], node_rows)
-    write_latex_table(
-        os.path.join(TAB, "e3_chokepoints.tex"),
-        ["Asset", "Zone", "Purdue", "Criticality", "Paths"],
-        [(r[1][:30], r[2], r[3], r[4], r[5]) for r in node_rows[:12]],
-        caption="Likelihood-weighted choke points: share of the aggregate path likelihood "
-                "mass that traverses each asset.",
-        label="tab:chokepoints", align="p{3.6cm}llrr")
     barh_chart(os.path.join(FIG, "f5_chokepoints.svg"),
                [f"{graph.assets[n].name[:36]} ({graph.assets[n].zone})" for n, _, _ in nodes[:12]],
                [s for _, s, _ in nodes[:12]],
@@ -278,13 +254,6 @@ def e4_scenarios(graph, trials: int) -> None:
                "p_safety", "mean_downtime_h", "mean_loss_musd", "mean_loss_given_impact_musd",
                "ale_musd", "control_cost_index"], rows)
     ransom = [r for r in rows if r[0] == "ransomware"]
-    write_latex_table(
-        os.path.join(TAB, "e4_scenarios.tex"),
-        ["Scenario", "$P(\\text{impact})$", "$P(\\text{stop})$", "Downtime (h)", "ALE (M\\$)", "Cost idx"],
-        [(r[2], r[3], r[4], r[7], r[10], r[11]) for r in ransom],
-        caption="Campaign outcomes and annualised loss expectancy per control scenario, "
-                "big-game ransomware profile.",
-        label="tab:scenarios", align="p{4.2cm}rrrrr", star=True)
     scen_names = ["S0", "S1", "S2", "S3", "S4", "S5"]
     grouped_bar_chart(
         os.path.join(FIG, "f6_scenario_ale.svg"), scen_names,
@@ -337,22 +306,7 @@ def e5_controls(graph, trials: int) -> None:
                [max(v, 0.0) for _, v in nec_sorted[:12]],
                "Necessity: ALE increase when a control is removed from the full programme",
                xlabel="ALE increase (million USD / plant-year)", value_fmt="{:.1f}", left=420)
-    write_latex_table(
-        os.path.join(TAB, "e5_necessity.tex"),
-        ["Control", "Name", "$\\Delta$ALE if removed (M\\$)"],
-        [(c, CONTROLS[c].name[:40], f"{v:.2f}") for c, v in nec_sorted[:10]],
-        caption="Necessity of each control inside the full programme $S_5$: the annualised "
-                "loss that returns when the control alone is withdrawn.",
-        label="tab:necessity", align="llr")
     marg_sorted = sorted(marg, key=lambda t: -t[1])
-    write_latex_table(
-        os.path.join(TAB, "e5_marginal.tex"),
-        ["Control", "Name", "$\\Delta$ALE (M\\$)", "$\\Delta$ALE/cost", "IEC 62443-3-3"],
-        [(c, CONTROLS[c].name[:38], f"{d:.1f}", f"{r:.2f}", "; ".join(CONTROLS[c].iec62443[:2]))
-         for c, d, r in marg_sorted[:10]],
-        caption="Marginal annualised-loss reduction of each control deployed alone on top of "
-                "the baseline, ranked by absolute effect.",
-        label="tab:marginal", align="llrrp{3.4cm}", star=True)
     barh_chart(os.path.join(FIG, "f7_marginal_controls.svg"),
                [f"{c} {CONTROLS[c].name[:38]}" for c, _, _ in marg_sorted[:12]],
                [d for _, d, _ in marg_sorted[:12]],
@@ -405,13 +359,6 @@ def e5_controls(graph, trials: int) -> None:
                "Efficient frontier: ALE against cumulative control cost",
                xlabel="cumulative control cost index", ylabel="ALE (million USD / plant-year)",
                x_fmt="{:.0f}", y_fmt="{:.0f}")
-    write_latex_table(
-        os.path.join(TAB, "e5_greedy.tex"),
-        ["Step", "Control", "Name", "ALE after (M\\$)", "$\\Delta$/cost"],
-        [(r[1], r[2], CONTROLS[r[2]].name[:34], r[5], r[7])
-         for r in greedy_rows if r[0] == "ransomware"],
-        caption="Greedy cost-effective control portfolio for the big-game ransomware profile.",
-        label="tab:greedy", align="rllrr", star=True)
     SUMMARY["E5"] = {
         "baseline_ale": base.ale,
         "full_programme_ale": full_res.ale,
@@ -525,12 +472,6 @@ def standards_table() -> None:
     rows = coverage_table()
     write_csv(os.path.join(TAB, "controls_standards_mapping.csv"),
               ["control", "name", "cost_index", "iec62443_3_3", "nist_csf_2_0"], rows)
-    write_latex_table(os.path.join(TAB, "controls_mapping.tex"),
-                      ["ID", "Control", "IEC 62443-3-3", "NIST CSF 2.0"],
-                      [(r[0], r[1][:44], r[3], r[4]) for r in rows],
-                      caption="Control catalogue mapped to IEC 62443-3-3 system requirements "
-                              "and NIST CSF 2.0 subcategories.",
-                      label="tab:controls", align="llp{5cm}p{5cm}", star=True)
 
 
 def main() -> None:
@@ -539,7 +480,7 @@ def main() -> None:
     args = ap.parse_args()
     trials = 4000 if args.quick else 20000
     t0 = time.time()
-    for d in (RES, TAB, FIG, PFIG):
+    for d in (RES, TAB, FIG):
         ensure_dir(d)
     graph = build_graph()
     e1_structure(graph)
@@ -556,19 +497,10 @@ def main() -> None:
     }
     with open(os.path.join(RES, "summary.json"), "w", encoding="utf-8") as fh:
         json.dump(SUMMARY, fh, indent=2, sort_keys=False)
-    # mirror generated tables into the paper directory
-    ptab = ensure_dir(os.path.join(ROOT, "paper", "tables"))
-    for name in os.listdir(TAB):
-        if name.endswith(".tex"):
-            with open(os.path.join(TAB, name), encoding="utf-8") as src, \
-                 open(os.path.join(ptab, name), "w", encoding="utf-8") as dst:
-                dst.write(src.read())
-    # mirror figures into the paper directory
-    for name in os.listdir(FIG):
-        if name.endswith(".svg"):
-            with open(os.path.join(FIG, name), encoding="utf-8") as src, \
-                 open(os.path.join(PFIG, name), "w", encoding="utf-8") as dst:
-                dst.write(src.read())
+    # The paper's own tables and figures are rendered separately, in every
+    # supported language, by experiments/build_paper_assets.py; this step only
+    # produces results. Keeping the two apart means a typesetting change never
+    # requires re-running ten minutes of Monte Carlo.
     print(f"done in {time.time() - t0:.1f}s -> {RES}")
 
 

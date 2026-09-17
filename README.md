@@ -46,20 +46,22 @@ capm/                  the model (pure Python 3.9+, zero dependencies)
   cli.py               command-line exploration of the model
 data/incidents.csv     the empirical corpus, with sources and confidence labels
 experiments/run_all.py the full pipeline (E1–E6) -> tables, figures, summary.json
-experiments/make_tex_figures.py  pgfplots versions of the figures for the paper
+experiments/build_paper_assets.py LaTeX tables and pgfplots figures, in English and Portuguese
 experiments/export_model.py      full parameter dump -> data/model_*.csv, docs/model-reference.md
 docs/model-reference.md          every zone, control and attack step with its parameters
-paper/main.tex         the paper; paper/references.bib the bibliography
-tests/                 pytest suite (36 tests, including a cross-process reproducibility guard)
+paper/main.tex         the paper (English); paper/main-pt.tex the Portuguese version
+paper/references.bib   the shared bibliography
+capm/i18n.py           pt-BR renderings of asset, control and scenario names
+tests/                 pytest suite (42 tests, including a cross-process reproducibility guard)
 ```
 
 ## Reproducing everything
 
-A `Makefile` wraps the same commands (`make experiments figures model test`).
+A `Makefile` wraps the same commands (`make experiments assets model test`).
 
 ```bash
 python3 experiments/run_all.py          # ~10 min, 20k Monte Carlo campaigns per configuration
-python3 experiments/make_tex_figures.py # pgfplots figures for the paper
+python3 experiments/build_paper_assets.py  # LaTeX tables and figures (en + pt)
 python3 experiments/export_model.py     # full parameter dump for review
 pytest                                  # test suite
 ```
@@ -83,14 +85,21 @@ python3 -m capm.cli controls
 
 ## Building the paper
 
-`paper/main.tex` compiles with a standard TeX distribution (Overleaf works
-without configuration): it needs `IEEEtran`, `pgfplots` ≥ 1.16, `booktabs`,
-`cleveref` and `xcolor` with `dvipsnames`. All figures are TikZ/pgfplots, so no
-image conversion step is needed.
+There are two versions of the same paper, reporting exactly the same numbers:
+`paper/main.tex` (English) and `paper/main-pt.tex` (Portuguese, with
+`babel`/`brazilian`). Both compile with a standard TeX distribution (Overleaf
+works without configuration): they need `IEEEtran`, `pgfplots` ≥ 1.16,
+`booktabs`, `cleveref` and `xcolor` with `dvipsnames`. All figures are
+TikZ/pgfplots, so no image conversion step is needed.
 
 ```bash
 cd paper && pdflatex main && bibtex main && pdflatex main && pdflatex main
+cd paper && pdflatex main-pt && bibtex main-pt && pdflatex main-pt && pdflatex main-pt
 ```
+
+The English paper reads `paper/tables/` and `paper/figures/`; the Portuguese one
+reads `paper/tables-pt/` and `paper/figures-pt/`. Both directories are generated
+from the same `experiments/results/`, so the two versions cannot drift apart.
 
 ## Model in one paragraph
 
@@ -118,6 +127,11 @@ expectancy, downtime distributions and time-to-consequence.
   the leave-one-out ablation is the stricter test and it does not reach 100%.
 - The campaign policy assumes a rational, utility-maximising actor; the risk
   displacement result (F4) depends on that assumption.
+
+## Versão em português
+
+O artigo existe também em português: `paper/main-pt.tex`, com tabelas e figuras
+em `paper/tables-pt/` e `paper/figures-pt/`, geradas dos mesmos resultados.
 
 ## Resumo (PT-BR)
 

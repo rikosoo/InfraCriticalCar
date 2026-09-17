@@ -4,9 +4,9 @@
 \begin{tikzpicture}
 \begin{axis}[
     xbar, width=\linewidth, height=7.6cm,
-    xlabel={share of aggregate path likelihood traversing the asset},
+    xlabel={fração da verossimilhança agregada que passa pelo ativo},
     xmin=0, enlarge y limits=0.06,
-    ytick={0,1,2,3,4,5,6,7,8,9,10,11}, yticklabels={{Production stoppage (Z-CONS)},{Theft of engineering and desig (Z-CONS)},{Engineering workstation (Z-OPS)},{Customer personal data breach (Z-CONS)},{Employee workstation (Z-IT)},{Remote access VPN gateway (Z-IT)},{Tier-1 supplier IT estate (Z-SUP)},{ERP and production planning co (Z-IT)},{Internet-facing enterprise app (Z-IT)},{On-premises Active Directory ( (Z-IDP)},{Engineering and business file  (Z-IT)},{Third-party CRM / customer pla (Z-SAAS)}},
+    ytick={0,1,2,3,4,5,6,7,8,9,10,11}, yticklabels={{Parada de produção (Z-CONS)},{Roubo de dados de engenharia (Z-CONS)},{Estação de engenharia (Z-OPS)},{Vazamento de dados pessoais (Z-CONS)},{Estação de trabalho do funcion (Z-IT)},{Gateway de VPN de acesso remot (Z-IT)},{TI do fornecedor Tier-1 (Z-SUP)},{ERP e planejamento de produção (Z-IT)},{Aplicação corporativa exposta  (Z-IT)},{Active Directory local (tier 0 (Z-IDP)},{Compartilhamentos de arquivos (Z-IT)},{CRM/plataforma de clientes de  (Z-SAAS)}},
     y dir=reverse, ticklabel style={font=\scriptsize},
     label style={font=\footnotesize},
     nodes near coords, nodes near coords style={font=\tiny},
@@ -31,6 +31,6 @@
 };
 \end{axis}
 \end{tikzpicture}
-\caption{Likelihood-weighted choke points of the reference architecture.}
+\caption{Pontos de estrangulamento da arquitetura de referência, ponderados por verossimilhança.}
 \label{fig:chokepoints}
 \end{figure}

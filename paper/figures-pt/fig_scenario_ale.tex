@@ -4,7 +4,7 @@
 \begin{tikzpicture}
 \begin{axis}[
     ybar, width=\linewidth, height=6.2cm,
-    ylabel={ALE (MUSD / plant-year)},
+    ylabel={perda anual esperada (MUSD/planta-ano)},
     symbolic x coords={S0,S1,S2,S3,S4,S5}, xtick=data,
     ymin=0, bar width=5pt, enlarge x limits=0.10,
     legend style={at={(0.5,-0.22)}, anchor=north, legend columns=3, font=\scriptsize,
@@ -15,9 +15,9 @@
 \addplot[fill=MidnightBlue!70, draw=MidnightBlue!85] coordinates {(S0,47.57) (S1,47.0) (S2,47.01) (S3,60.09) (S4,16.86) (S5,3.37)};
 \addplot[fill=Maroon!70, draw=Maroon!85] coordinates {(S0,21.97) (S1,22.49) (S2,22.04) (S3,5.92) (S4,16.94) (S5,4.13)};
 \addplot[fill=OliveGreen!70, draw=OliveGreen!85] coordinates {(S0,50.41) (S1,50.38) (S2,50.71) (S3,60.42) (S4,14.93) (S5,2.46)};
-\legend{ransomware, espionage, sabotage}
+\legend{ransomware, espionagem, sabotagem}
 \end{axis}
 \end{tikzpicture}
-\caption{Annualised loss expectancy per control scenario and actor profile. Scenario $S_3$ lowers espionage risk sharply while \emph{increasing} ransomware risk: hardening the cheap data-theft routes displaces a rational actor onto the availability objective.}
+\caption{Perda anual esperada por cenário de controles e perfil de ator. O cenário $S_3$ reduz fortemente o risco de espionagem enquanto \emph{aumenta} o de ransomware: endurecer as rotas baratas de roubo de dados desloca o ator racional para o objetivo de disponibilidade.}
 \label{fig:scenario-ale}
 \end{figure}

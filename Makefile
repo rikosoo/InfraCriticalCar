@@ -1,8 +1,8 @@
 PYTHON ?= python3
 
-.PHONY: all experiments figures model test paper clean
+.PHONY: all experiments assets model test paper paper-pt clean
 
-all: experiments figures model test
+all: experiments assets model test
 
 ## run the full experiment pipeline (E1-E6): tables, SVG figures, summary.json
 experiments:
@@ -12,9 +12,9 @@ experiments:
 quick:
 	$(PYTHON) experiments/run_all.py --quick
 
-## regenerate the pgfplots figures used by the paper
-figures:
-	$(PYTHON) experiments/make_tex_figures.py
+## regenerate the LaTeX tables and figures used by both papers (en + pt)
+assets:
+	$(PYTHON) experiments/build_paper_assets.py
 
 ## dump the full model specification for review
 model:
@@ -24,11 +24,17 @@ model:
 test:
 	$(PYTHON) -m pytest
 
-## build the paper (requires a TeX distribution with IEEEtran and pgfplots)
+## build the English paper (requires a TeX distribution with IEEEtran and pgfplots)
 paper:
 	cd paper && pdflatex -interaction=nonstopmode main.tex \
 		&& bibtex main && pdflatex -interaction=nonstopmode main.tex \
 		&& pdflatex -interaction=nonstopmode main.tex
+
+## build the Portuguese paper
+paper-pt:
+	cd paper && pdflatex -interaction=nonstopmode main-pt.tex \
+		&& bibtex main-pt && pdflatex -interaction=nonstopmode main-pt.tex \
+		&& pdflatex -interaction=nonstopmode main-pt.tex
 
 clean:
 	rm -rf __pycache__ */__pycache__ .pytest_cache
