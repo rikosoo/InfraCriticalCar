@@ -68,11 +68,11 @@ consiga ordenar as rotas desse grafo por verossimilhança e perda esperada.
     62443 em cinco planos, 48 ativos, 91 passos de ataque rotulados com 43
     técnicas \attck{} Enterprise e \attck{} for ICS, e cinco consequências
     terminais (\cref{sec:modelo}).
-  \item \textbf{C3 --- Análise de caminhos.} Ordenamos rotas por enumeração
-    exata dos $k$ caminhos mais prováveis e identificamos pontos de
-    estrangulamento ponderados por verossimilhança, mostrando que os verdadeiros
-    conduits de consequência da planta são processos de negócio, e não
-    fronteiras de rede (\cref{sec:resultados}).
+  \item \textbf{C3 --- Análise de caminhos, e uma comparação.} Ordenamos rotas
+    por enumeração exata dos $k$ caminhos mais prováveis, identificamos pontos de
+    estrangulamento ponderados por verossimilhança e medimos o ranqueamento
+    contra quatro priorizações de referência que representam a prática atual,
+    pontuando todas contra o corpus (\cref{sec:resultados}).
   \item \textbf{C4 --- Quantificação de risco.} Uma simulação Monte Carlo de
     campanhas com três perfis de ator converte a estrutura de caminhos em perda
     anual esperada, distribuições de tempo de parada e tempo até a consequência
@@ -204,21 +204,26 @@ sequências de nós aparentemente seguras seria pior do que um que a expõe. A
 
 Três propriedades do corpus moldam o restante do artigo.
 
-\textbf{A disponibilidade domina.} Onze dos vinte incidentes (55\%) tiveram a
-parada de produção como consequência primária; cinco causaram roubo de dados de
-engenharia ou corporativos e quatro expuseram dados pessoais de clientes.
+\textbf{A disponibilidade domina.} Onze dos vinte incidentes tiveram a parada de
+produção como consequência primária (55\%, IC de Wilson 95\% 34--74\%); cinco
+causaram roubo de dados de engenharia ou corporativos e quatro expuseram dados
+pessoais de clientes. Vinte incidentes sustentam apenas intervalos largos, e por
+isso reportamos intervalos de escore de Wilson em todo o texto: nesse tamanho
+amostral a aproximação normal é inutilizável perto dos extremos, e a leitura
+honesta dessas proporções está na direção que indicam, não em seu segundo
+dígito.
 
 \textbf{A cadeia de fornecimento é uma superfície de ataque de primeira
-classe.} Oito dos vinte incidentes (40\%) atravessaram o plano da cadeia de
-fornecimento --- seja porque a vítima \emph{era} um fornecedor cuja falha se
+classe.} Oito dos vinte incidentes (40\%, IC 22--61\%) atravessaram o plano da
+cadeia de fornecimento --- seja porque a vítima \emph{era} um fornecedor cuja falha se
 propagou a uma montadora (Kojima/Toyota, Yanfeng/Stellantis, Sensata, MKS
 Instruments), seja porque o ponto de falha foi uma plataforma compartilhada
 fora do controle da montadora (CDK Global, a plataforma SaaS por trás da
 divulgação da Stellantis em 2025).
 
 \textbf{A tecnologia operacional raramente é o alvo.} Apenas dois dos vinte
-incidentes (10\%) teriam interagido com equipamentos abaixo do nível~3 de
-Purdue, e em ambos os casos a interação foi malware autopropagante
+incidentes (10\%, IC 3--30\%) teriam interagido com equipamentos abaixo do
+nível~3 de Purdue, e em ambos os casos a interação foi malware autopropagante
 criptografando hosts de produção baseados em Windows, e não uma manipulação
 deliberada do controle. Nenhum incidente do corpus envolveu uma carga de
 programa adversarial documentada em um controlador. A
@@ -462,6 +467,24 @@ de caminhos sob perturbação log-normal multiplicativa de todos os $p$ e $\delt
 frequência de campanhas e orçamento do ator, e a estabilidade do ranqueamento
 de controles em doze grafos perturbados.
 
+O \textbf{E7} faz a pergunta que um modelo de priorização precisa responder ---
+melhor do que o quê? --- ordenando o mesmo conjunto de caminhos com quatro
+heurísticas de referência que representam a prática atual, e pontuando todas as
+ordenações, inclusive a do CAPM, contra a mesma verdade de campo: o percentil em
+que os incidentes do corpus caem entre os caminhos que alcançam a mesma
+consequência. As referências são B1, menor número de passos, o proxy clássico de
+grafos de ataque; B2, apenas explorabilidade, que multiplica as probabilidades
+de sucesso dos passos e ignora detecção e contenção, como faz a pontuação
+centrada em vulnerabilidades; B3, maior profundidade em OT, a ordenação
+implícita da prática centrada em zonas; e B4, maior número de fronteiras de zona
+atravessadas, o reflexo centrado em segmentação. As ordenações são comparadas
+por um teste exato de Wilcoxon bilateral sobre os percentis pareados e pelo
+$\tau_b$ de Kendall sobre todo o conjunto de caminhos. Uma referência baseada em
+magnitude de consequência foi deliberadamente omitida: como os caminhos são
+pontuados dentro do conjunto que alcança a mesma consequência, tal ordenação é
+constante dentro de cada conjunto de comparação e colapsa em seu critério de
+desempate.
+
 Os experimentos Monte Carlo usam 20.000 campanhas por configuração com sementes
 fixas; o \emph{pipeline} completo roda em cerca de dez minutos em um núcleo de
 uma máquina comum e requer apenas um interpretador CPython~3.9+. Como o corpus
@@ -666,6 +689,45 @@ são as interfaces de fornecedores e de SaaS de cada planta.
 
 \input{figures-pt/fig_sensitivity.tex}
 
+\subsection{F7: frente às priorizações que uma planta usa hoje}
+
+A \cref{tab:baselines} e a \cref{fig:baselines} pontuam o CAPM e as quatro
+referências sobre a mesma verdade de campo. O CAPM coloca o incidente mediano do
+corpus no percentil $4{,}8$ dos caminhos que alcançam sua consequência, com os 20
+incidentes dentro do quartil superior e 14 dentro do decil superior.
+
+As duas heurísticas que codificam a intuição industrial convencional falham
+gravemente. Ordenar por profundidade na hierarquia de Purdue (B3) coloca o
+incidente observado mediano no percentil $95{,}9$ --- perto do \emph{fim} de sua
+própria lista ---, com 4 dos 20 incidentes no quartil superior e
+$\tau_b = -0{,}08$ de Kendall contra o CAPM. Ordenar pelo número de fronteiras de
+zona atravessadas (B4) é ainda pior: percentil mediano $98{,}9$, nenhum incidente
+no quartil superior e efeito rank-biserial de $-1{,}00$, o que significa que o
+CAPM ranqueou mais alto todos os vinte incidentes. Ambas as diferenças são
+significativas com $p < 10^{-4}$. Uma planta que prioriza os caminhos que descem
+mais fundo, ou que atravessam mais zonas, está priorizando quase exatamente as
+rotas que os incidentes do setor não tomaram.
+
+Dois resultados são mais desconfortáveis para o modelo. A ordenação por menor
+número de passos (B1) é uma concorrente fraca, porém real: percentil mediano
+$9{,}5$, 18 dos 20 incidentes no quartil superior, e o CAPM a supera de forma
+significativa ($p = 0{,}010$), mas não dramática --- boa parte da vantagem do
+CAPM sobre B1 vem de preferir caminhos curtos, o que B1 faz por construção. E a
+ordenação apenas por explorabilidade (B2), que descarta inteiramente o termo de
+contenção $\delta$, é \emph{estatisticamente indistinguível} do CAPM completo
+neste critério (mediana $6{,}5$ contra $4{,}8$; $p = 0{,}99$; efeito
+rank-biserial $+0{,}02$). Reportamos isso em vez de escondê-lo: com a evidência
+disponível, modelar detecção e contenção não melhora de forma mensurável a
+\emph{ordenação} das rotas. Seu valor está em outro ponto do modelo, e é grande
+--- a \cref{fig:sensitivity} mostra a eficácia de detecção como o parâmetro mais
+influente da estimativa de perda, movendo a perda anual por um fator de $3{,}7$
+na faixa varrida. A afirmação defensável é, portanto, mais estreita do que se
+gostaria: o termo de contenção justifica seu lugar na quantificação de risco, e
+não no ranqueamento de caminhos.
+
+\input{tables-pt/e7_baselines.tex}
+\input{figures-pt/fig_baselines.tex}
+
 \section{Discussão}
 \label{sec:discussao}
 
@@ -807,6 +869,15 @@ de montagem de veículos com alta automação; uma estamparia, uma fábrica de
 células de bateria ou uma instalação de baixa automação exigiriam outra
 instância, embora esperemos que a estrutura de cinco planos se transfira.
 
+\textbf{Validade de comparação.} As referências do F7 são nossas próprias
+operacionalizações de heurísticas de prática, e não métodos publicados, e um
+defensor da priorização centrada em zonas poderia argumentar, com razão, que
+ninguém ordena caminhos apenas por profundidade. A comparação deve ser lida como
+um teste da \emph{suposição} que essas práticas codificam, e não como um
+benchmark contra uma ferramenta específica. O corpus é também a evidência que
+informou a estrutura do grafo, o que favorece o CAPM e o B2 frente ao B3 e ao
+B4; a ablação leave-one-out do F2 limita o quanto.
+
 \textbf{Validade de conclusão.} As estimativas Monte Carlo usam 20.000
 campanhas por configuração com sementes fixas; diferenças menores que cerca de
 3\% na perda anual entre configurações vizinhas não devem ser interpretadas. O
@@ -838,6 +909,12 @@ relevante, a capacidade de recuperação é a classe de investimento isolada mai
 valiosa, os controles que parecem inúteis isoladamente revelam-se os menos
 removíveis em um programa maduro, e o endurecimento parcial pode deslocar risco
 de um objetivo para outro mais danoso.
+
+Medido contra as priorizações que uma planta usa hoje, o modelo coloca o
+incidente observado mediano perto do topo de sua lista onde as heurísticas
+centradas em profundidade e em segmentação o colocam perto do fim; uma ordenação
+que ignora completamente a contenção, porém, vai tão bem quanto o modelo
+completo, o que limita o que se pode afirmar sobre o termo de contenção.
 
 Quatro extensões decorrem diretamente. Primeiro, \emph{calibração}: substituir
 probabilidades elicitadas por medições de exercícios \emph{purple team} e de

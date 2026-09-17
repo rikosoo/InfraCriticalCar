@@ -1,0 +1,4 @@
+proportion,successes,n,estimate,ci_low,ci_high
+availability,11,20,0.550,0.342,0.742
+supply_chain,8,20,0.400,0.219,0.613
+ot_interaction,2,20,0.100,0.028,0.301

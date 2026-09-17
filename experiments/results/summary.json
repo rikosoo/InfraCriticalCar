@@ -109,17 +109,34 @@
         "share": 0.0896
       },
       {
-        "id": "T0828",
+        "id": "T0831",
         "share": 0.0775
       },
       {
-        "id": "T0831",
+        "id": "T0828",
         "share": 0.0775
       }
     ]
   },
   "E2": {
     "corpus_size": 20,
+    "wilson_intervals": {
+      "availability": {
+        "estimate": 0.55,
+        "ci_low": 0.3421,
+        "ci_high": 0.7418
+      },
+      "supply_chain": {
+        "estimate": 0.4,
+        "ci_low": 0.2188,
+        "ci_high": 0.6134
+      },
+      "ot_interaction": {
+        "estimate": 0.1,
+        "ci_low": 0.0279,
+        "ci_high": 0.301
+      }
+    },
     "representable": 20,
     "coverage": 1.0,
     "gaps": [],
@@ -1163,9 +1180,69 @@
       }
     ]
   },
+  "E7": {
+    "corpus_paths_scored": 20,
+    "rankings": [
+      {
+        "id": "CAPM",
+        "name": "CAPM path likelihood",
+        "median_percentile": 4.84,
+        "mean_percentile": 6.81,
+        "in_top_10pct": 14,
+        "in_top_25pct": 20,
+        "kendall_vs_capm": null,
+        "wilcoxon_p_vs_capm": null,
+        "rank_biserial_effect": null
+      },
+      {
+        "id": "B1",
+        "name": "Fewest steps",
+        "median_percentile": 9.52,
+        "mean_percentile": 11.34,
+        "in_top_10pct": 11,
+        "in_top_25pct": 18,
+        "kendall_vs_capm": 0.7571,
+        "wilcoxon_p_vs_capm": 0.01041,
+        "rank_biserial_effect": -0.6526
+      },
+      {
+        "id": "B2",
+        "name": "Exploitability only",
+        "median_percentile": 6.51,
+        "mean_percentile": 7.89,
+        "in_top_10pct": 15,
+        "in_top_25pct": 19,
+        "kendall_vs_capm": 0.7801,
+        "wilcoxon_p_vs_capm": 0.99219,
+        "rank_biserial_effect": 0.0222
+      },
+      {
+        "id": "B3",
+        "name": "Deepest OT reach",
+        "median_percentile": 95.93,
+        "mean_percentile": 76.87,
+        "in_top_10pct": 2,
+        "in_top_25pct": 4,
+        "kendall_vs_capm": -0.0846,
+        "wilcoxon_p_vs_capm": 2e-05,
+        "rank_biserial_effect": -0.9684
+      },
+      {
+        "id": "B4",
+        "name": "Most zones crossed",
+        "median_percentile": 98.9,
+        "mean_percentile": 96.66,
+        "in_top_10pct": 0,
+        "in_top_25pct": 0,
+        "kendall_vs_capm": -0.64,
+        "wilcoxon_p_vs_capm": 0.0,
+        "rank_biserial_effect": -1.0
+      }
+    ]
+  },
   "meta": {
     "trials": 20000,
-    "generated_s": 564.7,
+    "generated_s": 406.0,
     "python": "3.11.15"
   }
 }

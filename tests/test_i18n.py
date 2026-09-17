@@ -43,3 +43,22 @@ def test_lookup_falls_back_to_english():
 def test_translations_do_not_collide():
     assert len(set(ASSETS_PT.values())) == len(ASSETS_PT)
     assert len(set(CONTROLS_PT.values())) == len(CONTROLS_PT)
+
+
+def test_baseline_names_are_translated():
+    from capm.architecture import build_graph as _build
+    from capm.evaluation import build_baselines
+    import importlib.util
+    import os
+    import sys
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    spec = importlib.util.spec_from_file_location(
+        "build_paper_assets", os.path.join(root, "experiments", "build_paper_assets.py"))
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["build_paper_assets"] = module
+    spec.loader.exec_module(module)
+
+    names = {b.name for b in build_baselines(_build())} | {"CAPM path likelihood"}
+    missing = [n for n in names if n not in module.BASELINE_NAMES_PT]
+    assert missing == []

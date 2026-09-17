@@ -26,6 +26,8 @@ from capm.incidents import analyse_corpus, leave_one_out_report, load_incidents,
 from capm.model import Edge, Path
 from capm.paths import (choke_points, enumerate_paths, k_best_paths, purdue_depth,
                         rank_paths, zone_transitions)
+from capm.evaluation import (build_baselines, kendall_tau_b, percentile_positions,
+                             score_ranking, wilcoxon_signed_rank, wilson_interval)
 from capm.report import (barh_chart, ensure_dir, grouped_bar_chart, line_chart,
                          write_csv)
 from capm.risk import ACTOR_PROFILES, SimulationConfig, simulate
@@ -170,8 +172,23 @@ def e2_corpus(graph) -> None:
                       "Planes traversed by the 20 corpus incidents",
                       ylabel="incidents", value_fmt="{:.0f}")
 
+    n = report.total
+    intervals = {
+        "availability": wilson_interval(report.per_impact.get("imp_prod_stop", 0), n),
+        "supply_chain": wilson_interval(
+            sum(1 for i in incidents if i.is_supply_chain), n),
+        "ot_interaction": wilson_interval(
+            int(round(report.ot_interaction_share * n)), n),
+    }
+    write_csv(os.path.join(TAB, "e2_corpus_proportions.csv"),
+              ["proportion", "successes", "n", "estimate", "ci_low", "ci_high"],
+              [(k, int(round(v[0] * n)), n, f"{v[0]:.3f}", f"{v[1]:.3f}", f"{v[2]:.3f}")
+               for k, v in intervals.items()])
+
     SUMMARY["E2"] = {
         "corpus_size": report.total,
+        "wilson_intervals": {k: {"estimate": round(v[0], 4), "ci_low": round(v[1], 4),
+                                 "ci_high": round(v[2], 4)} for k, v in intervals.items()},
         "representable": report.representable,
         "coverage": report.coverage,
         "gaps": report.gaps,
@@ -465,6 +482,68 @@ def e6_sensitivity(graph, trials: int) -> None:
 
 
 # ==========================================================================
+# E7 -- comparison against baseline prioritisations
+# ==========================================================================
+
+def e7_baselines(graph) -> None:
+    print("[E7] comparison against baseline prioritisations")
+    all_paths = enumerate_paths(graph, "ext_actor", max_length=12)
+    incidents = load_incidents()
+    targets: List[Path] = []
+    for inc in incidents:
+        path, _ = realise(graph, inc.node_path)
+        if path is not None:
+            targets.append(path)
+
+    capm_scores = [p.likelihood() for p in all_paths]
+    capm_pct = percentile_positions(all_paths, capm_scores, targets)
+    capm = score_ranking("CAPM", "CAPM path likelihood", capm_pct)
+
+    rows: List[Sequence[object]] = [
+        (capm.id, capm.name, f"{capm.median:.1f}", f"{capm.mean:.1f}",
+         capm.in_top_10pct, capm.in_top_25pct, "", "", "")
+    ]
+    results = [capm]
+    for base in build_baselines(graph):
+        scores = [base.score(p) for p in all_paths]
+        pct = percentile_positions(all_paths, scores, targets)
+        scored = score_ranking(base.id, base.name, pct)
+        scored.kendall_vs_capm = kendall_tau_b(capm_scores, scores)
+        scored.wilcoxon_vs_capm = wilcoxon_signed_rank(capm_pct, pct)
+        results.append(scored)
+        w = scored.wilcoxon_vs_capm
+        rows.append((base.id, base.name, f"{scored.median:.1f}", f"{scored.mean:.1f}",
+                     scored.in_top_10pct, scored.in_top_25pct,
+                     f"{scored.kendall_vs_capm:+.2f}",
+                     f"{w['p_value']:.4f}", f"{w['effect']:+.2f}"))
+    write_csv(os.path.join(TAB, "e7_baselines.csv"),
+              ["ranking", "name", "median_percentile", "mean_percentile",
+               "incidents_in_top_10pct", "incidents_in_top_25pct",
+               "kendall_tau_vs_capm", "wilcoxon_p_vs_capm", "rank_biserial_effect"],
+              rows)
+    barh_chart(os.path.join(FIG, "f12_baselines.svg"),
+               [f"{r.id} {r.name}" for r in results],
+               [r.median for r in results],
+               "Median percentile of the corpus incidents under each ranking (lower is better)",
+               xlabel="median percentile among paths to the same consequence",
+               value_fmt="{:.1f}", left=320)
+    SUMMARY["E7"] = {
+        "corpus_paths_scored": len(targets),
+        "rankings": [
+            {"id": r.id, "name": r.name, "median_percentile": round(r.median, 2),
+             "mean_percentile": round(r.mean, 2), "in_top_10pct": r.in_top_10pct,
+             "in_top_25pct": r.in_top_25pct,
+             "kendall_vs_capm": (round(r.kendall_vs_capm, 4)
+                                 if r.kendall_vs_capm is not None else None),
+             "wilcoxon_p_vs_capm": (round(r.wilcoxon_vs_capm["p_value"], 5)
+                                    if r.wilcoxon_vs_capm else None),
+             "rank_biserial_effect": (round(r.wilcoxon_vs_capm["effect"], 4)
+                                      if r.wilcoxon_vs_capm else None)}
+            for r in results],
+    }
+
+
+# ==========================================================================
 # Standards mapping table
 # ==========================================================================
 
@@ -489,6 +568,7 @@ def main() -> None:
     e4_scenarios(graph, trials)
     e5_controls(graph, trials)
     e6_sensitivity(graph, trials)
+    e7_baselines(graph)
     standards_table()
     SUMMARY["meta"] = {
         "trials": trials,

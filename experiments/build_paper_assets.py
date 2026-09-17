@@ -118,6 +118,26 @@ CAPTIONS: Dict[str, Dict[str, str]] = {
         "pt": "Planos atravessados pelos 20 incidentes do corpus (2017--2025). Apenas dois "
               "incidentes teriam interagido com equipamentos abaixo do nível~3 de Purdue.",
     },
+    "tab:baselines": {
+        "en": "CAPM against baseline prioritisations. Each ranking orders the same 681 "
+              "modelled paths; the score is the percentile at which the 20 corpus "
+              "incidents fall within the paths that reach the same consequence (lower is "
+              "better). $p$ is an exact two-sided Wilcoxon signed-rank test against CAPM "
+              "on the paired percentiles.",
+        "pt": "O CAPM frente a priorizacoes de referencia. Cada ordenacao classifica os "
+              "mesmos 681 caminhos modelados; o escore e o percentil em que os 20 "
+              "incidentes do corpus caem entre os caminhos que alcancam a mesma "
+              "consequencia (menor e melhor). $p$ e um teste exato de Wilcoxon bilateral "
+              "contra o CAPM sobre os percentis pareados.",
+    },
+    "fig:baselines": {
+        "en": "Median percentile of the corpus incidents under each prioritisation "
+              "(lower is better). The segmentation- and depth-centric heuristics rank the "
+              "routes that actually occurred near the bottom of their lists.",
+        "pt": "Percentil mediano dos incidentes do corpus sob cada priorizacao (menor e "
+              "melhor). As heuristicas centradas em segmentacao e em profundidade colocam "
+              "as rotas que de fato ocorreram perto do fim de suas listas.",
+    },
     "fig:frontier": {
         "en": "Efficient frontier obtained by greedy selection on marginal risk "
               "reduction per unit cost, for each actor profile.",
@@ -137,6 +157,8 @@ LABELS: Dict[str, Dict[str, str]] = {
     "ale": {"en": "ALE (MUSD / plant-year)", "pt": "perda anual esperada (MUSD/planta-ano)"},
     "cost": {"en": "cumulative control cost index", "pt": "índice de custo acumulado"},
     "incidents": {"en": "incidents", "pt": "incidentes"},
+    "median_pct": {"en": "median percentile among paths to the same consequence",
+                   "pt": "percentil mediano entre caminhos para a mesma consequencia"},
     "sens_x": {"en": "parameter multiplier (detection) or campaigns per year (frequency)",
                "pt": "multiplicador do parâmetro (detecção) ou campanhas por ano (frequência)"},
     "sens_det": {"en": "detection efficacy multiplier", "pt": "multiplicador de eficácia de detecção"},
@@ -178,6 +200,20 @@ TABLE_HEADERS: Dict[str, Dict[str, List[str]]] = {
         "en": ["ID", "Control", "IEC 62443-3-3", "NIST CSF 2.0"],
         "pt": ["ID", "Controle", "IEC 62443-3-3", "NIST CSF 2.0"],
     },
+    "tab:baselines": {
+        "en": ["", "Ranking", "Median pct.", "Mean pct.", "Top 10\\%", "Top 25\\%",
+               "$\\tau_b$", "$p$", "$r$"],
+        "pt": ["", "Ordenacao", "Pct. mediano", "Pct. medio", "Top 10\\%", "Top 25\\%",
+               "$\\tau_b$", "$p$", "$r$"],
+    },
+}
+
+BASELINE_NAMES_PT = {
+    "CAPM path likelihood": "Verossimilhanca de caminho do CAPM",
+    "Fewest steps": "Menor numero de passos",
+    "Exploitability only": "Apenas explorabilidade",
+    "Deepest OT reach": "Maior profundidade em OT",
+    "Most zones crossed": "Mais zonas atravessadas",
 }
 
 
@@ -312,6 +348,23 @@ class Renderer:
             caption=cap("tab:necessity", lang), label="tab:necessity",
             align="lp{\\capmnamecol}r")
 
+        rows = read("e7_baselines.csv")
+        def pnum(value: str) -> str:
+            if not value:
+                return "---"
+            f = float(value)
+            return "$<10^{-4}$" if f < 1e-4 else f"{f:.3f}"
+        write_latex_table(
+            os.path.join(self.tab_dir, "e7_baselines.tex"),
+            TABLE_HEADERS["tab:baselines"][lang],
+            [(r["ranking"], self.baseline_name(r["name"]), r["median_percentile"],
+              r["mean_percentile"], f"{r['incidents_in_top_10pct']}/20",
+              f"{r['incidents_in_top_25pct']}/20",
+              r["kendall_tau_vs_capm"] or "---", pnum(r["wilcoxon_p_vs_capm"]),
+              r["rank_biserial_effect"] or "---") for r in rows],
+            caption=cap("tab:baselines", lang), label="tab:baselines",
+            align="llrrrrrrr", star=True)
+
         rows = read("controls_standards_mapping.csv")
         write_latex_table(
             os.path.join(self.tab_dir, "controls_mapping.tex"),
@@ -320,6 +373,11 @@ class Renderer:
               r["nist_csf_2_0"]) for r in rows],
             caption=cap("tab:controls", lang), label="tab:controls",
             align="lp{\\capmnamecol}p{\\capmstdcol}p{\\capmstdcol}", star=True)
+
+    def baseline_name(self, english: str) -> str:
+        if self.lang == "pt":
+            return BASELINE_NAMES_PT.get(english, english)
+        return english
 
     def impact_short(self, impact: str) -> str:
         short = impact.replace("imp_", "")
@@ -505,6 +563,13 @@ class Renderer:
 \\end{{figure}}
 """
         open(os.path.join(self.fig_dir, "fig_frontier.tex"), "w", encoding="utf-8").write(body)
+
+        rows = read("e7_baselines.csv")
+        self.xbar("fig_baselines.tex",
+                  [f"{r['ranking']} {self.baseline_name(r['name'])}" for r in rows],
+                  [float(r["median_percentile"]) for r in rows],
+                  lab("median_pct", lang), cap("fig:baselines", lang), "fig:baselines",
+                  height="4.6cm", color="RoyalBlue")
 
         planes = ["it", "identity", "cloud", "ot", "supply_chain"]
         per = summary["E2"]["per_plane"]

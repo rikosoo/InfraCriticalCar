@@ -44,8 +44,11 @@ Venue-independent:
    journal reviewer will challenge.
 3. Refresh the related-work section against the last two years of OT
    attack-graph and manufacturing-security literature.
-4. Decide whether to add a baseline comparison (e.g. CVSS-driven or
-   MulVAL-style prioritisation) — journals usually ask "better than what?".
+4. ~~Add a baseline comparison~~ — done: section VI.G scores CAPM against four
+   baseline prioritisations on the corpus, including an honest negative result
+   (a detection-blind ranking performs indistinguishably). If a reviewer wants a
+   comparison against a named tool rather than against operationalised
+   heuristics, that is still open.
 
 Venue-specific:
 

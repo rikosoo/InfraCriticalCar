@@ -12,5 +12,5 @@ T1021.001,Remote Services: Remote Desktop Protocol,enterprise,Lateral Movement,0
 T1039,Data from Network Shared Drive,enterprise,Collection,0.1085
 T1489,Service Stop,enterprise,Impact,0.0974
 T1552.001,Unsecured Credentials: Credentials In Files,enterprise,Credential Access,0.0896
-T0828,Loss of Productivity and Revenue,ics,Impact,0.0775
 T0831,Manipulation of Control,ics,Impair Process Control,0.0775
+T0828,Loss of Productivity and Revenue,ics,Impact,0.0775

@@ -1,0 +1,6 @@
+ranking,name,median_percentile,mean_percentile,incidents_in_top_10pct,incidents_in_top_25pct,kendall_tau_vs_capm,wilcoxon_p_vs_capm,rank_biserial_effect
+CAPM,CAPM path likelihood,4.8,6.8,14,20,,,
+B1,Fewest steps,9.5,11.3,11,18,+0.76,0.0104,-0.65
+B2,Exploitability only,6.5,7.9,15,19,+0.78,0.9922,+0.02
+B3,Deepest OT reach,95.9,76.9,2,4,-0.08,0.0000,-0.97
+B4,Most zones crossed,98.9,96.7,0,0,-0.64,0.0000,-1.00

@@ -70,10 +70,11 @@ likelihood and expected loss.
     spanning five planes, 48 assets, 91 attack steps labelled with 43 \attck{}
     Enterprise and \attck{} for ICS techniques, and five terminal consequences
     (\cref{sec:model}).
-  \item \textbf{C3 --- Path analysis.} We rank routes by exact
-    $k$-most-likely-path enumeration and identify likelihood-weighted choke
-    points, showing that the plant's true conduits of consequence are business
-    processes rather than network boundaries (\cref{sec:results}).
+  \item \textbf{C3 --- Path analysis, and a comparison.} We rank routes by exact
+    $k$-most-likely-path enumeration, identify likelihood-weighted choke points,
+    and measure the ranking against four baseline prioritisations that stand in
+    for current practice, scoring all of them against the corpus
+    (\cref{sec:results}).
   \item \textbf{C4 --- Risk quantification.} A Monte Carlo campaign simulation
     with three actor profiles converts path structure into annualised loss
     expectancy, downtime distributions and time-to-consequence
@@ -202,20 +203,24 @@ that exposes it. \Cref{tab:corpus} lists the corpus.
 
 Three properties of the corpus shape the rest of the paper.
 
-\textbf{Availability dominates.} Eleven of twenty incidents (55\%) had
-production stoppage as their primary consequence; five caused theft of
-engineering or corporate data and four exposed customer personal data.
+\textbf{Availability dominates.} Eleven of twenty incidents had production
+stoppage as their primary consequence (55\%, 95\% Wilson CI 34--74\%); five
+caused theft of engineering or corporate data and four exposed customer
+personal data. Twenty incidents support only wide intervals, so we report
+Wilson score intervals throughout: at this sample size the normal approximation
+is unusable near the extremes, and the honest reading of these proportions is
+their direction, not their second digit.
 
 \textbf{The supply chain is a first-class attack surface.} Eight of twenty
-incidents (40\%) traversed the supply-chain plane --- either because the victim
+incidents (40\%, CI 22--61\%) traversed the supply-chain plane --- either because the victim
 \emph{was} a supplier whose failure propagated to an OEM (Kojima/Toyota,
 Yanfeng/Stellantis, Sensata, MKS Instruments), or because a shared platform
 outside the OEM's control was the point of failure (CDK Global, the SaaS
 platform behind the 2025 Stellantis disclosure).
 
 \textbf{Operational technology is rarely the target.} Only two of the twenty
-incidents (10\%) are reported to have interacted with equipment below Purdue
-level~3, and in both cases the interaction was self-propagating malware
+incidents (10\%, CI 3--30\%) are reported to have interacted with equipment
+below Purdue level~3, and in both cases the interaction was self-propagating malware
 encrypting Windows-based production hosts rather than a deliberate
 manipulation of control. No incident in the corpus involved a documented
 adversarial program download to a controller. \Cref{fig:corpus-planes} shows
@@ -449,6 +454,21 @@ under multiplicative log-normal perturbation of every $p$ and $\delta$
 campaign frequency and actor budget, and the stability of the control ranking
 across twelve perturbed graphs.
 
+\textbf{E7} asks the question a prioritisation model has to answer --- better
+than what? --- by ranking the same path set with four baseline heuristics that
+stand in for current practice, and scoring every ranking, CAPM included, against
+the same ground truth: the percentile at which the corpus incidents fall among
+the paths that reach the same consequence. The baselines are B1, fewest steps,
+the classical attack-graph proxy; B2, exploitability only, which multiplies step
+success probabilities and ignores detection and containment, as vulnerability
+scoring does; B3, deepest OT reach, the implicit ranking of zone-centric
+practice; and B4, most zone boundaries crossed, the segmentation-centric reflex.
+Rankings are compared with an exact two-sided Wilcoxon signed-rank test on the
+paired percentiles and with Kendall's $\tau_b$ over the full path set. A
+consequence-magnitude baseline is deliberately absent: because paths are scored
+within the set reaching the same consequence, such a ranking is constant inside
+every comparison set and collapses onto its tie-breaker.
+
 Monte Carlo experiments use 20,000 campaigns per configuration with fixed
 seeds; the full pipeline runs in about nine minutes on a single core of a
 commodity machine and requires only a CPython~3.9+ interpreter. Because the
@@ -640,6 +660,44 @@ supplier and SaaS interfaces are.
 
 \input{figures/fig_sensitivity.tex}
 
+\subsection{F7: against the prioritisations a plant uses today}
+
+\Cref{tab:baselines} and \cref{fig:baselines} score CAPM and the four baselines
+on the same ground truth. CAPM places the median corpus incident at the
+$4.8$th percentile of the paths reaching its consequence, with all 20 incidents
+inside the top quartile and 14 inside the top decile.
+
+The two heuristics that encode conventional industrial intuition fail badly.
+Ranking by depth into the Purdue hierarchy (B3) puts the median observed
+incident at the $95.9$th percentile --- near the \emph{bottom} of its own list
+--- with 4 of 20 incidents in the top quartile and Kendall's $\tau_b = -0.08$
+against CAPM. Ranking by the number of zone boundaries crossed (B4) is worse
+still: median percentile $98.9$, not a single incident in the top quartile, and
+a rank-biserial effect of $-1.00$, meaning CAPM ranked every one of the twenty
+incidents higher. Both differences are significant at $p < 10^{-4}$. A plant
+that prioritises the paths which go deepest, or which cross the most zones, is
+prioritising almost exactly the routes that the sector's incidents have not
+taken.
+
+Two results are more sobering for the model. Fewest-steps ranking (B1) is a
+weak but real competitor: median percentile $9.5$, 18 of 20 incidents in the top
+quartile, and CAPM beats it significantly ($p = 0.010$) but not dramatically ---
+much of CAPM's advantage over B1 comes from preferring short paths, which B1
+does by construction. And exploitability-only ranking (B2), which discards the
+containment term $\delta$ entirely, is \emph{statistically indistinguishable}
+from full CAPM on this criterion (median $6.5$ versus $4.8$; $p = 0.99$;
+rank-biserial effect $+0.02$). We report this rather than bury it: on the
+evidence available, modelling detection and containment does not measurably
+improve the \emph{ranking} of routes. Its value lies elsewhere in the model,
+and is large --- \cref{fig:sensitivity} shows detection efficacy to be the
+single most influential parameter of the loss estimate, moving annualised loss
+by a factor of $3.7$ across the swept range. The defensible claim is therefore
+narrower than one might wish: the containment term earns its place in the risk
+quantification, not in the path ranking.
+
+\input{tables/e7_baselines.tex}
+\input{figures/fig_baselines.tex}
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -771,6 +829,14 @@ high-automation vehicle assembly plant; a stamping plant, a battery cell
 factory or a low-automation facility would require a different instance,
 although we expect the five-plane structure to transfer.
 
+\textbf{Comparison validity.} The baselines of F7 are our own operationalisations
+of practitioner heuristics, not published methods, and a proponent of
+zone-centric prioritisation would reasonably argue that no one ranks paths by
+depth alone. The comparison should be read as testing the \emph{assumption}
+those practices encode, not as a benchmark against a specific tool. The corpus
+is also the evidence that informed the graph's structure, which flatters CAPM
+and B2 relative to B3 and B4; the leave-one-out ablation of F2 bounds how much.
+
 \textbf{Conclusion validity.} Monte Carlo estimates use 20,000 campaigns per
 configuration with fixed seeds; differences of less than roughly 3\% in ALE
 between neighbouring configurations should not be interpreted. The corpus, at
@@ -800,6 +866,12 @@ the single most valuable investment class, controls that look worthless in
 isolation turn out to be the least removable ones in a mature programme, and
 partial hardening can displace risk from one objective onto a more damaging
 one.
+
+Measured against the prioritisations a plant uses today, the model places the
+median observed incident near the top of its list where depth- and
+segmentation-centric heuristics place it near the bottom; a ranking that ignores
+containment altogether, however, does as well as the full model, which bounds
+what the containment term can be claimed to do.
 
 Four extensions follow directly. First, \emph{calibration}: replacing elicited
 probabilities with measurements from purple-team exercises and plant telemetry,

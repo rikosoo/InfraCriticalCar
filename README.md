@@ -22,14 +22,16 @@ line.
 |---|---------|----------|
 | F1 | **The path of least resistance never touches a controller.** The most likely route to a production stoppage is `actor → Tier-1 supplier → EDI/JIT interface → line stopped` (L = 0.047), **11.6× more likely** than the most likely route that reaches Purdue level 2 or below. | E1 |
 | F2 | **The model agrees with the record.** All 20 corpus incidents are expressible as model paths, and the median incident sits at the **4.8th percentile** of all modelled paths to the same consequence. A leave-one-out ablation keeps 65% of them (75% for internal propagation only). | E2 |
+| F7 | **Better than what?** Against four baseline prioritisations, CAPM places the median observed incident at the 4.8th percentile; depth-into-OT ranking places it at the **95.9th** and zone-crossing ranking at the **98.9th** (both *p* < 10⁻⁴). Honest negative: a ranking that ignores detection entirely is **statistically indistinguishable** from CAPM (*p* = 0.99), so the containment term earns its place in the loss estimate, not the ranking. | E7 |
 | F3 | **The choke points are business systems.** Engineering workstation (0.27 of likelihood mass), employee workstation (0.23), VPN gateway (0.16), Tier-1 supplier IT (0.15), ERP (0.14). | E3 |
 | F4 | **Partial hardening displaces risk.** A supply-chain-and-cloud programme cuts espionage loss by **73%** while *raising* ransomware loss by **26%**: removing cheap data-theft objectives concentrates a rational actor on the availability objective. | E4 |
 | F5 | **Recovery beats prevention in expected-loss terms**, and the controls that look worthless alone are the least removable ones in a mature programme (SaaS token governance, supplier assurance). | E5 |
 | F6 | **Detection efficacy is the dominant parameter**: halving it multiplies annualised loss by 3.7. Qualitative conclusions survive parameter perturbation; the precise ordering of the top ten paths does not. | E6 |
 
-Corpus descriptive statistics: **55%** of the 20 incidents caused a production
-impact, **40%** traversed the supply-chain plane, and only **10%** are reported
-to have interacted with equipment below Purdue level 3.
+Corpus descriptive statistics, with Wilson 95% intervals for n = 20: **55%**
+(34–74%) of incidents caused a production impact, **40%** (22–61%) traversed the
+supply-chain plane, and only **10%** (3–30%) are reported to have interacted
+with equipment below Purdue level 3.
 
 ## Repository layout
 
@@ -42,10 +44,11 @@ capm/                  the model (pure Python 3.9+, zero dependencies)
   paths.py             Dijkstra / Yen k-best paths, enumeration, choke points
   risk.py              Monte Carlo campaign simulation, actor profiles, ALE
   incidents.py         corpus loader, reconciliation, leave-one-out ablation
+  evaluation.py        Wilson intervals, exact Wilcoxon, Kendall tau, baseline rankings
   report.py            CSV, LaTeX table and SVG figure writers
   cli.py               command-line exploration of the model
 data/incidents.csv     the empirical corpus, with sources and confidence labels
-experiments/run_all.py the full pipeline (E1–E6) -> tables, figures, summary.json
+experiments/run_all.py the full pipeline (E1–E7) -> tables, figures, summary.json
 experiments/build_paper_assets.py LaTeX tables and pgfplots figures, in English and Portuguese
 experiments/export_model.py      full parameter dump -> data/model_*.csv, docs/model-reference.md
 docs/model-reference.md          every zone, control and attack step with its parameters
@@ -55,7 +58,7 @@ paper/main.tex         IEEE conference edition; paper-ieee-journal.tex, paper-sa
 paper/README.md        which edition is which, and a pre-submission checklist
 paper/references.bib   the shared bibliography
 capm/i18n.py           pt-BR renderings of asset, control and scenario names
-tests/                 pytest suite (42 tests, including a cross-process reproducibility guard)
+tests/                 pytest suite (57 tests, including a cross-process reproducibility guard)
 ```
 
 ## Reproducing everything
