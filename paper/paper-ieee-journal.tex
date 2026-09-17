@@ -1,0 +1,55 @@
+%% From Cloud to Assembly Line:
+%% Modelling Cyberattack Paths in Automotive Manufacturing as Critical Infrastructure
+%%
+%% IEEE JOURNAL version, for IEEE Open Journal of Vehicular Technology, IEEE
+%% Transactions on Vehicular Technology, IEEE Access or a similar title.
+%% Content is shared with every other edition through body.tex and abstract.tex.
+%%
+%% For IEEE Access specifically, swap the class line for the journal's own
+%% ieeeaccess.cls (supplied by IEEE) and keep everything below unchanged; the
+%% body uses no class-specific commands.
+%%
+%% Build:  pdflatex paper-ieee-journal && bibtex paper-ieee-journal && pdflatex ... (x2)
+\documentclass[journal]{IEEEtran}
+
+\input{preamble.tex}
+\input{abstract.tex}
+
+\begin{document}
+
+\title{From Cloud to Assembly Line: Modelling Cyberattack Paths in Automotive
+Manufacturing as Critical Infrastructure}
+
+\author{Author~Name,~\IEEEmembership{Member,~IEEE}
+\thanks{Author Name is with Affiliation, City, Country
+(e-mail: author@example.org).}
+\thanks{The model, incident corpus and experiment pipeline described in this
+paper are openly available at \url{https://github.com/rikosoo/InfraCriticalCar}.}}
+
+\markboth{IEEE Journal, Vol.~XX, No.~X, Month~Year}%
+{Author \MakeLowercase{\textit{et al.}}: Modelling Cyberattack Paths in Automotive Manufacturing}
+
+\maketitle
+
+\begin{abstract}
+\capmabstract
+\end{abstract}
+
+\begin{IEEEkeywords}
+\capmkeywords
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\input{body.tex}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+%% Author biographies are required by most IEEE journals; uncomment and complete
+%% before submission.
+% \begin{IEEEbiographynophoto}{Author Name}
+% Biography text.
+% \end{IEEEbiographynophoto}
+
+\end{document}

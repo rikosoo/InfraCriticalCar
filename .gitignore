@@ -8,5 +8,5 @@ paper/*.bbl
 paper/*.blg
 paper/*.log
 paper/*.out
-paper/*.pdf
+# the compiled editions are deliverables and are tracked; only strays are ignored
 paper/*.synctex.gz

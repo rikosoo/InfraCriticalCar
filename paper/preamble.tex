@@ -1,0 +1,50 @@
+% Packages shared by every venue wrapper. Class-specific setup stays in the
+% wrapper that loads this file.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% Language: a wrapper that defines \capmusebabelpt before loading this file gets
+% Brazilian Portuguese, loaded here so that it precedes hyperref and cleveref.
+\ifdefined\capmusebabelpt
+  \usepackage[brazilian]{babel}
+\fi
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{xurl}  % break long URLs anywhere; several corpus sources have very long ones
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+
+% a little stretch keeps long compound terms from overflowing narrow measures
+\emergencystretch=1em
+
+\newcommand{\capm}{\textsc{capm}}
+\newcommand{\attck}{ATT\&CK}
+
+% Generated tables size their text columns from these lengths and pick their
+% font through \capmtablefont, so the same generated file fits a two-column
+% IEEE page and a single-column Elsevier or SAE page.
+\newlength{\capmpathcol}   \setlength{\capmpathcol}{11cm}
+\newlength{\capmvictimcol} \setlength{\capmvictimcol}{4.2cm}
+\newlength{\capmstdcol}    \setlength{\capmstdcol}{5cm}
+\newlength{\capmnamecol}   \setlength{\capmnamecol}{3.6cm}
+\newcommand{\capmtablefont}{\small}
+
+% Single-column venues: the generated tables and the architecture figure use the
+% starred float forms, which only exist in two-column layouts, and the wide
+% columns have to shrink to the narrower text block.
+\newcommand{\capmsinglecolumnfloats}{%
+  \renewenvironment{table*}{\begin{table}}{\end{table}}%
+  \renewenvironment{figure*}{\begin{figure}}{\end{figure}}%
+  \setlength{\capmpathcol}{7.4cm}%
+  \setlength{\capmvictimcol}{2.4cm}%
+  \setlength{\capmstdcol}{3.2cm}%
+  \setlength{\capmnamecol}{3.0cm}%
+  \renewcommand{\capmtablefont}{\scriptsize}%
+}

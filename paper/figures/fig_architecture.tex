@@ -1,6 +1,7 @@
 % Reference architecture of the modelled plant (hand-drawn TikZ).
 \begin{figure*}[t]
 \centering
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[
   font=\scriptsize,
   zone/.style={draw, rounded corners=2pt, align=center, inner sep=3pt,
@@ -89,7 +90,7 @@
 \draw[flow] (proc.east) to[out=0,in=-90] (c1.south);
 \draw[flow] (proc.east) to[out=10,in=-100] (c2.south);
 
-\end{tikzpicture}
+\end{tikzpicture}}
 \caption{Reference architecture of the modelled vehicle assembly plant: 12 IEC
 62443 zones across five planes, 48 assets and 91 attack steps. Dark arrows mark
 the two highest-likelihood routes to production stoppage found in

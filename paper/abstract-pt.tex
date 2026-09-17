@@ -1,0 +1,45 @@
+% Resumo e palavras-chave compartilhados pela edicao em portugues.
+\newcommand{\capmabstract}{%
+A pesquisa e a regulação de cibersegurança automotiva concentram-se no produto:
+a ISO/SAE~21434 e a UN~R155 governam o carro, suas ECUs e seu \emph{back end}.
+A fábrica que constrói o carro não é governada por nada equivalente, embora
+seja o ativo cuja falha interrompe a produção, deixa uma cadeia de fornecimento
+continental sem peças e, no evento cibernético mais caro já registrado no Reino
+Unido, custou a uma economia cerca de \pounds1,9 bilhão. Este artigo trata a
+planta automotiva, e não o veículo, como infraestrutura crítica, e faz uma
+pergunta que a literatura centrada no veículo não responde: por quais caminhos
+um atacante efetivamente alcança a linha de montagem? Contribuímos com (i)~um
+corpus curado de 20 incidentes publicamente reportados na manufatura automotiva
+entre 2017 e 2025, cada um reconstruído como um caminho em nível de ativo com
+rótulo explícito de confiança; (ii)~o \capm{}, um modelo de caminhos de ataque
+que atravessa TI corporativa, o plano de identidade, nuvem e SaaS, a DMZ
+industrial, as camadas MES/SCADA/CLP e a interface com fornecedores,
+instanciado como uma arquitetura de referência de 12 zonas IEC 62443, 48 ativos
+e 91 passos de ataque rotulados com 43 técnicas MITRE \attck{} Enterprise e
+\attck{} for ICS; (iii)~uma análise probabilística que combina o ranqueamento
+dos $k$ caminhos mais prováveis com uma simulação Monte Carlo de campanhas que
+quantifica a perda anual esperada; e (iv)~um catálogo de controles mapeado para
+a IEC 62443-3-3 e o NIST CSF 2.0, avaliado por valor marginal, necessidade e
+custo-efetividade. Três resultados se destacam. Primeiro, o caminho de menor
+resistência até a parada de produção nunca toca um controlador: a rota mais
+provável é $11{,}6\times$ mais provável do que a melhor rota que alcança o
+nível~2 de Purdue ou abaixo, e o corpus concorda --- 55\% dos incidentes
+causaram impacto de disponibilidade, enquanto apenas 10\% teriam interagido com
+equipamentos abaixo do nível~3. Segundo, a capacidade de recuperação domina a
+prevenção em termos de perda esperada: \emph{backups} imutáveis e testados e um
+modo degradado de produção ensaiado respondem pelas duas maiores reduções
+obtidas por um único controle, ao passo que a governança de tokens SaaS e a
+garantia de segurança de fornecedores são os controles que um programa maduro
+menos pode remover. Terceiro, o endurecimento parcial desloca o risco em vez de
+removê-lo: um programa voltado a cadeia de fornecimento e nuvem reduz a perda
+por espionagem em 73\% e \emph{aumenta} a perda por ransomware em 26\%, ao
+empurrar um ator racional para o objetivo de disponibilidade. O modelo, o
+corpus, os experimentos e as figuras são publicados como artefato aberto e sem
+dependências externas.%
+}
+
+\newcommand{\capmkeywords}{%
+infraestrutura crítica, manufatura automotiva, grafos de ataque, tecnologia
+operacional, MITRE \attck{} for ICS, IEC 62443, segurança da cadeia de
+fornecimento, quantificação de risco%
+}

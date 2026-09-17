@@ -1,6 +1,7 @@
 % Arquitetura de referência da planta modelada (TikZ, escrito à mão).
 \begin{figure*}[t]
 \centering
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[
   font=\scriptsize,
   zone/.style={draw, rounded corners=2pt, align=center, inner sep=3pt,
@@ -79,7 +80,7 @@
 \draw[flow] (proc.east) to[out=0,in=-90] (c1.south);
 \draw[flow] (proc.east) to[out=10,in=-100] (c2.south);
 
-\end{tikzpicture}
+\end{tikzpicture}}
 \caption{Arquitetura de referência da planta de montagem modelada: 12 zonas
 IEC 62443 em cinco planos, 48 ativos e 91 passos de ataque. As setas escuras
 marcam as duas rotas de maior verossimilhança até a parada de produção

@@ -3,21 +3,21 @@
 \centering
 \caption{Os dez caminhos de ataque mais prováveis até a parada de produção na configuração de linha de base $S_0$. Nenhum deles exige alcançar o nível 1 de Purdue.}
 \label{tab:top-paths}
-\small
-\begin{tabular}{rrrrp{11cm}}
+\capmtablefont
+\begin{tabular}{rrrrp{\capmpathcol}}
 \toprule
 \# & $L(\pi)$ & Passos & Purdue min. & Caminho \\
 \midrule
-1 & 0.0468 & 3 & 5 & Ator externo -> TI do fornecedor Tier-1 -> Interface EDI/JIT de pedidos e logística -> Parada de produção \\
-2 & 0.0408 & 3 & 4 & Ator externo -> Aplicação corporativa exposta à Internet -> ERP e planejamento de produção -> Parada de produção \\
-3 & 0.0315 & 2 & 4 & Ator externo -> Plataforma de gestão de concessionárias -> Parada de produção \\
-4 & 0.0270 & 3 & 4 & Ator externo -> Gateway de VPN de acesso remoto -> ERP e planejamento de produção -> Parada de produção \\
-5 & 0.0109 & 4 & 4 & Ator externo -> Credenciais dormentes de terceiros -> Gateway de VPN de acesso remoto -> ERP e planejamento de produção -> Parada de produção \\
-6 & 0.0104 & 4 & 3 & Ator externo -> TI do fornecedor Tier-1 -> Interface EDI/JIT de pedidos e logística -> Sistema de execução da manufatura (MES) -> Parada de produção \\
-7 & 0.0048 & 5 & 4 & Ator externo -> Aplicação corporativa exposta à Internet -> Active Directory local (tier 0) -> Gestão de acesso privilegiado -> Gestão de endpoints e distribuição de software -> Parada de produção \\
-8 & 0.0044 & 5 & 4 & Ator externo -> Credenciais dormentes de terceiros -> Active Directory local (tier 0) -> Gestão de acesso privilegiado -> Gestão de endpoints e distribuição de software -> Parada de produção \\
-9 & 0.0040 & 5 & 2 & Ator externo -> Aplicação corporativa exposta à Internet -> Active Directory local (tier 0) -> Controlador de domínio OT -> Servidor SCADA e de controle de linha -> Parada de produção \\
-10 & 0.0037 & 5 & 2 & Ator externo -> Credenciais dormentes de terceiros -> Active Directory local (tier 0) -> Controlador de domínio OT -> Servidor SCADA e de controle de linha -> Parada de produção \\
+1 & 0.0468 & 3 & 5 & Ator externo $\to$ TI do fornecedor Tier-1 $\to$ Interface EDI/JIT de pedidos e logística $\to$ Parada de produção \\
+2 & 0.0408 & 3 & 4 & Ator externo $\to$ Aplicação corporativa exposta à Internet $\to$ ERP e planejamento de produção $\to$ Parada de produção \\
+3 & 0.0315 & 2 & 4 & Ator externo $\to$ Plataforma de gestão de concessionárias $\to$ Parada de produção \\
+4 & 0.0270 & 3 & 4 & Ator externo $\to$ Gateway de VPN de acesso remoto $\to$ ERP e planejamento de produção $\to$ Parada de produção \\
+5 & 0.0109 & 4 & 4 & Ator externo $\to$ Credenciais dormentes de terceiros $\to$ Gateway de VPN de acesso remoto $\to$ ERP e planejamento de produção $\to$ Parada de produção \\
+6 & 0.0104 & 4 & 3 & Ator externo $\to$ TI do fornecedor Tier-1 $\to$ Interface EDI/JIT de pedidos e logística $\to$ Sistema de execução da manufatura (MES) $\to$ Parada de produção \\
+7 & 0.0048 & 5 & 4 & Ator externo $\to$ Aplicação corporativa exposta à Internet $\to$ Active Directory local (tier 0) $\to$ Gestão de acesso privilegiado $\to$ Gestão de endpoints e distribuição de software $\to$ Parada de produção \\
+8 & 0.0044 & 5 & 4 & Ator externo $\to$ Credenciais dormentes de terceiros $\to$ Active Directory local (tier 0) $\to$ Gestão de acesso privilegiado $\to$ Gestão de endpoints e distribuição de software $\to$ Parada de produção \\
+9 & 0.0040 & 5 & 2 & Ator externo $\to$ Aplicação corporativa exposta à Internet $\to$ Active Directory local (tier 0) $\to$ Controlador de domínio OT $\to$ Servidor SCADA e de controle de linha $\to$ Parada de produção \\
+10 & 0.0037 & 5 & 2 & Ator externo $\to$ Credenciais dormentes de terceiros $\to$ Active Directory local (tier 0) $\to$ Controlador de domínio OT $\to$ Servidor SCADA e de controle de linha $\to$ Parada de produção \\
 \bottomrule
 \end{tabular}
 \end{table*}

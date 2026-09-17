@@ -1,0 +1,94 @@
+%% From Cloud to Assembly Line:
+%% Modelling Cyberattack Paths in Automotive Manufacturing as Critical Infrastructure
+%%
+%% SAE INTERNATIONAL version (SAE Technical Paper / SAE International Journal).
+%%
+%% SAE distributes its own manuscript template to authors once a paper offer is
+%% accepted, and that template -- not this file -- is what the publisher
+%% typesets. This wrapper reproduces the SAE structure and section order
+%% (Abstract, Introduction, body, Summary/Conclusions, References, Contact
+%% Information, Definitions/Abbreviations) in a single-column layout, so the
+%% content can be transferred into the official template without reorganisation.
+%% Content is shared with every other edition through body.tex and abstract.tex.
+%%
+%% Build:  pdflatex paper-sae && bibtex paper-sae && pdflatex paper-sae (x2)
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.54cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{titlesec}
+\usepackage{abstract}
+
+\input{preamble.tex}
+\input{abstract.tex}
+
+% SAE papers are single column: the generated floats use the starred forms.
+\capmsinglecolumnfloats
+
+\titleformat{\section}{\normalfont\large\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{}{0pt}{}
+\setlength{\parskip}{4pt}
+\renewcommand{\abstractnamefont}{\normalfont\large\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries From Cloud to Assembly Line: Modelling Cyberattack Paths in
+Automotive Manufacturing as Critical Infrastructure\par}
+\vspace{6pt}
+{\normalsize Paper Number: XX-XXXX-XXXX\par}
+\vspace{10pt}
+{\large Author Name\par}
+{\normalsize Affiliation\par}
+\end{center}
+\vspace{6pt}
+
+\begin{abstract}
+\capmabstract
+\end{abstract}
+
+\vspace{6pt}
+\noindent\textbf{Keywords:} \capmkeywords
+
+\input{body.tex}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\section*{Contact Information}
+
+Author Name, Affiliation, City, Country. E-mail: author@example.org. The model,
+the incident corpus with its sources, and the experiment pipeline that generates
+every number in this paper are openly available at
+\url{https://github.com/rikosoo/InfraCriticalCar}.
+
+\section*{Acknowledgments}
+
+Placeholder: acknowledge reviewers, funding and any plant engineers who took
+part in parameter elicitation. Anonymise any organisation that has not agreed to
+be named.
+
+\section*{Definitions, Acronyms, Abbreviations}
+
+\begin{description}
+  \item[ALE] Annualised loss expectancy
+  \item[\attck{}] MITRE Adversarial Tactics, Techniques and Common Knowledge
+  \item[\capm{}] Cyberattack path model, the model defined in this paper
+  \item[CLP/PLC] Programmable logic controller
+  \item[EDI] Electronic data interchange
+  \item[ERP] Enterprise resource planning
+  \item[HMI] Human--machine interface
+  \item[IACS] Industrial automation and control system
+  \item[IDMZ] Industrial demilitarised zone
+  \item[JIT] Just-in-time
+  \item[MES] Manufacturing execution system
+  \item[OEM] Original equipment manufacturer
+  \item[OT] Operational technology
+  \item[SaaS] Software as a service
+  \item[SCADA] Supervisory control and data acquisition
+  \item[SL-T] Target security level (IEC 62443)
+  \item[SR] System requirement (IEC 62443-3-3)
+\end{description}
+
+\end{document}

@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: all experiments assets model test paper paper-pt clean
+.PHONY: all experiments assets model test papers paper paper-ieee-journal paper-sae paper-elsevier paper-pt clean
 
 all: experiments assets model test
 
@@ -24,17 +24,34 @@ model:
 test:
 	$(PYTHON) -m pytest
 
-## build the English paper (requires a TeX distribution with IEEEtran and pgfplots)
-paper:
-	cd paper && pdflatex -interaction=nonstopmode main.tex \
-		&& bibtex main && pdflatex -interaction=nonstopmode main.tex \
-		&& pdflatex -interaction=nonstopmode main.tex
+## build every edition (requires TeX Live with IEEEtran, elsarticle, pgfplots)
+papers: paper paper-ieee-journal paper-sae paper-elsevier paper-pt
 
-## build the Portuguese paper
+define build_paper
+	cd paper && pdflatex -interaction=nonstopmode $(1).tex \
+		&& bibtex $(1) && pdflatex -interaction=nonstopmode $(1).tex \
+		&& pdflatex -interaction=nonstopmode $(1).tex
+endef
+
+## IEEE conference edition
+paper:
+	$(call build_paper,main)
+
+## IEEE journal edition (OJVT / TVT / Access)
+paper-ieee-journal:
+	$(call build_paper,paper-ieee-journal)
+
+## SAE International edition
+paper-sae:
+	$(call build_paper,paper-sae)
+
+## Elsevier edition (Computers & Security, IJCIP)
+paper-elsevier:
+	$(call build_paper,paper-elsevier)
+
+## Portuguese edition
 paper-pt:
-	cd paper && pdflatex -interaction=nonstopmode main-pt.tex \
-		&& bibtex main-pt && pdflatex -interaction=nonstopmode main-pt.tex \
-		&& pdflatex -interaction=nonstopmode main-pt.tex
+	$(call build_paper,main-pt)
 
 clean:
 	rm -rf __pycache__ */__pycache__ .pytest_cache

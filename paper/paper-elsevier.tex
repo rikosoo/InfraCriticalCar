@@ -1,0 +1,93 @@
+%% From Cloud to Assembly Line:
+%% Modelling Cyberattack Paths in Automotive Manufacturing as Critical Infrastructure
+%%
+%% ELSEVIER version, for Computers & Security, the International Journal of
+%% Critical Infrastructure Protection, or a similar title using elsarticle.
+%% Content is shared with every other edition through body.tex and abstract.tex.
+%%
+%% Submit as a single-column preprint (the option below); switch to
+%% \documentclass[final,3p,times,twocolumn]{elsarticle} for the journal's
+%% two-column look, and then delete the \capmsinglecolumnfloats line.
+%%
+%% Build:  pdflatex paper-elsevier && bibtex paper-elsevier && pdflatex ... (x2)
+\documentclass[preprint,12pt]{elsarticle}
+
+\input{preamble.tex}
+\input{abstract.tex}
+
+\capmsinglecolumnfloats
+
+% Some elsarticle installations do not provide a highlights environment.
+\makeatletter
+\@ifundefined{highlights}{%
+  \newenvironment{highlights}{\par\noindent\textbf{Highlights}\begin{itemize}}%
+                             {\end{itemize}\par}}{}
+\makeatother
+
+\journal{Computers \& Security}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{From Cloud to Assembly Line: Modelling Cyberattack Paths in Automotive
+Manufacturing as Critical Infrastructure}
+
+\author[aff1]{Author Name\corref{cor1}}
+\ead{author@example.org}
+\cortext[cor1]{Corresponding author.}
+\affiliation[aff1]{organization={Affiliation},
+                   city={City},
+                   country={Country}}
+
+\begin{abstract}
+\capmabstract
+\end{abstract}
+
+\begin{highlights}
+\item A cross-plane attack-path model of an automotive plant: IT, identity, cloud, OT, suppliers.
+\item Corpus of 20 public automotive manufacturing incidents, 2017--2025, with confidence labels.
+\item The likeliest route to a stopped line is 11.6x likelier than any route reaching level 2.
+\item Recovery controls dominate expected loss; SaaS and supplier controls are least removable.
+\item Partial hardening displaces risk: -73\% espionage loss but +26\% ransomware loss.
+\end{highlights}
+
+\begin{keyword}
+critical infrastructure \sep automotive manufacturing \sep attack graphs \sep
+operational technology \sep MITRE \attck{} for ICS \sep IEC 62443 \sep
+supply-chain security \sep risk quantification
+\end{keyword}
+
+\end{frontmatter}
+
+\input{body.tex}
+
+\section*{CRediT authorship contribution statement}
+
+\textbf{Author Name:} Conceptualization, Methodology, Software, Validation,
+Formal analysis, Investigation, Data curation, Writing --- original draft,
+Writing --- review \& editing, Visualization.
+
+\section*{Declaration of competing interest}
+
+The author declares no known competing financial interests or personal
+relationships that could have appeared to influence the work reported in this
+paper.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+
+State here, as the journal requires, any use of generative AI in the preparation
+of this manuscript, the tool and the purpose, and confirm that the author
+reviewed and takes full responsibility for the content.
+
+\section*{Data availability}
+
+The incident corpus, the model, the experiment pipeline and all generated
+results are openly available at \url{https://github.com/rikosoo/InfraCriticalCar}.
+All corpus records are derived from public reporting and are published with
+their sources.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

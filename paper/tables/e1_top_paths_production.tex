@@ -3,21 +3,21 @@
 \centering
 \caption{Ten most likely attack paths to production stoppage in the baseline configuration $S_0$. None of them requires reaching Purdue level 1.}
 \label{tab:top-paths}
-\small
-\begin{tabular}{rrrrp{11cm}}
+\capmtablefont
+\begin{tabular}{rrrrp{\capmpathcol}}
 \toprule
 \# & $L(\pi)$ & Steps & Min.\ Purdue & Path \\
 \midrule
-1 & 0.0468 & 3 & 5 & External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Production stoppage \\
-2 & 0.0408 & 3 & 4 & External threat actor -> Internet-facing enterprise application -> ERP and production planning core -> Production stoppage \\
-3 & 0.0315 & 2 & 4 & External threat actor -> Dealer management platform -> Production stoppage \\
-4 & 0.0270 & 3 & 4 & External threat actor -> Remote access VPN gateway -> ERP and production planning core -> Production stoppage \\
-5 & 0.0109 & 4 & 4 & External threat actor -> Dormant third-party / legacy credentials -> Remote access VPN gateway -> ERP and production planning core -> Production stoppage \\
-6 & 0.0104 & 4 & 3 & External threat actor -> Tier-1 supplier IT estate -> EDI / JIT ordering and logistics interface -> Manufacturing execution system -> Production stoppage \\
-7 & 0.0048 & 5 & 4 & External threat actor -> Internet-facing enterprise application -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Endpoint management / software deployment -> Production stoppage \\
-8 & 0.0044 & 5 & 4 & External threat actor -> Dormant third-party / legacy credentials -> On-premises Active Directory (tier 0) -> Privileged access management and domain administration -> Endpoint management / software deployment -> Production stoppage \\
-9 & 0.0040 & 5 & 2 & External threat actor -> Internet-facing enterprise application -> On-premises Active Directory (tier 0) -> OT domain controller -> SCADA / line control server -> Production stoppage \\
-10 & 0.0037 & 5 & 2 & External threat actor -> Dormant third-party / legacy credentials -> On-premises Active Directory (tier 0) -> OT domain controller -> SCADA / line control server -> Production stoppage \\
+1 & 0.0468 & 3 & 5 & External threat actor $\to$ Tier-1 supplier IT estate $\to$ EDI / JIT ordering and logistics interface $\to$ Production stoppage \\
+2 & 0.0408 & 3 & 4 & External threat actor $\to$ Internet-facing enterprise application $\to$ ERP and production planning core $\to$ Production stoppage \\
+3 & 0.0315 & 2 & 4 & External threat actor $\to$ Dealer management platform $\to$ Production stoppage \\
+4 & 0.0270 & 3 & 4 & External threat actor $\to$ Remote access VPN gateway $\to$ ERP and production planning core $\to$ Production stoppage \\
+5 & 0.0109 & 4 & 4 & External threat actor $\to$ Dormant third-party / legacy credentials $\to$ Remote access VPN gateway $\to$ ERP and production planning core $\to$ Production stoppage \\
+6 & 0.0104 & 4 & 3 & External threat actor $\to$ Tier-1 supplier IT estate $\to$ EDI / JIT ordering and logistics interface $\to$ Manufacturing execution system $\to$ Production stoppage \\
+7 & 0.0048 & 5 & 4 & External threat actor $\to$ Internet-facing enterprise application $\to$ On-premises Active Directory (tier 0) $\to$ Privileged access management and domain administration $\to$ Endpoint management / software deployment $\to$ Production stoppage \\
+8 & 0.0044 & 5 & 4 & External threat actor $\to$ Dormant third-party / legacy credentials $\to$ On-premises Active Directory (tier 0) $\to$ Privileged access management and domain administration $\to$ Endpoint management / software deployment $\to$ Production stoppage \\
+9 & 0.0040 & 5 & 2 & External threat actor $\to$ Internet-facing enterprise application $\to$ On-premises Active Directory (tier 0) $\to$ OT domain controller $\to$ SCADA / line control server $\to$ Production stoppage \\
+10 & 0.0037 & 5 & 2 & External threat actor $\to$ Dormant third-party / legacy credentials $\to$ On-premises Active Directory (tier 0) $\to$ OT domain controller $\to$ SCADA / line control server $\to$ Production stoppage \\
 \bottomrule
 \end{tabular}
 \end{table*}

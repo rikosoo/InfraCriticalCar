@@ -1,0 +1,43 @@
+% Shared abstract and keywords. Every venue wrapper reads this file, so the
+% four English editions of the paper cannot drift apart.
+\newcommand{\capmabstract}{%
+Vehicle cybersecurity research and regulation concentrate on the product:
+ISO/SAE~21434 and UN~R155 govern the car, its ECUs and its back end. The
+factory that builds the car is governed by nothing comparable, yet it is the
+asset whose failure stops output, starves a continental supply chain and, in
+the most expensive cyber event recorded in the United Kingdom, cost an economy
+an estimated \pounds1.9 billion. This paper treats the automotive plant, rather
+than the vehicle, as critical infrastructure, and asks a question that the
+vehicle-centric literature cannot answer: by which paths does an attacker
+actually reach the assembly line? We contribute (i)~a curated corpus of 20
+publicly reported incidents in automotive manufacturing between 2017 and 2025,
+each reconstructed as an asset-level path with an explicit confidence label;
+(ii)~\capm, a cross-plane attack-path model that spans corporate IT, the
+identity plane, cloud and SaaS, the industrial DMZ, MES/SCADA/PLC layers and
+the supplier interface, instantiated as a reference architecture of 12 IEC
+62443 zones, 48 assets and 91 attack steps labelled with 43 MITRE \attck{}
+Enterprise and \attck{} for ICS techniques; (iii)~a probabilistic analysis
+combining $k$-most-likely-path ranking with a Monte Carlo campaign simulation
+that quantifies annualised loss; and (iv)~a control catalogue mapped to IEC
+62443-3-3 and NIST CSF 2.0, evaluated by marginal value, necessity and
+cost-effectiveness. Three results stand out. First, the path of least
+resistance to a production stoppage never touches a controller: the most likely
+route is $11.6\times$ more likely than the most likely route that reaches
+Purdue level~2 or below, and the corpus agrees---55\% of incidents caused an
+availability impact while only 10\% are reported to have interacted with
+equipment below level~3. Second, recovery capability dominates prevention in
+expected-loss terms: tested offline backups and a rehearsed degraded-production
+mode account for the two largest single-control reductions, while SaaS token
+governance and supplier assurance are the controls a mature programme can least
+afford to remove. Third, partial hardening displaces rather than removes risk:
+a supply-chain-and-cloud programme cuts espionage loss by 73\% but raises
+ransomware loss by 26\% by pushing a rational actor onto the availability
+objective. The model, corpus, experiments and figures are released as a
+dependency-free open-source artefact.%
+}
+
+\newcommand{\capmkeywords}{%
+critical infrastructure, automotive manufacturing, attack graphs, operational
+technology, MITRE \attck{} for ICS, IEC 62443, supply-chain security, risk
+quantification%
+}

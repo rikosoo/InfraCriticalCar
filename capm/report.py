@@ -31,12 +31,14 @@ def write_csv(path: str, header: Sequence[str], rows: Iterable[Sequence[object]]
 
 
 def _tex_escape(value: object) -> str:
+    """Escape a data cell. The arrow U+2192 is the one character allowed to
+    carry meaning: it is rendered as math, so path cells read as paths."""
     text = str(value)
     for a, b in (("\\", r"\textbackslash{}"), ("&", r"\&"), ("%", r"\%"), ("$", r"\$"),
                  ("#", r"\#"), ("_", r"\_"), ("{", r"\{"), ("}", r"\}"), ("~", r"\textasciitilde{}"),
                  ("^", r"\textasciicircum{}")):
         text = text.replace(a, b)
-    return text
+    return text.replace("\u2192", "$\\to$")
 
 
 def write_latex_table(
@@ -59,7 +61,7 @@ def write_latex_table(
         "\\centering",
         "\\caption{" + caption + "}",
         "\\label{" + label + "}",
-        "\\small",
+        "\\capmtablefont",
         "\\begin{tabular}{" + align + "}",
         "\\toprule",
         # headers are author-provided LaTeX (they may contain math); only the

@@ -49,7 +49,10 @@ experiments/run_all.py the full pipeline (E1–E6) -> tables, figures, summary.j
 experiments/build_paper_assets.py LaTeX tables and pgfplots figures, in English and Portuguese
 experiments/export_model.py      full parameter dump -> data/model_*.csv, docs/model-reference.md
 docs/model-reference.md          every zone, control and attack step with its parameters
-paper/main.tex         the paper (English); paper/main-pt.tex the Portuguese version
+paper/body.tex         the paper's text, shared by every edition
+paper/main.tex         IEEE conference edition; paper-ieee-journal.tex, paper-sae.tex,
+                       paper-elsevier.tex and main-pt.tex are the other editions
+paper/README.md        which edition is which, and a pre-submission checklist
 paper/references.bib   the shared bibliography
 capm/i18n.py           pt-BR renderings of asset, control and scenario names
 tests/                 pytest suite (42 tests, including a cross-process reproducibility guard)
@@ -85,21 +88,20 @@ python3 -m capm.cli controls
 
 ## Building the paper
 
-There are two versions of the same paper, reporting exactly the same numbers:
-`paper/main.tex` (English) and `paper/main-pt.tex` (Portuguese, with
-`babel`/`brazilian`). Both compile with a standard TeX distribution (Overleaf
-works without configuration): they need `IEEEtran`, `pgfplots` ≥ 1.16,
-`booktabs`, `cleveref` and `xcolor` with `dvipsnames`. All figures are
-TikZ/pgfplots, so no image conversion step is needed.
+Five editions share one body of text (`paper/body.tex`) and therefore report
+exactly the same numbers: IEEE conference (`main.tex`), IEEE journal
+(`paper-ieee-journal.tex`), SAE (`paper-sae.tex`), Elsevier
+(`paper-elsevier.tex`) and Portuguese (`main-pt.tex`). See `paper/README.md`.
 
 ```bash
 cd paper && pdflatex main && bibtex main && pdflatex main && pdflatex main
-cd paper && pdflatex main-pt && bibtex main-pt && pdflatex main-pt && pdflatex main-pt
 ```
 
-The English paper reads `paper/tables/` and `paper/figures/`; the Portuguese one
-reads `paper/tables-pt/` and `paper/figures-pt/`. Both directories are generated
-from the same `experiments/results/`, so the two versions cannot drift apart.
+All five compile on a stock TeX Live and on Overleaf with zero errors and zero
+undefined references. The English editions read `paper/tables/` and
+`paper/figures/`, the Portuguese one `paper/tables-pt/` and `paper/figures-pt/`;
+both sets are generated from the same `experiments/results/`, so the editions
+cannot drift apart.
 
 ## Model in one paragraph
 

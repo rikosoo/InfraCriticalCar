@@ -171,8 +171,8 @@ TABLE_HEADERS: Dict[str, Dict[str, List[str]]] = {
         "pt": ["Passo", "Controle", "Nome", "Perda após (M\\$)", "$\\Delta$/custo"],
     },
     "tab:necessity": {
-        "en": ["Control", "Name", "$\\Delta$ALE if removed (M\\$)"],
-        "pt": ["Controle", "Nome", "$\\Delta$perda se removido (M\\$)"],
+        "en": ["Control", "Name", "$\\Delta$ALE (M\\$)"],
+        "pt": ["Controle", "Nome", "$\\Delta$perda (M\\$)"],
     },
     "tab:controls": {
         "en": ["ID", "Control", "IEC 62443-3-3", "NIST CSF 2.0"],
@@ -223,11 +223,19 @@ class Renderer:
         hops = [self.asset_name(h.strip()) for h in english_path.split("->")]
         if trim:
             hops = [h[:trim].strip() for h in hops]
-        return " -> ".join(hops)
+        return " \u2192 ".join(hops)
+
+    @staticmethod
+    def clip(text: str, limit: int) -> str:
+        """Truncate on a word boundary, so labels never end mid-word."""
+        if len(text) <= limit:
+            return text
+        cut = text[:limit].rsplit(" ", 1)[0]
+        return (cut or text[:limit]).rstrip(" ,;-")
 
     def control_name(self, cid: str, limit: int = 0) -> str:
         name = t_control(cid, self.lang, CONTROLS[cid].name)
-        return name[:limit] if limit else name
+        return self.clip(name, limit) if limit else name
 
     def scenario_name(self, key: str, english: str) -> str:
         return SCENARIOS_PT[key] if self.lang == "pt" else english
@@ -243,7 +251,7 @@ class Renderer:
               r["lowest_purdue_level"], self.path_str(r["path"]))
              for r in rows],
             caption=cap("tab:top-paths", lang), label="tab:top-paths",
-            align="rrrrp{11cm}", star=True)
+            align="rrrrp{\\capmpathcol}", star=True)
 
         rows = read("e2_corpus_paths.csv")
         write_latex_table(
@@ -255,16 +263,16 @@ class Renderer:
               r["likelihood"], r["percentile_among_model_paths"])
              for r in rows],
             caption=cap("tab:corpus", lang), label="tab:corpus",
-            align="llp{4.2cm}llrr", star=True)
+            align="llp{\\capmvictimcol}llrr", star=True)
 
-        rows = read("e3_node_criticality.csv")[:12]
+        rows = [r for r in read("e3_node_criticality.csv") if r["zone"] != "Z-CONS"][:12]
         write_latex_table(
             os.path.join(self.tab_dir, "e3_chokepoints.tex"),
             TABLE_HEADERS["tab:chokepoints"][lang],
-            [(self.asset_name(r["name"])[:30], r["zone"], r["purdue"],
+            [(self.clip(self.asset_name(r["name"]), 30), r["zone"], r["purdue"],
               r["likelihood_share"], r["paths"]) for r in rows],
             caption=cap("tab:chokepoints", lang), label="tab:chokepoints",
-            align="p{3.6cm}llrr")
+            align="p{\\capmnamecol}llrr")
 
         rows = [r for r in read("e4_scenarios.csv") if r["profile"] == "ransomware"]
         write_latex_table(
@@ -274,7 +282,7 @@ class Renderer:
               r["p_production_stop"], r["mean_downtime_h"], r["ale_musd"],
               r["control_cost_index"]) for r in rows],
             caption=cap("tab:scenarios", lang), label="tab:scenarios",
-            align="p{4.2cm}rrrrr", star=True)
+            align="p{\\capmvictimcol}rrrrr", star=True)
 
         rows = sorted(read("e5_marginal_controls.csv"),
                       key=lambda r: -float(r["ale_reduction_musd"]))[:10]
@@ -285,7 +293,7 @@ class Renderer:
               r["reduction_per_cost"], "; ".join(r["iec62443_3_3"].split("; ")[:2]))
              for r in rows],
             caption=cap("tab:marginal", lang), label="tab:marginal",
-            align="llrrp{3.4cm}", star=True)
+            align="lp{\\capmnamecol}rrp{\\capmstdcol}", star=True)
 
         rows = [r for r in read("e5_greedy_portfolio.csv") if r["profile"] == "ransomware"]
         write_latex_table(
@@ -293,15 +301,16 @@ class Renderer:
             TABLE_HEADERS["tab:greedy"][lang],
             [(r["step"], r["control"], self.control_name(r["control"], 34),
               r["ale_after_musd"], r["gain_per_cost"]) for r in rows],
-            caption=cap("tab:greedy", lang), label="tab:greedy", align="rllrr", star=True)
+            caption=cap("tab:greedy", lang), label="tab:greedy", align="rlp{\\capmnamecol}rr", star=True)
 
         nec = self.summary["E5"]["necessity"][:10]
         write_latex_table(
             os.path.join(self.tab_dir, "e5_necessity.tex"),
             TABLE_HEADERS["tab:necessity"][lang],
-            [(n["control"], self.control_name(n["control"], 40),
+            [(n["control"], self.control_name(n["control"], 34),
               f"{n['delta_ale_if_removed']:.2f}") for n in nec],
-            caption=cap("tab:necessity", lang), label="tab:necessity", align="llr")
+            caption=cap("tab:necessity", lang), label="tab:necessity",
+            align="lp{\\capmnamecol}r")
 
         rows = read("controls_standards_mapping.csv")
         write_latex_table(
@@ -310,7 +319,7 @@ class Renderer:
             [(r["control"], self.control_name(r["control"], 44), r["iec62443_3_3"],
               r["nist_csf_2_0"]) for r in rows],
             caption=cap("tab:controls", lang), label="tab:controls",
-            align="llp{5cm}p{5cm}", star=True)
+            align="lp{\\capmnamecol}p{\\capmstdcol}p{\\capmstdcol}", star=True)
 
     def impact_short(self, impact: str) -> str:
         short = impact.replace("imp_", "")
@@ -319,12 +328,14 @@ class Renderer:
     # -- figures ---------------------------------------------------------
     def xbar(self, path: str, labels: Sequence[str], values: Sequence[float],
              xlabel: str, caption: str, label: str, height: str = "7.2cm",
-             color: str = "MidnightBlue") -> None:
+             color: str = "MidnightBlue", star: bool = False) -> None:
+        env = "figure*" if star else "figure"
         rows = "\n".join(f"        ({v:.6f},{i})" for i, v in enumerate(values))
         ticks = ",".join(str(i) for i in range(len(labels)))
         names = ",".join("{" + l + "}" for l in labels)
-        body = f"""{HEAD}\\begin{{figure}}[t]
+        body = f"""{HEAD}\\begin{{{env}}}[t]
 \\centering
+\\resizebox{{\\linewidth}}{{!}}{{%
 \\begin{{tikzpicture}}
 \\begin{{axis}}[
     xbar, width=\\linewidth, height={height},
@@ -343,10 +354,10 @@ class Renderer:
 {rows}
 }};
 \\end{{axis}}
-\\end{{tikzpicture}}
+\\end{{tikzpicture}}}}
 \\caption{{{caption}}}
 \\label{{{label}}}
-\\end{{figure}}
+\\end{{{env}}}
 """
         with open(os.path.join(self.fig_dir, path), "w", encoding="utf-8") as fh:
             fh.write(body)
@@ -358,23 +369,25 @@ class Renderer:
         rows = read("e1_top_paths_production.csv")[:10]
         labels = []
         for r in rows:
-            hops = [self.asset_name(h.strip())[:20].strip()
+            hops = [self.clip(self.asset_name(h.strip()), 20)
                     for h in r["path"].split("->")][1:]
-            labels.append(" $\\to$ ".join(hops))
+            # \textrightarrow, not $\to$: pgfplots re-expands tick labels when
+            # "nodes near coords" is active and math macros break there
+            labels.append(" \\textrightarrow{} ".join(hops))
         self.xbar("fig_top_paths.tex", labels, [float(r["likelihood"]) for r in rows],
                   lab("likelihood", lang), cap("fig:top-paths", lang), "fig:top-paths",
-                  height="8cm")
+                  height="8cm", star=True)  # long path labels need the full width
 
         rows = read("e1_technique_mass.csv")[:12]
         self.xbar("fig_techniques.tex",
-                  [f"{r['technique']} {esc(r['name'][:30])}" for r in rows],
+                  [f"{r['technique']} {esc(self.clip(r['name'], 30))}" for r in rows],
                   [float(r["likelihood_share"]) for r in rows],
                   lab("share", lang), cap("fig:techniques", lang), "fig:techniques",
                   height="7.6cm", color="Maroon")
 
-        rows = read("e3_node_criticality.csv")[:12]
+        rows = [r for r in read("e3_node_criticality.csv") if r["zone"] != "Z-CONS"][:12]
         self.xbar("fig_chokepoints.tex",
-                  [f"{self.asset_name(r['name'])[:30]} ({r['zone']})" for r in rows],
+                  [f"{self.clip(self.asset_name(r['name']), 30)} ({r['zone']})" for r in rows],
                   [float(r["likelihood_share"]) for r in rows],
                   lab("share_asset", lang), cap("fig:chokepoints", lang), "fig:chokepoints",
                   height="7.6cm", color="OliveGreen")
@@ -407,6 +420,7 @@ class Renderer:
         }[lang]
         body = f"""{HEAD}\\begin{{figure}}[t]
 \\centering
+\\resizebox{{\\linewidth}}{{!}}{{%
 \\begin{{tikzpicture}}
 \\begin{{axis}}[
     ybar, width=\\linewidth, height=6.2cm,
@@ -421,7 +435,7 @@ class Renderer:
 {chr(10).join(plots)}
 \\legend{{{', '.join(legend)}}}
 \\end{{axis}}
-\\end{{tikzpicture}}
+\\end{{tikzpicture}}}}
 \\caption{{{disp_caption}}}
 \\label{{fig:scenario-ale}}
 \\end{{figure}}
@@ -442,6 +456,7 @@ class Renderer:
         }[lang]
         body = f"""{HEAD}\\begin{{figure}}[t]
 \\centering
+\\resizebox{{\\linewidth}}{{!}}{{%
 \\begin{{tikzpicture}}
 \\begin{{axis}}[
     width=\\linewidth, height=6.0cm,
@@ -455,7 +470,7 @@ class Renderer:
 \\addplot[Maroon, thick, mark=square*] coordinates {{{freq}}};
 \\legend{{{lab('sens_det', lang)}, {lab('sens_freq', lang)}}}
 \\end{{axis}}
-\\end{{tikzpicture}}
+\\end{{tikzpicture}}}}
 \\caption{{{sens_caption}}}
 \\label{{fig:sensitivity}}
 \\end{{figure}}
@@ -472,6 +487,7 @@ class Renderer:
             series.append(f"\\addplot[{colors[p]}, thick, mark=*] coordinates {{{coords}}};")
         body = f"""{HEAD}\\begin{{figure}}[t]
 \\centering
+\\resizebox{{\\linewidth}}{{!}}{{%
 \\begin{{tikzpicture}}
 \\begin{{axis}}[
     width=\\linewidth, height=6.0cm,
@@ -483,7 +499,7 @@ class Renderer:
 {chr(10).join(series)}
 \\legend{{{', '.join(legend)}}}
 \\end{{axis}}
-\\end{{tikzpicture}}
+\\end{{tikzpicture}}}}
 \\caption{{{cap('fig:frontier', lang)}}}
 \\label{{fig:frontier}}
 \\end{{figure}}
@@ -496,6 +512,7 @@ class Renderer:
         coords = " ".join(f"({n},{per.get(p, 0)})" for n, p in zip(names, planes))
         body = f"""{HEAD}\\begin{{figure}}[t]
 \\centering
+\\resizebox{{\\linewidth}}{{!}}{{%
 \\begin{{tikzpicture}}
 \\begin{{axis}}[
     ybar, width=\\linewidth, height=5.2cm,
@@ -507,7 +524,7 @@ class Renderer:
 ]
 \\addplot[fill=MidnightBlue!65, draw=MidnightBlue] coordinates {{{coords}}};
 \\end{{axis}}
-\\end{{tikzpicture}}
+\\end{{tikzpicture}}}}
 \\caption{{{cap('fig:corpus-planes', lang)}}}
 \\label{{fig:corpus-planes}}
 \\end{{figure}}
