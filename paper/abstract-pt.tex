@@ -20,12 +20,11 @@ e 91 passos de ataque rotulados com 43 técnicas MITRE \attck{} Enterprise e
 dos $k$ caminhos mais prováveis com uma simulação Monte Carlo de campanhas que
 quantifica a perda anual esperada; e (iv)~um catálogo de controles mapeado para
 a IEC 62443-3-3 e o NIST CSF 2.0, avaliado por valor marginal, necessidade e
-custo-efetividade. Três resultados se destacam. Primeiro, o caminho de menor
+custo-efetividade. Quatro resultados se seguem. Primeiro, o caminho de menor
 resistência até a parada de produção nunca toca um controlador: a rota mais
 provável é $11{,}6\times$ mais provável do que a melhor rota que alcança o
-nível~2 de Purdue ou abaixo, e o corpus concorda --- 55\% dos incidentes
-causaram impacto de disponibilidade, enquanto apenas 10\% teriam interagido com
-equipamentos abaixo do nível~3. Segundo, a capacidade de recuperação domina a
+nível~2 de Purdue ou abaixo, e o corpus concorda: 55\% dos incidentes causaram impacto de disponibilidade,
+enquanto apenas 10\% teriam interagido com equipamentos abaixo do nível~3. Segundo, a capacidade de recuperação domina a
 prevenção em termos de perda esperada: \emph{backups} imutáveis e testados e um
 modo degradado de produção ensaiado respondem pelas duas maiores reduções
 obtidas por um único controle, ao passo que a governança de tokens SaaS e a
@@ -33,9 +32,8 @@ garantia de segurança de fornecedores são os controles que um programa maduro
 menos pode remover. Terceiro, o endurecimento parcial desloca o risco em vez de
 removê-lo: um programa voltado a cadeia de fornecimento e nuvem reduz a perda
 por espionagem em 73\% e \emph{aumenta} a perda por ransomware em 26\%, ao
-empurrar um ator racional para o objetivo de disponibilidade. Medido contra
-quatro priorizações de referência sobre o mesmo corpus, o modelo coloca o
-incidente observado mediano no percentil $4{,}8$ das rotas até sua consequência,
+empurrar um ator racional para o objetivo de disponibilidade. Quarto, medido contra quatro priorizações de referência sobre o mesmo corpus,
+o modelo coloca o incidente observado mediano no percentil $4{,}8$ das rotas até sua consequência,
 onde heurísticas de profundidade em OT e de travessia de zonas o colocam nos
 percentis $95{,}9$ e $98{,}9$; já uma ordenação que ignora completamente a
 detecção tem desempenho indistinguível, de modo que o termo de contenção

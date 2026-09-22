@@ -9,8 +9,8 @@
 \section{Introduction}
 
 A modern vehicle assembly plant is a cyber-physical system of a peculiar kind.
-It is large --- tens of thousands of controlled devices across body, paint and
-final assembly --- and it is tightly coupled: just-in-time and just-in-sequence
+It is large, with tens of thousands of controlled devices across body, paint
+and final assembly, and it is tightly coupled: just-in-time and just-in-sequence
 logistics remove the inventory buffers that would otherwise absorb a
 disruption. It is also, increasingly, a \emph{connected} system. Manufacturing
 execution systems (MES) exchange orders with enterprise resource planning (ERP)
@@ -26,15 +26,14 @@ ISO/SAE~21434 defines cybersecurity engineering for road
 vehicles~\cite{isosae21434} and UN~R155 makes a certified cybersecurity
 management system a condition of type approval~\cite{unr155}. Both stop at the
 factory gate. Conversely, the frameworks that do address industrial
-environments --- IEC 62443~\cite{iec624433302020,iec624433303} and NIST
-SP~800-82r3~\cite{nist80082r3} --- are sector-agnostic and organised around
+environments, IEC 62443~\cite{iec624433302020,iec624433303} and NIST
+SP~800-82r3~\cite{nist80082r3}, are sector-agnostic and organised around
 zone-and-conduit segmentation, a model whose implicit threat is an adversary
 descending the Purdue hierarchy~\cite{williams1994purdue} towards the process.
 
 The empirical record does not fit that picture. Between 2017 and 2025,
-automotive production was halted repeatedly --- at Renault-Nissan, Honda,
-Toyota, Bridgestone, Stellantis and Jaguar Land Rover --- and in almost every
-case the reported cause was the loss of \emph{information} systems, not the
+automotive production was halted repeatedly, at Renault-Nissan, Honda, Toyota,
+Bridgestone, Stellantis and Jaguar Land Rover, and in almost every case the reported cause was the loss of \emph{information} systems, not the
 manipulation of controllers. Production stopped because the MES was encrypted,
 because ERP could not release parts, because a Tier-1 supplier could no longer
 transmit delivery data, or because the victim itself disconnected networks as a
@@ -58,28 +57,28 @@ likelihood and expected loss.
 \subsection{Contributions}
 
 \begin{itemize}
-  \item \textbf{C1 --- An empirical corpus.} We curate 20 publicly reported
+  \item \textbf{C1: an empirical corpus.} We curate 20 publicly reported
     incidents in automotive manufacturing (2017--2025), covering OEMs, Tier-1
     suppliers, engineering-services providers and shared retail SaaS. Each
     record carries a reconstructed asset-level path and an explicit confidence
-    label, so that the inevitable uncertainty of public reporting is visible
-    rather than laundered (\cref{sec:corpus}).
-  \item \textbf{C2 --- The \capm{} model.} We define a cross-plane attack-path
+    label, so that the inevitable uncertainty of public reporting stays visible
+    instead of being laundered (\cref{sec:corpus}).
+  \item \textbf{C2: the \capm{} model.} We define a cross-plane attack-path
     model with an explicit probability semantics, and instantiate it as a
     reference architecture for a vehicle assembly plant: 12 IEC 62443 zones
     spanning five planes, 48 assets, 91 attack steps labelled with 43 \attck{}
     Enterprise and \attck{} for ICS techniques, and five terminal consequences
     (\cref{sec:model}).
-  \item \textbf{C3 --- Path analysis, and a comparison.} We rank routes by exact
+  \item \textbf{C3: path analysis, and a comparison.} We rank routes by exact
     $k$-most-likely-path enumeration, identify likelihood-weighted choke points,
     and measure the ranking against four baseline prioritisations that stand in
     for current practice, scoring all of them against the corpus
     (\cref{sec:results}).
-  \item \textbf{C4 --- Risk quantification.} A Monte Carlo campaign simulation
+  \item \textbf{C4: risk quantification.} A Monte Carlo campaign simulation
     with three actor profiles converts path structure into annualised loss
     expectancy, downtime distributions and time-to-consequence
     (\cref{sec:results}).
-  \item \textbf{C5 --- Control evaluation against standards.} A catalogue of 17
+  \item \textbf{C5: control evaluation against standards.} A catalogue of 17
     controls, each mapped to IEC 62443-3-3 system requirements and NIST CSF 2.0
     subcategories, is evaluated by marginal value, necessity within a full
     programme, and cost-effectiveness, with a sensitivity and rank-stability
@@ -102,8 +101,8 @@ IEC 62443-3-2~\cite{iec624433302020}. IEC 62443-3-3~\cite{iec624433303} then
 assigns each zone a target security level (SL-T) realised by system
 requirements (SR). NIST SP~800-82r3~\cite{nist80082r3} gives compatible
 guidance, and the Industrial Control System Cyber Kill
-Chain~\cite{assante2015killchain} describes the two-stage structure --- an IT
-intrusion stage followed by an ICS attack development stage --- observed in
+Chain~\cite{assante2015killchain} describes the two-stage structure, an IT
+intrusion stage followed by an ICS attack development stage, observed in
 Stuxnet~\cite{langner2011stuxnet}, the Maroochy water
 breach~\cite{slay2007maroochy}, the Ukrainian grid
 attacks~\cite{eisac2016ukraine} and the historical record collected by
@@ -130,19 +129,18 @@ grounded parameterisation. Quantitative risk work in the FAIR
 tradition~\cite{freund2014fair,hubbard2016measure} supplies the
 loss-distribution machinery we adopt. What is missing, and what we supply, is a
 graph whose vertices span \emph{all five planes} of a manufacturing enterprise
-and whose terminal states are production and business consequences rather than
-host compromise.
+and whose terminal states are production and business consequences, not host
+compromise.
 
 \subsection{\attck{} Enterprise and \attck{} for ICS}
 
 \attck{}~\cite{strom2018attack} and \attck{} for ICS~\cite{alexander2020icsattack}
-provide the technique vocabulary used throughout this paper. Crucially, a
-cross-plane path is \emph{bilingual}: it begins in Enterprise techniques
+provide the technique vocabulary used throughout this paper. A cross-plane path is \emph{bilingual}: it begins in Enterprise techniques
 (T1566 Phishing, T1190 Exploit Public-Facing Application, T1078 Valid Accounts)
 and, if it descends, continues in ICS techniques (T0886 Remote Services, T0843
 Program Download, T0831 Manipulation of Control). Labelling every edge with the
 matrix it belongs to lets us measure how much of the realistic risk mass is
-expressible in each vocabulary --- and we find that most of it is Enterprise.
+expressible in each vocabulary, and most of it turns out to be Enterprise.
 
 \subsection{Automotive cybersecurity: product versus plant}
 
@@ -171,10 +169,9 @@ the sector, or a shared platform on which vehicle production or distribution
 depends. An incident was included when (i)~the victim or credible reporting
 identified an automotive nexus, (ii)~at least one consequence was described in
 enough detail to be classified, and (iii)~two independent sources or one
-first-party disclosure were available. We deliberately span the full
-consequence space --- availability, confidentiality of engineering data, and
-personal-data exposure --- rather than restricting the corpus to production
-outages, because the model must be able to express the routes an actor
+first-party disclosure were available. We span the full consequence
+space (availability, confidentiality of engineering data, personal-data
+exposure) instead of restricting the corpus to production outages, because the model must be able to express the routes an actor
 \emph{did not} take as well as the ones it did. The result is 20 incidents:
 two in 2017, two in 2020, five in 2022, four in 2023, three in 2024 and four in
 2025~\cite{inc01renault,inc01nbc,inc03honda,inc04toyota,inc04infosec,inc05denso,%
@@ -191,8 +188,7 @@ disclosure; \textsf{medium} when several independent sources agree;
 inferred; \textsf{disputed} when sources disagree on the entry vector;
 \textsf{attempted} when the campaign was interrupted before impact; and
 \textsf{partial} when the observed consequence lies partly outside the
-plant-centric scope of the model. Labelling is the honest response to a
-structural problem of this research area: victims of manufacturing incidents
+plant-centric scope of the model. The labels answer a structural problem of this research area: victims of manufacturing incidents
 rarely publish forensic detail, and a model that hides the resulting
 uncertainty behind confident-looking node sequences would be worse than one
 that exposes it. \Cref{tab:corpus} lists the corpus.
@@ -208,11 +204,11 @@ stoppage as their primary consequence (55\%, 95\% Wilson CI 34--74\%); five
 caused theft of engineering or corporate data and four exposed customer
 personal data. Twenty incidents support only wide intervals, so we report
 Wilson score intervals throughout: at this sample size the normal approximation
-is unusable near the extremes, and the honest reading of these proportions is
-their direction, not their second digit.
+is unusable near the extremes, and these proportions should be read for their
+direction, not their second digit.
 
 \textbf{The supply chain is a first-class attack surface.} Eight of twenty
-incidents (40\%, CI 22--61\%) traversed the supply-chain plane --- either because the victim
+incidents (40\%, CI 22--61\%) traversed the supply-chain plane, either because the victim
 \emph{was} a supplier whose failure propagated to an OEM (Kojima/Toyota,
 Yanfeng/Stellantis, Sensata, MKS Instruments), or because a shared platform
 outside the OEM's control was the point of failure (CDK Global, the SaaS
@@ -221,8 +217,8 @@ platform behind the 2025 Stellantis disclosure).
 \textbf{Operational technology is rarely the target.} Only two of the twenty
 incidents (10\%, CI 3--30\%) are reported to have interacted with equipment
 below Purdue level~3, and in both cases the interaction was self-propagating malware
-encrypting Windows-based production hosts rather than a deliberate
-manipulation of control. No incident in the corpus involved a documented
+encrypting Windows-based production hosts, not a deliberate manipulation of
+control. No incident in the corpus involved a documented
 adversarial program download to a controller. \Cref{fig:corpus-planes} shows
 the distribution of traversed planes.
 
@@ -252,8 +248,7 @@ path in the model. What is not disputed is the consequence: the Cyber
 Monitoring Centre classified the event as a Category~3 systemic event with an
 estimated economic cost of \pounds1.9 billion, affecting more than 5,000
 organisations~\cite{inc18cmc,inc18cw}. Two features matter for modelling.
-First, the outage duration --- roughly five weeks --- is an order of magnitude
-longer than the 2017 worm-driven outages, which is what converts a plant
+First, the outage duration, roughly five weeks, is an order of magnitude longer than the 2017 worm-driven outages, which is what converts a plant
 incident into a national economic event. Second, the loss was borne well
 beyond the victim: a supplier ecosystem with no ability to influence JLR's
 controls absorbed a large share of it.
@@ -267,9 +262,9 @@ in a public code repository exposed a further
 296,000~\cite{inc19toyotagithub}, and in 2025 a third-party SaaS platform was
 the route to Stellantis customer data~\cite{inc17stellantis}. None of these
 stopped a line. They matter here because they are cheap, high-yield routes that
-compete for the same adversary effort as production disruption --- which, as
-\cref{sec:results} shows, is precisely why hardening them changes the
-\emph{mix} of consequences a plant should expect.
+compete for the same adversary effort as production disruption. As
+\cref{sec:results} shows, that is why hardening them changes the \emph{mix} of
+consequences a plant should expect.
 
 \section{The \capm{} Model}
 \label{sec:model}
@@ -331,9 +326,9 @@ traversing it,
 and the same quantity computed over edges gives \emph{conduit criticality},
 which identifies the boundaries whose hardening removes the most aggregate
 risk. $\kappa$ is the attack-graph analogue of flow betweenness, weighted by
-plausibility rather than by count --- an important distinction, because, as
-\cref{sec:results} shows, counting paths and weighting them by likelihood give
-opposite prioritisations.
+plausibility and not by count. The distinction matters: as \cref{sec:results}
+shows, counting paths and weighting them by likelihood give opposite
+prioritisations.
 
 \subsection{Reference architecture}
 
@@ -367,9 +362,8 @@ theft of engineering data, and customer personal-data breach.
 Each impact $i \in I$ carries a consequence model: a triangular distribution
 over outage duration, a loss rate per hour of stopped production, and a
 triangular distribution of fixed response, forensic, regulatory and
-notification cost. Traversing a \emph{recovery-inhibiting} asset --- the backup
-infrastructure, the endpoint-management platform, the OT domain controller ---
-multiplies the sampled outage, reflecting the empirical difference between a
+notification cost. Traversing a \emph{recovery-inhibiting} asset (the backup infrastructure, the
+endpoint-management platform, the OT domain controller) multiplies the sampled outage, reflecting the empirical difference between a
 weekend outage and a five-week one. Consequence-side controls (tested offline
 backups, a rehearsed manual degraded mode) shorten it.
 
@@ -384,9 +378,9 @@ w(e) + d\bigl(\mathrm{dst}(e)\bigr) + \varepsilon,\quad
 \varepsilon \sim \mathcal{N}(0,\sigma^2),
 \end{equation}
 where $d(v)$ is the utility-weighted resistance from $v$ to the actor's
-objectives --- the minimum over impacts of the residual path resistance minus
-the log-utility the actor assigns to that impact --- and $\sigma$ is a policy
-noise term representing imperfect adversary planning. The step consumes its
+objectives, the minimum over impacts of the residual path resistance minus the
+log-utility the actor assigns to that impact, and $\sigma$ is a policy noise
+term representing imperfect adversary planning. The step consumes its
 effort, succeeds with probability $p_P(e)$ and is contained with probability
 $\delta_P(e)$; containment ends the campaign. We model three actor profiles by
 their utility vectors over consequences: \emph{ransomware} (production
@@ -417,18 +411,17 @@ Edge parameters are expert-elicited point estimates, anchored in three ways.
 Initial-access probabilities are ordered by the relative frequency of the
 corresponding entry vectors in the corpus and in public reporting on
 manufacturing intrusions. Lateral and descent probabilities reflect the
-technical preconditions of the step --- whether it requires only valid
-credentials, an exploit, or physical presence. Detection probabilities encode
+technical preconditions of the step: whether it requires only valid credentials,
+an exploit, or physical presence. Detection probabilities encode
 the baseline monitoring maturity a mid-sized OEM plant can be assumed to
-possess \emph{before} any catalogue control is deployed, which is why $S_0$ is
-described as a baseline rather than an unprotected configuration. Consequence
+possess \emph{before} any catalogue control is deployed, which is why $S_0$ is described as a baseline and not as an unprotected
+configuration. Consequence
 parameters are anchored on reported outcomes: the one-day, 14-plant Toyota
 stoppage at one end of the duration distribution and the five-week JLR outage
 at the other.
 
 We make no claim that these point estimates are the true parameters of any
-specific plant. The appropriate response to elicited parameters is not to
-apologise for them but to test what they support: \cref{sec:results} therefore
+specific plant. The right response to elicited parameters is to test what they support: \cref{sec:results} therefore
 reports how conclusions move under systematic perturbation, and treats any
 finding that does not survive that perturbation as unsupported.
 
@@ -454,30 +447,26 @@ under multiplicative log-normal perturbation of every $p$ and $\delta$
 campaign frequency and actor budget, and the stability of the control ranking
 across twelve perturbed graphs.
 
-\textbf{E7} asks the question a prioritisation model has to answer --- better
-than what? --- by ranking the same path set with four baseline heuristics that
-stand in for current practice, and scoring every ranking, CAPM included, against
-the same ground truth: the percentile at which the corpus incidents fall among
+\textbf{E7} measures the model against the alternatives. It ranks the same path
+set with four baseline heuristics that stand in for current practice, and scores
+every ranking, CAPM included, against the same ground truth: the percentile at which the corpus incidents fall among
 the paths that reach the same consequence. The baselines are B1, fewest steps,
 the classical attack-graph proxy; B2, exploitability only, which multiplies step
 success probabilities and ignores detection and containment, as vulnerability
 scoring does; B3, deepest OT reach, the implicit ranking of zone-centric
 practice; and B4, most zone boundaries crossed, the segmentation-centric reflex.
 Rankings are compared with an exact two-sided Wilcoxon signed-rank test on the
-paired percentiles and with Kendall's $\tau_b$ over the full path set. A
-consequence-magnitude baseline is deliberately absent: because paths are scored
+paired percentiles and with Kendall's $\tau_b$ over the full path set. A consequence-magnitude baseline is absent by design: because paths are scored
 within the set reaching the same consequence, such a ranking is constant inside
 every comparison set and collapses onto its tie-breaker.
 
 Monte Carlo experiments use 20,000 campaigns per configuration with fixed
 seeds; the full pipeline runs in about nine minutes on a single core of a
 commodity machine and requires only a CPython~3.9+ interpreter. Because the
-corpus informed the construction of the graph, plain coverage would be a
-consistency check rather than a validation. E2 therefore adds a leave-one-out
+corpus informed the construction of the graph, plain coverage would be a consistency check and not a validation. E2 therefore adds a leave-one-out
 ablation: for each incident, every edge whose \emph{only} supporting evidence
 is that incident is deleted and the incident is re-tested against the reduced
-model. A path that survives is expressed by structure that generalises across
-cases rather than by steps fitted to a single one.
+model. A path that survives is expressed by structure that generalises across cases, not by steps fitted to a single one.
 
 \section{Results}
 \label{sec:results}
@@ -491,11 +480,11 @@ naively, the plant looks like a classical OT problem: 379 of the 455 production
 paths (83\%) pass through Purdue level~2 or below.
 
 \Cref{fig:depth} shows what happens when those paths are weighted by how likely
-they are. Paths that never descend below level~4 are 8.5\% of the graph --- 58
-of 681 --- and carry 68.7\% of the aggregate likelihood; the 532 paths that
-reach level~2 or below are 78\% of the graph and carry 17.5\%. Counting paths
-and weighting them by plausibility do not merely differ in emphasis: they order
-the plant's problems in opposite directions.
+they are. Paths that never descend below level~4 are 8.5\% of the graph (58 of 681)
+and carry 68.7\% of the aggregate likelihood; the 532 paths that
+reach level~2 or below are 78\% of the graph and carry 17.5\%. Counting paths and
+weighting them by plausibility order the plant's problems in opposite
+directions.
 
 \input{figures/fig_depth.tex}
 
@@ -506,8 +495,8 @@ The most likely path has three steps and a likelihood of $0.047$:
 production stoppage}. The second, at $0.041$, is \emph{external actor $\to$
 Internet-facing enterprise application $\to$ ERP $\to$ production stoppage}.
 The most likely path that actually reaches level~2 or below has a likelihood of
-$0.0040$ --- the highest-likelihood route to a stopped line is $11.6\times$
-more likely than the highest-likelihood route that touches supervisory control
+$0.0040$. The highest-likelihood route to a stopped line is $11.6\times$ more
+likely than the highest-likelihood route that touches supervisory control
 or below.
 
 \input{figures/fig_top_paths.tex}
@@ -539,7 +528,7 @@ Under the leave-one-out ablation, 13 of 20 incidents (65\%) remain expressible
 after deleting every step that exists solely on their own evidence, rising to
 75\% when only internal propagation steps are ablated and initial access is
 retained. The failures are informative: they are almost entirely
-\emph{initial-access} steps --- the drive-by download behind the Continental
+\emph{initial-access} steps: the drive-by download behind the Continental
 intrusion, the insider recruitment attempted at Tesla, the dealer-platform
 compromise at CDK, the SaaS token abuse behind the Stellantis disclosure, the
 exposed cloud secret in a public repository. Entry vectors in this sector are
@@ -563,7 +552,7 @@ at high criticality in \emph{both} regimes: it is the hinge of the descent into
 control (every program-download path passes through it) and it is reachable
 from the corporate estate through endpoint management, flat-network
 exploitation, vendor remote access, removable media and insider access. In IEC
-62443 terms it is a level~3 asset routinely administered from level~4 --- a
+62443 terms it is a level~3 asset routinely administered from level~4, a
 zone whose SL-T is undermined by the conduits its administrators require.
 
 \input{figures/fig_chokepoints.tex}
@@ -578,21 +567,19 @@ impact, with a 95th percentile of \$733M; mean time from first action to first
 consequence is 35 hours. At $\lambda = 1.5$ campaigns per plant-year this is an
 annualised loss expectancy of \$47.6M.
 
-Two scenario results are worth stating precisely.
+Two scenario results need stating exactly.
 
-\textbf{Detection and recovery dominate.} $S_4$ --- endpoint detection with
+\textbf{Detection and recovery dominate.} $S_4$ (endpoint detection with
 monitored response, immutable and exercised backups, attack-surface management
-and operational resilience --- reduces ALE by 64.6\% to \$16.9M. The full
+and operational resilience) reduces ALE by 64.6\% to \$16.9M. The full
 programme $S_5$ reduces it by 92.9\% to \$3.4M. By contrast, $S_1$
 (identity-first) and $S_2$ (IEC 62443 zones and conduits) each move baseline ALE
-by about 1\%. This is not an argument against identity
-hardening or segmentation, which are the controls that make the \emph{OT}
-paths expensive; it is a statement about where the expected loss currently
-sits.
+by about 1\%. Identity hardening and segmentation are what make the \emph{OT} paths
+expensive, so the result says nothing against them. It says where the expected
+loss currently sits.
 
 \textbf{Partial hardening displaces risk.} $S_3$ (supply chain and cloud) cuts
-espionage-profile ALE from \$22.0M to \$5.9M --- a 73\% reduction --- while
-\emph{raising} ransomware-profile ALE by 26.3\%, from \$47.6M to \$60.1M. The
+espionage-profile ALE from \$22.0M to \$5.9M, a 73\% reduction, while \emph{raising} ransomware-profile ALE by 26.3\%, from \$47.6M to \$60.1M. The
 mechanism is visible in the simulation traces: in the baseline, a utility-aware
 actor frequently detours to cheap data-theft objectives and is often contained
 during those detours; removing the cheap objectives concentrates the campaign
@@ -618,9 +605,9 @@ Deployed alone on the baseline, only four controls produce a material ALE
 reduction against the ransomware profile: operational resilience $C_{17}$
 (\$20.2M), immutable and exercised backups $C_{08}$ (\$18.3M), attack-surface
 management $C_{10}$ (\$5.5M) and monitored endpoint detection $C_{07}$
-(\$4.9M). Every other control, taken alone, is worth close to nothing --- not
-because it is ineffective on the steps it covers, but because the graph offers
-redundant routes around it. The best single-control reductions of the
+(\$4.9M). Every other control, taken alone, is worth close to nothing. Each one still
+works on the steps it covers; the graph simply offers redundant routes around
+it. The best single-control reductions of the
 \emph{leading path likelihood} are supplier assurance $C_{14}$ ($-12.8\%$) and
 operational resilience $C_{17}$ ($-10.0\%$); a control can bend the top route
 substantially and still barely move expected loss.
@@ -632,7 +619,7 @@ $C_{14}$ ($+\$11.8$M), followed by monitored detection $C_{07}$ ($+\$1.6$M)
 and cloud posture management $C_{16}$ ($+\$1.3$M). The controls that are
 worthless alone are the ones a mature programme cannot remove: they are the
 walls that close the routes the other controls push the actor towards. Marginal
-analysis alone --- the standard way security investments are justified ---
+analysis alone, the standard way security investments are justified,
 systematically undervalues them.
 
 \input{figures/fig_necessity.tex}
@@ -642,7 +629,7 @@ profile, the sequence $C_{08}$ (backups), $C_{17}$ (operational resilience),
 $C_{11}$ (SaaS token governance), $C_{10}$ (attack-surface management),
 $C_{14}$ (supplier assurance), $C_{02}$ (conditional access), taking ALE from
 \$47.6M to \$5.5M for 31 of the 91 units of cost index that the full catalogue
-would consume --- an 88\% reduction, which is 95\% of the reduction achieved by
+would consume, an 88\% reduction, which is 95\% of the reduction achieved by
 the complete 17-control programme for roughly a third of its cost
 (\cref{fig:frontier}, \cref{tab:greedy}). The ordering is profile-dependent:
 against the sabotage profile the OT-side controls that barely register for
@@ -668,8 +655,7 @@ One-at-a-time sweeps (\cref{fig:sensitivity}) identify detection efficacy as
 the dominant parameter: halving every $\delta$ raises baseline ALE from \$47.6M
 to \$176.8M, a factor of $3.7$, while increasing it by 50\% lowers ALE to
 \$14.2M. ALE is linear in campaign frequency by construction, so the range
-\$15.9M--\$126.8M across $\lambda \in [0.5, 4.0]$ measures the cost of
-uncertainty about targeting rather than about the plant. Across twelve
+\$15.9M--\$126.8M across $\lambda \in [0.5, 4.0]$ measures the cost of uncertainty about targeting, not about the plant. Across twelve
 perturbed graphs, the control ranking by cost-effectiveness is led consistently
 by $C_{08}$ (mean rank 2.3), $C_{17}$ (3.3) and $C_{10}$ (3.8); supplier
 assurance $C_{14}$ and SaaS governance $C_{11}$ have high variance (best rank
@@ -687,8 +673,8 @@ inside the top quartile and 14 inside the top decile.
 
 The two heuristics that encode conventional industrial intuition fail badly.
 Ranking by depth into the Purdue hierarchy (B3) puts the median observed
-incident at the $95.9$th percentile --- near the \emph{bottom} of its own list
---- with 4 of 20 incidents in the top quartile and Kendall's $\tau_b = -0.08$
+incident at the $95.9$th percentile, near the \emph{bottom} of its own list,
+with 4 of 20 incidents in the top quartile and Kendall's $\tau_b = -0.08$
 against CAPM. Ranking by the number of zone boundaries crossed (B4) is worse
 still: median percentile $98.9$, not a single incident in the top quartile, and
 a rank-biserial effect of $-1.00$, meaning CAPM ranked every one of the twenty
@@ -699,15 +685,15 @@ taken.
 
 Two results are more sobering for the model. Fewest-steps ranking (B1) is a
 weak but real competitor: median percentile $9.5$, 18 of 20 incidents in the top
-quartile, and CAPM beats it significantly ($p = 0.010$) but not dramatically ---
+quartile, and CAPM beats it significantly ($p = 0.010$) but not dramatically:
 much of CAPM's advantage over B1 comes from preferring short paths, which B1
 does by construction. And exploitability-only ranking (B2), which discards the
 containment term $\delta$ entirely, is \emph{statistically indistinguishable}
 from full CAPM on this criterion (median $6.5$ versus $4.8$; $p = 0.99$;
-rank-biserial effect $+0.02$). We report this rather than bury it: on the
+rank-biserial effect $+0.02$). We report it because it stands: on the
 evidence available, modelling detection and containment does not measurably
 improve the \emph{ranking} of routes. Its value lies elsewhere in the model,
-and is large --- \cref{fig:sensitivity} shows detection efficacy to be the
+and is large. \Cref{fig:sensitivity} shows detection efficacy to be the
 single most influential parameter of the loss estimate, moving annualised loss
 by a factor of $3.7$ across the swept range. The defensible claim is therefore
 narrower than one might wish: the containment term earns its place in the risk
@@ -743,8 +729,8 @@ represents, and it is the second-best single investment available.
 \subsection{Recovery is a security control}
 
 The two largest single-control reductions in expected loss are tested offline
-backups and a rehearsed degraded-production mode --- both of which act on
-consequence, not on likelihood. This is not an artefact of our parameters but a
+backups and a rehearsed degraded-production mode, both of which act on the
+consequence instead of the likelihood. This is not an artefact of our parameters but a
 structural property of a tightly coupled system with a heavy-tailed outage
 distribution: when mean loss is dominated by the tail, shortening the tail
 beats shaving the probability of entering it. The empirical record points the
@@ -755,8 +741,8 @@ difference.
 
 A corollary for governance: recovery capability should be audited with the same
 rigour as preventive controls, which in practice means evidence of restoration
-exercises that include OT artefacts --- controller projects, HMI images, MES
-databases, recipe and parameter sets --- and evidence that a plant can run in a
+exercises that include OT artefacts (controller projects, HMI images, MES
+databases, recipe and parameter sets) and evidence that a plant can run in a
 degraded mode without its MES for a defined period.
 
 \subsection{Prioritisation is adversary-dependent, and partial programmes
@@ -768,8 +754,8 @@ ranked control list presented as universally optimal. A plant that models only
 one adversary will systematically misprice the controls that matter to another,
 and a programme that hardens confidentiality-oriented routes first can increase
 availability risk in the interim. The defensible position is to sequence
-investments so that consequence-side controls --- which are objective-agnostic
-because they act after the actor has succeeded --- are in place before
+investments so that consequence-side controls, which are objective-agnostic
+because they act after the actor has succeeded, are in place before
 selectively hardening one objective's routes.
 
 \subsection{Entry is idiosyncratic; propagation is not}
@@ -782,14 +768,14 @@ integration, a secret in a public repository, an insider offered a million
 dollars. Internal propagation, by contrast, reuses a small repertoire. A
 security programme that spends its marginal effort trying to enumerate entry
 vectors is fighting a long tail; the same effort spent on the propagation
-repertoire --- credential tiering, endpoint management hygiene, the engineering
-workstation, the ERP--MES coupling, recovery --- defends against doors that
+repertoire (credential tiering, endpoint management hygiene, the engineering
+workstation, the ERP--MES coupling, recovery) defends against doors that
 have not been invented yet. This is an old argument, but the corpus and the
 ablation give it a concrete, sector-specific measurement.
 
 \subsection{Sector-level implications}
 
-Two corpus incidents --- Kojima/Toyota and CDK Global --- share a structure no
+Two corpus incidents, Kojima/Toyota and CDK Global, share a structure no
 single-enterprise risk model can capture: the failure of one organisation
 propagated to hundreds or thousands of others through a shared dependency. JLR
 extends the pattern to a national scale, with more than 5,000 organisations
@@ -800,20 +786,19 @@ placed on individual entities do not by themselves address concentration risk
 in shared platforms. The natural extension of \capm{} is a sector-level graph
 in which OEMs, Tier-$n$ suppliers and shared platforms are vertices and
 just-in-time coupling is an explicit amplification parameter; the model as
-specified already treats the supplier interface as a first-class plane, so the
-extension is mechanical rather than conceptual.
+specified already treats the supplier interface as a first-class plane, so the extension is mechanical, not conceptual.
 
 \subsection{Applying the model in a plant}
 
 The intended workflow for a practitioner is: (1) replace the reference asset
 set with the plant's own inventory, preserving the five planes; (2) mark each
-edge as present, absent or conditionally present --- absence of an edge is a
-security claim, and writing it down converts an assumption into an auditable
+edge as present, absent or conditionally present, since the absence of an edge is a
+security claim and writing it down converts an assumption into an auditable
 statement; (3) re-elicit $p$, $\delta$ and effort with plant engineers, using
 purple-team results where available; (4) run the pipeline; (5) read the outputs
 as a ranked conduit and control agenda expressed in IEC 62443 and NIST CSF
-terms. The value of the exercise is less in the absolute loss figures --- which
-inherit all the uncertainty of their inputs --- than in the relative ordering
+terms. The value of the exercise is less in the absolute loss figures, which inherit
+all the uncertainty of their inputs, than in the relative ordering
 and, above all, in the disagreements it surfaces between what a plant believes
 about its segmentation and what its own conduit inventory implies.
 
@@ -861,9 +846,7 @@ between neighbouring configurations should not be interpreted. The corpus, at
 20 incidents, supports descriptive proportions with wide confidence intervals;
 we therefore report counts alongside percentages throughout.
 
-\textbf{Ethics.} The corpus is built exclusively from public reporting, and the
-model deliberately operates at the level of techniques and conduits rather than
-exploits: no vulnerability details, payloads or procedures that would assist an
+\textbf{Ethics.} The corpus is built exclusively from public reporting, and the model operates at the level of techniques and conduits, never exploits: no vulnerability details, payloads or procedures that would assist an
 attacker appear in the paper or in the released artefact. The reference
 architecture is generic and does not describe any identifiable plant.
 
@@ -873,9 +856,9 @@ We set out to model the automotive plant, rather than the vehicle, as critical
 infrastructure, and to answer a question the vehicle-centric literature does
 not address: which paths actually reach the assembly line. The answer, on both
 the empirical record and the model, is that the shortest route to a stopped
-line runs through business and logistics systems --- a supplier's EDI
-interface, an Internet-facing enterprise application, an ERP core, an MES ---
-and not through a controller. The most likely route to a production stoppage is
+line runs through business and logistics systems: a supplier's EDI
+interface, an Internet-facing enterprise application, an ERP core, an MES. It
+does not run through a controller. The most likely route to a production stoppage is
 $11.6\times$ more likely than the most likely route that reaches supervisory
 control or below; 55\% of the corpus incidents caused an availability impact
 while only 10\% are reported to have interacted with equipment below level~3.
@@ -898,12 +881,11 @@ and updating them in a Bayesian fashion as evidence accumulates. Second,
 OEMs, suppliers and shared platforms with explicit just-in-time coupling, which
 is the only level at which the Kojima, CDK and JLR class of event can be priced.
 Third, \emph{live instantiation}: deriving edges from asset-inventory and
-network-flow data rather than from expert elicitation, so that the model tracks
+network-flow data instead of expert elicitation, so that the model tracks
 a plant as it changes. Fourth, \emph{validation in a testbed}: executing the
 top-ranked paths against a physical or digital-twin line to measure the
 parameters this paper had to elicit. The artefact accompanying this
-paper~\cite{capmartifact} is structured so that each of these is an extension
-of the existing pipeline rather than a rewrite.
+paper~\cite{capmartifact} is structured so that each of these is an extension of the existing pipeline and not a rewrite.
 
 \section*{Artefact Availability}
 
