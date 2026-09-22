@@ -9,7 +9,8 @@ style a given venue expects. Change the text once and every edition changes.
 | `main.tex` | IEEE conference | `IEEEtran` (conference) | 14 |
 | `paper-ieee-journal.tex` | IEEE OJVT / TVT / Access | `IEEEtran` (journal) | 13 |
 | `paper-sae.tex` | SAE Technical Paper / SAE Int. Journal | `article`, single column | 22 |
-| `paper-elsevier.tex` | Computers & Security, IJCIP | `elsarticle` preprint | 35 |
+| `paper-elsevier.tex` | Computers & Security, generic Elsevier | `elsarticle` preprint | 39 |
+| `ijcip/` | **IJCIP submission package** (see its own README) | `elsarticle` review | 42 |
 | `main-pt.tex` | Portuguese edition (e.g. SBSeg) | `IEEEtran` + `babel` | 14 |
 
 ```bash
@@ -64,6 +65,12 @@ Venue-specific:
   for IEEE Access swap in `ieeeaccess.cls` (the body needs no change).
 * **Elsevier** – the wrapper already carries Highlights, CRediT, competing
   interest, generative-AI and data-availability statements; complete them.
+
+**The IJCIP package is the one that is submission-ready.** `paper/ijcip/` holds
+the blinded manuscript, title page, cover letter, highlights and declarations as
+Editorial Manager wants them, plus a checker
+(`experiments/check_submission.py`) that enforces the journal's limits. The
+subscription route there costs nothing.
 
 **One at a time.** Simultaneous submission of the same manuscript to more than
 one journal is prohibited by SAE, IEEE and Elsevier alike. These editions exist

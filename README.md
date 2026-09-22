@@ -63,9 +63,12 @@ paper/body.tex         the paper's text, shared by every edition
 paper/main.tex         IEEE conference edition; paper-ieee-journal.tex, paper-sae.tex,
                        paper-elsevier.tex and main-pt.tex are the other editions
 paper/README.md        which edition is which, and a pre-submission checklist
+paper/ijcip/           IJCIP submission package: blinded manuscript, title page,
+                       cover letter, highlights, declarations, upload order
+experiments/check_submission.py  enforces the journal's abstract, highlight and word limits
 paper/references.bib   the shared bibliography
 capm/i18n.py           pt-BR renderings of asset, control and scenario names
-tests/                 pytest suite (63 tests, including a cross-process reproducibility guard)
+tests/                 pytest suite (65 tests, including a cross-process reproducibility guard)
 ```
 
 ## Reproducing everything

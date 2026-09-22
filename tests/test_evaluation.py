@@ -219,3 +219,43 @@ def test_reference_audit_parses_the_bibliography_and_finds_no_dangling_keys():
     assert cited, "no citations found in the paper sources"
     assert cited <= keys, f"cited but missing from the bibliography: {sorted(cited - keys)}"
     assert keys <= cited, f"in the bibliography but never cited: {sorted(keys - cited)}"
+
+
+# --- IJCIP submission package --------------------------------------------
+
+def test_ijcip_submission_package_meets_the_journal_limits():
+    import importlib.util
+    import os
+    import sys
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    spec = importlib.util.spec_from_file_location(
+        "check_submission", os.path.join(root, "experiments", "check_submission.py"))
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["check_submission"] = module
+    spec.loader.exec_module(module)
+
+    assert module.abstract_words() <= module.ABSTRACT_WORD_LIMIT
+    hl = module.highlights()
+    assert module.HIGHLIGHT_RANGE[0] <= len(hl) <= module.HIGHLIGHT_RANGE[1]
+    for line in hl:
+        assert len(line) <= module.HIGHLIGHT_CHAR_LIMIT, f"too long: {line}"
+        assert not line.endswith("."), "Elsevier highlights carry no full stop"
+    low, high = module.WORD_RANGE
+    assert low <= module.manuscript_words() <= high
+    for name in module.REQUIRED:
+        assert os.path.exists(os.path.join(module.IJCIP, name)), f"missing {name}"
+    assert module.blinded_leaks() == []
+
+
+def test_blinded_manuscript_sources_carry_no_author_identity():
+    import os
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ijcip = os.path.join(root, "paper", "ijcip")
+    for name in ("manuscript-blinded.tex", "declarations-blinded.tex",
+                 "references-blinded.bib"):
+        text = open(os.path.join(ijcip, name), encoding="utf-8").read().lower()
+        assert "rikosoo" not in text, f"{name} names the repository owner"
+        assert "infracriticalcar" not in text, f"{name} names the repository"
+        assert "../authors.tex" not in text, f"{name} pulls in the author metadata"

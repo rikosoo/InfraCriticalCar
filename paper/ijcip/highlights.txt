@@ -1,0 +1,5 @@
+Cross-plane attack-path model of a car plant: IT, identity, cloud, OT, suppliers
+20 public automotive manufacturing incidents, 2017-2025, reconstructed as paths
+The likeliest route to a stopped line is 11.6x likelier than any OT-deep route
+Recovery controls dominate expected loss; supplier and SaaS controls least removable
+Partial hardening displaces risk: -73% espionage loss but +26% ransomware loss

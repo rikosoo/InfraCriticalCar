@@ -10,3 +10,9 @@ paper/*.log
 paper/*.out
 # the compiled editions are deliverables and are tracked; only strays are ignored
 paper/*.synctex.gz
+paper/ijcip/*.aux
+paper/ijcip/*.bbl
+paper/ijcip/*.blg
+paper/ijcip/*.log
+paper/ijcip/*.out
+paper/ijcip/*.spl

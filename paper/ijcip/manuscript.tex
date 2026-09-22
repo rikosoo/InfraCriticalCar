@@ -1,0 +1,67 @@
+%% From Cloud to Assembly Line:
+%% Modelling Cyberattack Paths in Automotive Manufacturing as Critical Infrastructure
+%%
+%% SUBMISSION VERSION for the International Journal of Critical Infrastructure
+%% Protection (Elsevier, Editorial Manager). Single column, numbered sections,
+%% numbered citations, line numbers for reviewers -- Elsevier's "Your Paper Your
+%% Way" accepts this at initial submission.
+%%
+%% The text is the shared body.tex one directory up; only the front matter and
+%% the journal-specific pieces live here. See README.md for the upload order.
+%%
+%% Build: pdflatex manuscript && bibtex manuscript && pdflatex manuscript (x2)
+\documentclass[review,times]{elsarticle}
+
+% resolve \input{tables/...} and \input{figures/...} against the parent folder
+\makeatletter
+\def\input@path{{../}{./}}
+\makeatother
+
+\input{../preamble.tex}
+\input{../authors.tex}
+\input{abstract-ijcip.tex}
+
+\capmsinglecolumnfloats
+
+\makeatletter
+\@ifundefined{highlights}{%
+  \newenvironment{highlights}{\par\noindent\textbf{Highlights}\begin{itemize}}%
+                             {\end{itemize}\par}}{}
+\makeatother
+
+\journal{International Journal of Critical Infrastructure Protection}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{From Cloud to Assembly Line: Modelling Cyberattack Paths in Automotive
+Manufacturing as Critical Infrastructure}
+
+\author[aff1]{\capmauthor\corref{cor1}}
+\ead{\capmemail}
+\cortext[cor1]{Corresponding author.}
+\affiliation[aff1]{organization={\capmaffiliation},
+                   city={\capmcity},
+                   country={\capmcountry}}
+
+\begin{abstract}
+\capmabstract
+\end{abstract}
+
+\input{highlights.tex}
+
+\begin{keyword}
+\capmkeywords
+\end{keyword}
+
+\end{frontmatter}
+
+\input{body.tex}
+
+\input{declarations.tex}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{../references}
+
+\end{document}

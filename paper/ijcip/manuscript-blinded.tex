@@ -1,0 +1,64 @@
+%% BLINDED MANUSCRIPT for double-blind review at IJCIP.
+%%
+%% Identical text to manuscript.tex with every author identifier removed: no
+%% names, no affiliation, no e-mail, and the artefact repository withheld
+%% (body.tex refers to it through \capmrepo, redefined below, and the
+%% bibliography entry for it is replaced through references-blinded.bib).
+%%
+%% Check before uploading: python3 experiments/check_submission.py
+\documentclass[review,times]{elsarticle}
+
+\makeatletter
+\def\input@path{{../}{./}}
+\makeatother
+
+\input{../preamble.tex}
+
+% --- anonymisation ------------------------------------------------------
+\newcommand{\capmauthor}{Anonymous}
+\newcommand{\capmaffiliation}{Affiliation withheld for review}
+\newcommand{\capmcity}{}
+\newcommand{\capmcountry}{}
+\newcommand{\capmemail}{}
+\newcommand{\capmrepo}{repository withheld for double-blind review}
+% -------------------------------------------------------------------------
+
+\input{abstract-ijcip.tex}
+
+\capmsinglecolumnfloats
+
+\makeatletter
+\@ifundefined{highlights}{%
+  \newenvironment{highlights}{\par\noindent\textbf{Highlights}\begin{itemize}}%
+                             {\end{itemize}\par}}{}
+\makeatother
+
+\journal{International Journal of Critical Infrastructure Protection}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{From Cloud to Assembly Line: Modelling Cyberattack Paths in Automotive
+Manufacturing as Critical Infrastructure}
+
+\begin{abstract}
+\capmabstract
+\end{abstract}
+
+\input{highlights.tex}
+
+\begin{keyword}
+\capmkeywords
+\end{keyword}
+
+\end{frontmatter}
+
+\input{body.tex}
+
+\input{declarations-blinded.tex}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references-blinded}
+
+\end{document}

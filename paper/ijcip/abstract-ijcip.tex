@@ -1,0 +1,33 @@
+% IJCIP abstract: one paragraph, at most 250 words, no citations, no equations,
+% no undefined abbreviations. Verified by experiments/check_submission.py.
+\newcommand{\capmabstract}{%
+Vehicle cybersecurity research and regulation concentrate on the product:
+standards for road-vehicle cybersecurity engineering and type approval govern
+the car, not the factory that builds it. Yet the plant is the asset whose
+failure halts output and propagates through a continental supply chain. The
+2025 attack on one manufacturer stopped global production for five weeks and
+was assessed as costing a national economy about 1.9 billion pounds. This paper
+treats the automotive plant as critical infrastructure and asks by which paths
+an attacker reaches the assembly line. We contribute a curated
+corpus of twenty publicly reported incidents in automotive manufacturing
+between 2017 and 2025, each reconstructed as an asset-level path with an
+explicit confidence label, and a cross-plane attack-path model spanning
+corporate information technology, the identity plane, cloud and
+software-as-a-service, the industrial demilitarised zone, manufacturing
+execution, supervisory control, controllers and the supplier interface. The
+model is instantiated as a reference plant of twelve zones, forty-eight assets
+and ninety-one attack steps drawn from forty-three techniques of the MITRE
+adversarial tactics and techniques knowledge bases for enterprise and
+industrial systems, and analysed by exact most-likely-path ranking and Monte
+Carlo simulation of attacker campaigns. Paths that never descend below the enterprise
+level are 8.5 percent of the graph yet carry 68.7 percent of the aggregate
+likelihood. Recovery capability dominates expected loss, controls that appear
+worthless alone prove the least removable, and partial hardening displaces risk
+between adversary objectives rather than removing it.%
+}
+
+\newcommand{\capmkeywords}{%
+critical infrastructure protection \sep automotive manufacturing \sep
+attack graphs \sep operational technology \sep cascading failure \sep
+supply-chain security \sep risk quantification%
+}
