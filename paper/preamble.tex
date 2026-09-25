@@ -14,6 +14,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{xurl}  % break long URLs anywhere; several corpus sources have very long ones
+\usepackage{rotating}  % landscape page for the architecture figure in single-column layouts
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
@@ -36,12 +37,18 @@
 \newlength{\capmnamecol}   \setlength{\capmnamecol}{3.6cm}
 \newcommand{\capmtablefont}{\small}
 
+% The architecture figure is the one that needs more width than a column: it
+% spans both in a two-column layout and turns a landscape page in a single
+% column one, where shrinking it to the measure would cost its legibility.
+\newenvironment{capmwidefigure}{\begin{figure*}}{\end{figure*}}
+
 % Single-column venues: the generated tables and the architecture figure use the
 % starred float forms, which only exist in two-column layouts, and the wide
 % columns have to shrink to the narrower text block.
 \newcommand{\capmsinglecolumnfloats}{%
   \renewenvironment{table*}{\begin{table}}{\end{table}}%
   \renewenvironment{figure*}{\begin{figure}}{\end{figure}}%
+  \renewenvironment{capmwidefigure}{\begin{sidewaysfigure}}{\end{sidewaysfigure}}%
   \setlength{\capmpathcol}{7.4cm}%
   \setlength{\capmvictimcol}{2.4cm}%
   \setlength{\capmstdcol}{3.2cm}%

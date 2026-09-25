@@ -32,6 +32,8 @@ REQUIRED = [
     "manuscript.tex", "manuscript-blinded.tex", "title-page.tex", "cover-letter.tex",
     "highlights.tex", "highlights.txt", "abstract-ijcip.tex", "declarations.tex",
     "declarations-blinded.tex", "references-blinded.bib", "README.md",
+    "supplementary.tex", "supp-tables/s1_steps.tex", "supp-tables/s2_bands.tex",
+    "supp-tables/s3_controls.tex", "supp-tables/s4_consequences.tex",
 ]
 
 #: Strings that must never appear in the blinded manuscript. Extend this when

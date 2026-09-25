@@ -153,10 +153,11 @@ diretiva NIS~2 da União Europeia inclui a fabricação de veículos automotores
 entre os setores que cobre~\cite{nis2directive}, e os Estados Unidos
 classificam a fabricação de automóveis dentro do Setor de Manufatura
 Crítica~\cite{cisacriticalmanufacturing}. A literatura acadêmica não acompanhou:
-até onde sabemos, nenhum trabalho anterior modela a \emph{planta} automotiva
-como um grafo de ataque entre planos, calibra-o contra o próprio registro de
-incidentes do setor e o utiliza para ordenar controles na linguagem da IEC
-62443 e do NIST CSF. A \cref{sec:corpus} começa por estabelecer esse registro.
+não temos conhecimento de trabalho anterior que modele a \emph{planta}
+automotiva como um grafo de ataque entre planos, calibre-o contra o próprio
+registro de incidentes do setor e o utilize para ordenar controles na
+linguagem da IEC 62443 e do NIST CSF. A afirmação está limitada pela busca
+descrita no artefato e pela literatura alcançável por ela. A \cref{sec:corpus} começa por estabelecer esse registro.
 
 \section{A Planta como Infraestrutura Crítica:\\ Um Corpus de Incidentes, 2017--2025}
 \label{sec:corpus}
@@ -419,7 +420,9 @@ programa completo, contra a linha de base $S_0$.
 \subsection{Parametrização}
 
 Os parâmetros das arestas são estimativas pontuais elicitadas de especialista,
-ancoradas de três formas. As probabilidades de acesso inicial são ordenadas
+e o material suplementar lista cada uma delas com a banda em que se situa, os
+controles que atuam sobre ela, os incidentes do corpus que a sustentam e a
+razão pela qual o passo é modelado. Elas são ancoradas de quatro formas. As probabilidades de acesso inicial são ordenadas
 pela frequência relativa dos vetores de entrada correspondentes no corpus e no
 noticiário público sobre intrusões na manufatura. As probabilidades de
 movimentação lateral e de descida refletem as precondições técnicas do passo: se ele exige apenas credenciais
@@ -427,9 +430,12 @@ válidas, um exploit ou presença física. As
 probabilidades de detecção codificam a maturidade de monitoramento que se pode
 supor em uma planta de porte médio \emph{antes} da implantação de qualquer
 controle do catálogo, razão pela qual $S_0$ é descrito como linha de base e não
-como configuração desprotegida. Os parâmetros de consequência são ancorados em
-resultados reportados: a parada de um dia em 14 plantas da Toyota em um extremo
-da distribuição de duração e as cinco semanas da JLR no outro.
+como configuração desprotegida. Os parâmetros de consequência são ancorados em resultados reportados: a parada
+de um dia em 14 plantas da Toyota em um extremo da distribuição de duração e
+as cinco semanas da Jaguar Land Rover no outro. A taxa de perda por hora
+parada e os custos fixos de resposta são os parâmetros mais grosseiros do
+modelo, e os primeiros que uma planta deveria substituir por seus próprios
+números.
 
 Não afirmamos que essas estimativas pontuais sejam os parâmetros verdadeiros de
 qualquer planta específica. A resposta certa a parâmetros elicitados é testar o que eles sustentam: a
@@ -588,7 +594,12 @@ antes de qualquer consequência. A perda média é de US\$ 31,7 milhões por
 campanha e US\$ 323 milhões condicionada a impacto, com percentil 95 de US\$ 733
 milhões; o tempo médio entre a primeira ação e a primeira consequência é de 35
 horas. Com $\lambda = 1{,}5$ campanhas por planta-ano, isso equivale a uma perda
-anual esperada de US\$ 47,6 milhões.
+anual esperada de US\$ 47,6 milhões. Toda cifra monetária desta seção é uma
+propriedade da arquitetura de referência sob os parâmetros enunciados acima, e
+não uma previsão para qualquer fabricante real; os valores devem ser lidos
+comparativamente, entre cenários e entre controles, e a varredura sobre
+$\lambda$ na \cref{fig:sensitivity} mostra quanto do valor absoluto repousa
+sobre uma suposição de direcionamento.
 
 Dois resultados de cenário precisam de enunciado exato.
 
@@ -857,7 +868,17 @@ o que ignora falhas correlacionadas, como uma única credencial que destrava
 vários conduits ao mesmo tempo; isso enviesa para baixo as verossimilhanças das
 rotas centradas em identidade.
 
-\textbf{Validade externa.} O corpus apoia-se em noticiário público, enviesado
+\textbf{Validade empírica.} O corpus é um registro do que foi
+\emph{reportado}, não do que aconteceu. Vítimas de incidentes na manufatura
+raramente publicam detalhe forense, de modo que a propagação interna é
+inferida na maioria dos registros e normalmente apenas o vetor de entrada e a
+consequência são atestados; os rótulos de confiança marcam qual é qual, e
+quatro registros são rotulados como baixa ou disputada por essa razão. Vetores
+que não geram obrigação de divulgação nem parada visível estão estruturalmente
+sub-representados, e é nessa direção que o corpus mais provavelmente engana:
+espionagem silenciosa e campanhas malsucedidas são quase invisíveis nele.
+Afirmações deste artigo sobre frequência descrevem, portanto, o corpus, e não
+o setor.  \textbf{Validade externa.} O corpus apoia-se em noticiário público, enviesado
 para incidentes grandes o bastante para perturbar a produção ou disparar
 divulgação, e para Europa, América do Norte e Japão. Intrusões silenciosas,
 defesas bem-sucedidas e incidentes em fornecedores Tier-$n$ menores estão

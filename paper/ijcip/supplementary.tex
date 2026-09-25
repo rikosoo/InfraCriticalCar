@@ -1,0 +1,104 @@
+%% SUPPLEMENTARY MATERIAL, uploaded to Editorial Manager as a separate file.
+%% Every table is generated from the model by experiments/build_supplementary.py.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=2cm,landscape]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{longtable}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newcommand{\capmtablefont}{\scriptsize}
+\newcommand{\capm}{\textsc{capm}}
+\newcommand{\attck}{ATT\&CK}
+\newcommand{\capmrepo}{https://github.com/rikosoo/InfraCriticalCar}
+\makeatletter
+\renewenvironment{table*}{\begin{table}}{\end{table}}
+\makeatother
+
+\title{Supplementary material for\\ ``From Cloud to Assembly Line: Modelling Cyberattack
+Paths in Automotive Manufacturing as Critical Infrastructure''}
+\date{}
+\author{}
+
+\begin{document}
+\maketitle
+
+\section{How each parameter was set}
+
+The model carries four kinds of parameter. This section states how each kind was
+arrived at, so that a reader can judge every value and a panel can replace it.
+
+\paragraph{Initial-access probabilities $p(e)$ for steps out of the actor.}
+Ordered by how often the corresponding entry vector appears in the corpus and in
+public reporting on manufacturing intrusions. Phishing a supplier is placed
+above phishing an OEM because suppliers in the corpus are compromised with
+weaker controls; a trojanised vendor software package is placed near the bottom
+because no corpus incident used one. The ordering is the claim; the absolute
+values are the coarse bands of \autoref{tab:s2}.
+
+\paragraph{Lateral and descent probabilities.} Set from the technical
+precondition of the step. A step that needs only credentials the actor already
+holds sits in the H or VH band (a domain member authenticating to its own
+directory, an engineering workstation downloading a program, a controller
+driving its own process). A step that needs an exploit sits in M. A step that
+needs physical presence, a safety key switch or a signed project sits in L.
+
+\paragraph{Detection probabilities $\delta(e)$.} These encode the monitoring a
+mid-sized OEM plant can be assumed to have \emph{before} any control from the
+catalogue is deployed, which is why $S_0$ is a baseline and not an unprotected
+configuration. Steps inside the corporate estate, where endpoint logging is
+normal, carry higher values than steps inside the cell, where protocol-aware
+monitoring is the exception. $\delta$ is read as detected \emph{and} contained
+within the actor's dwell time; an alert nobody acts on is not containment.
+
+\paragraph{Consequence parameters.} Anchored on reported outcomes rather than on
+judgement: the one-day, 14-plant Toyota stoppage at one end of the duration
+distribution and the five-week Jaguar Land Rover outage at the other. The loss
+rate per stopped hour and the fixed response costs are the coarsest parameters
+in the model and the ones a plant should replace first with its own figures.
+
+\paragraph{What the values are not.} They are not measurements, and no claim is
+made that they are the parameters of any specific plant. Experiment~E6 of the
+paper reports how far the conclusions move when every probability is perturbed;
+conclusions that do not survive that perturbation are not drawn.
+\texttt{docs/elicitation-protocol.md} in the artefact gives the instrument and
+procedure for replacing these estimates with a panel's.
+
+\section{Bands}
+\input{supp-tables/s2_bands.tex}
+
+\section{Every attack step}
+\input{supp-tables/s1_steps.tex}
+
+\section{Controls}
+\input{supp-tables/s3_controls.tex}
+
+\section{Consequences}
+\input{supp-tables/s4_consequences.tex}
+
+\section{Reproducing the results}
+
+The artefact at \url{\capmrepo} regenerates every number, table and figure of
+the paper. It needs only a CPython 3.9 or newer interpreter and no third-party
+package.
+
+\begin{verbatim}
+git clone <repository>
+cd InfraCriticalCar
+python3 experiments/run_all.py            # E1-E7, about ten minutes
+python3 experiments/build_paper_assets.py # tables and figures, both languages
+python3 experiments/build_supplementary.py
+python3 -m pytest                         # 65 tests
+\end{verbatim}
+
+Monte Carlo experiments use 20{,}000 campaigns per configuration and a fixed
+seed (20260916); simulation is deterministic across processes and platforms,
+which a test in the suite enforces. \texttt{experiments/results/summary.json}
+carries every number the paper quotes, and \texttt{data/incidents.csv} carries
+the corpus with the source URL and consultation date of each record.
+
+\end{document}

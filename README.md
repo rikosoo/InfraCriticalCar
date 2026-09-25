@@ -82,7 +82,10 @@ python3 experiments/export_model.py     # full parameter dump for review
 pytest                                  # test suite
 ```
 
-No third-party packages are required. Results land in
+No third-party packages are required (tested on CPython 3.11 with none of
+numpy, scipy, pandas, networkx or matplotlib installed). Monte Carlo runs use a
+fixed seed, 20260916, and are deterministic across processes and platforms; a
+test in the suite enforces that. Results land in
 `experiments/results/` (`tables/*.csv`, `tables/*.tex`, `figures/*.svg`,
 `summary.json`) and are mirrored into `paper/tables/` and `paper/figures/`.
 Every number quoted in the paper comes from `summary.json`.

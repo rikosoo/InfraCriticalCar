@@ -24,8 +24,9 @@ obligations.
 ## Build everything
 
 ```bash
+python3 experiments/build_supplementary.py   # regenerates the parameter tables
 cd paper/ijcip
-for f in manuscript manuscript-blinded title-page cover-letter; do
+for f in manuscript manuscript-blinded title-page cover-letter supplementary; do
   pdflatex $f && bibtex $f && pdflatex $f && pdflatex $f
 done
 python3 ../../experiments/check_submission.py
@@ -44,7 +45,8 @@ three to five highlights of at most 85 characters, manuscript inside the
 | 3 | Manuscript | `manuscript-blinded.pdf` | Use the blinded file if the journal runs double-blind review; otherwise `manuscript.pdf` |
 | 4 | Highlights | `highlights.txt` | Paste the five lines into the form, or upload the file |
 | 5 | Declarations | inside the manuscript | Competing interest, funding, data availability and generative AI are already sections of the manuscript; the form repeats them |
-| 6 | Supplementary (optional) | link to the artefact repository | Reviewers who run it are the ones who believe the numbers |
+| 6 | Supplementary material | `supplementary.pdf` | Every parameter of the model with its band, rationale and supporting incidents; the reviewers' first question, answered before they ask |
+| 7 | Supplementary (optional) | link to the artefact repository | Reviewers who run it are the ones who believe the numbers |
 
 ## Before you click submit
 
@@ -68,6 +70,22 @@ Measured by `experiments/check_submission.py`:
 - manuscript: about 5,460 words excluding references (range 5,000–10,000)
 - blinded PDF: no author identity, no repository URL
 - sections numbered by `elsarticle`, citations numbered in Elsevier style
+- supplementary material: all 91 attack steps with parameters, bands, rationale
+  and evidence; the control catalogue; the consequence model; reproduction steps
+
+## Reproducibility, as a reviewer would test it
+
+A reviewer who clones the repository into an empty directory can regenerate
+everything. This was tested rather than assumed: a fresh clone with
+`experiments/results/` deleted, on CPython 3.11 with **no third-party package
+installed**, ran `experiments/run_all.py`, regenerated all 14 result tables and
+12 figures, passed all 65 tests, and reproduced the committed baseline ALE of
+47.57 exactly (Monte Carlo seed 20260916, deterministic across processes).
+
+Before submitting, archive the exact artefact version used in the paper and cite
+the resulting identifier. Zenodo will mint a DOI from the GitHub release, which
+is what turns "available at a URL" into a citable artefact that will still exist
+when a reviewer looks.
 
 What is **not** done, and is not mechanical: the parameter elicitation
 (`docs/elicitation-protocol.md`) and the related-work refresh

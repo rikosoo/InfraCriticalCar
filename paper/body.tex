@@ -105,8 +105,8 @@ Chain~\cite{assante2015killchain} describes the two-stage structure, an IT
 intrusion stage followed by an ICS attack development stage, observed in
 Stuxnet~\cite{langner2011stuxnet}, the Maroochy water
 breach~\cite{slay2007maroochy}, the Ukrainian grid
-attacks~\cite{eisac2016ukraine} and the historical record collected by
-INL~\cite{inl2018history}. This literature is indispensable, but it is
+attacks~\cite{eisac2016ukraine} and the historical record collected by the Idaho National
+Laboratory~\cite{inl2018history}. This literature is indispensable, but it is
 organised around the descent to the process. Our results suggest that for
 discrete manufacturing the dominant loss mechanism is a \emph{lateral}
 business-process failure that never requires stage two.
@@ -125,7 +125,7 @@ assessment~\cite{byres2004attack,ten2008vulnerability}, to grid exposure
 evaluation~\cite{hahn2011cyber} and to combined safety--security
 analysis~\cite{kriaa2015survey}; Cherdantseva et al.~\cite{cherdantseva2016review}
 review risk-assessment methods for SCADA and note the scarcity of empirically
-grounded parameterisation. Quantitative risk work in the FAIR
+grounded parameterisation. Quantitative risk work in the Factor Analysis of Information Risk (FAIR)
 tradition~\cite{freund2014fair,hubbard2016measure} supplies the
 loss-distribution machinery we adopt. What is missing, and what we supply, is a
 graph whose vertices span \emph{all five planes} of a manufacturing enterprise
@@ -146,16 +146,18 @@ expressible in each vocabulary, and most of it turns out to be Enterprise.
 
 ISO/SAE~21434~\cite{isosae21434} and UN~R155~\cite{unr155} regulate the
 vehicle's cybersecurity engineering and management system. Sector supplier
-assurance schemes address information handling in the supply chain, and IEC
-62443-2-4~\cite{iec6244324} specifies requirements for IACS service providers.
+assurance schemes address information handling in the supply chain, and IEC 62443-2-4~\cite{iec6244324} specifies requirements for service providers
+to industrial automation and control systems (IACS).
 Regulators have begun to treat manufacturing itself as in scope: the EU NIS~2
 directive lists the manufacture of motor vehicles among the sectors it
 covers~\cite{nis2directive}, and the United States classifies automobile
 manufacturing within the Critical Manufacturing
 Sector~\cite{cisacriticalmanufacturing}. The scholarly literature has not kept
-pace: to our knowledge no prior work models the automotive \emph{plant} as a
+pace: we are not aware of prior work that models the automotive \emph{plant} as a
 cross-plane attack graph, calibrates it against the sector's own incident
-record, and uses it to rank controls in the language of IEC 62443 and NIST CSF.
+record, and uses it to rank controls in the language of IEC 62443 and NIST
+CSF. The claim is bounded by the search described in the artefact, and by the
+literature reachable through it.
 \Cref{sec:corpus} begins by establishing that record.
 
 \section{The Plant as Critical Infrastructure:\\ An Incident Corpus, 2017--2025}
@@ -386,8 +388,8 @@ $\delta_P(e)$; containment ends the campaign. We model three actor profiles by
 their utility vectors over consequences: \emph{ransomware} (production
 stoppage dominant, data theft as double-extortion leverage), \emph{espionage}
 (engineering data dominant) and \emph{sabotage} (safety and quality dominant).
-Annualised loss expectancy is $\mathrm{ALE} = \lambda \cdot \mathbb{E}[\text{loss
-per campaign}]$ for a campaign frequency $\lambda$, with $\lambda = 1.5$ per
+Annualised loss expectancy (ALE) is $\mathrm{ALE} = \lambda \cdot
+\mathbb{E}[\text{loss per campaign}]$ for a campaign frequency $\lambda$, with $\lambda = 1.5$ per
 plant-year in the baseline and swept in \cref{sec:results}.
 
 \subsection{Controls and standards mapping}
@@ -407,7 +409,10 @@ programme, against the baseline $S_0$.
 
 \subsection{Parameterisation}
 
-Edge parameters are expert-elicited point estimates, anchored in three ways.
+Edge parameters are expert-elicited point estimates, and the supplementary
+material lists every one of them with the band it falls in, the controls that
+act on it, the corpus incidents that support it and the reason the step is
+modelled. They are anchored in four ways.
 Initial-access probabilities are ordered by the relative frequency of the
 corresponding entry vectors in the corpus and in public reporting on
 manufacturing intrusions. Lateral and descent probabilities reflect the
@@ -415,10 +420,11 @@ technical preconditions of the step: whether it requires only valid credentials,
 an exploit, or physical presence. Detection probabilities encode
 the baseline monitoring maturity a mid-sized OEM plant can be assumed to
 possess \emph{before} any catalogue control is deployed, which is why $S_0$ is described as a baseline and not as an unprotected
-configuration. Consequence
-parameters are anchored on reported outcomes: the one-day, 14-plant Toyota
-stoppage at one end of the duration distribution and the five-week JLR outage
-at the other.
+configuration. Consequence parameters are anchored on reported outcomes: the one-day,
+14-plant Toyota stoppage at one end of the duration distribution and the five-
+week Jaguar Land Rover outage at the other. The loss rate per stopped hour and
+the fixed response costs are the coarsest parameters in the model, and the
+first a plant should replace with its own figures.
 
 We make no claim that these point estimates are the true parameters of any
 specific plant. The right response to elicited parameters is to test what they support: \cref{sec:results} therefore
@@ -564,8 +570,13 @@ the baseline against the ransomware profile, 9.8\% of campaigns reach a
 consequence, 7.7\% cause a production stoppage, and 90.2\% are contained before
 any consequence. Mean loss is \$31.7M per campaign and \$323M conditional on
 impact, with a 95th percentile of \$733M; mean time from first action to first
-consequence is 35 hours. At $\lambda = 1.5$ campaigns per plant-year this is an
-annualised loss expectancy of \$47.6M.
+consequence is 35 hours. At $\lambda = 1.5$ campaigns per plant-year this is an annualised loss
+expectancy (ALE) of \$47.6M. Every monetary figure in this section is a
+property of the reference architecture under the parameters stated above, not
+a forecast for any real manufacturer; the figures are meant to be read
+comparatively, between scenarios and between controls, and the sweep over
+$\lambda$ in \cref{fig:sensitivity} shows how much of the absolute value rests
+on an assumption about targeting.
 
 Two scenario results need stating exactly.
 
@@ -822,7 +833,17 @@ holdings, which ignores correlated failures such as a single credential
 unlocking several conduits at once; this biases likelihoods downward for
 identity-centric routes.
 
-\textbf{External validity.} The corpus rests on public reporting, which is
+\textbf{Empirical validity.} The corpus is a record of what was
+\emph{reported}, not of what happened. Victims of manufacturing incidents
+rarely publish forensic detail, so internal propagation is inferred in most
+records and only the entry vector and the consequence are usually attested;
+the confidence labels mark which is which, and four records are labelled low
+or disputed for that reason. Vectors that produce no disclosure obligation and
+no visible outage are structurally under-represented, which is the direction
+in which the corpus most likely misleads: quiet espionage and unsuccessful
+campaigns are close to invisible in it. Statements in this paper about
+frequency therefore describe the corpus, not the sector.  \textbf{External
+validity.} The corpus rests on public reporting, which is
 biased towards incidents large enough to disturb production or trigger
 disclosure, and towards Europe, North America and Japan. Silent intrusions,
 successful defences and incidents at smaller Tier-$n$ suppliers are
@@ -890,8 +911,9 @@ paper~\cite{capmartifact} is structured so that each of these is an extension of
 \section*{Artefact Availability}
 
 The model, the incident corpus with sources, the experiment pipeline, the
-figures and the test suite are available
-at \url{\capmrepo}. The implementation uses
+figures and the test suite are available at \url{\capmrepo}. The supplementary
+material lists every parameter of the model with its rationale and supporting
+evidence. The implementation uses
 only the Python standard library; \path{python3 experiments/run_all.py}
 regenerates every table, figure and number reported in this paper, and
 \texttt{pytest} runs the accompanying test suite.
