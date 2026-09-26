@@ -1,5 +1,11 @@
 # What I still need from you
 
+> **Block 1 is done** (received 26 September 2026): author, affiliation,
+> ORCID, e-mail, no co-authors, no funding, no acknowledgements, no prior
+> submission, generative-AI declaration approved. The package is mechanically
+> complete. What remains is Block 2, which is scientific rather than
+> administrative.
+
 Fill this in and send it back. Everything in **Block 1** is required before the
 paper can be submitted at all; **Block 2** is what decides whether it survives
 peer review; **Block 3** is optional but cheap.
